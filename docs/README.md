@@ -1,15 +1,7 @@
-
-<p align="center">
-    <a href="https://docsify-darklight-theme.boopathikumar.me">
-        <img src="https://cdn.jsdelivr.net/npm/docsify-darklight-theme@latest/icons/docsify-darklight-theme-logo.png" style="width: 160px;height: 100px;" alt="jsdeliver"> 
-    </a>
-</p>
-<p align="center"> 
-    <b>docsify-darklight-theme</b>
-</p>    
-<p align="center" >
-    <a target="_blank" href="https://docsify-darklight-theme.boopathikumar.me/"> Docs | Preview</a>
-</p>
+<h1 align="center">
+    <img src="https://bucket-aicycle.s3.ap-southeast-1.amazonaws.com/logo.png" style="width: 400px;height: 100px;" alt="jsdeliver"> 
+</h1>
+<h1 align="center"> AICycle Insurence </h1>
 
 <p align="center">
     <a href="https://www.jsdelivr.com/package/npm/docsify-darklight-theme">
@@ -27,34 +19,28 @@
     <a href="https://opensource.org/licenses/MIT">
         <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="licenses" height="20">
     </a>
-    <a href="https://opensource.org/licenses/MIT](https://openbase.com/js/docsify-darklight-theme?utm_source=embedded&amp;utm_medium=badge&amp;utm_campaign=rate-badge">
-        <img src="https://badges.openbase.com/js/featured/docsify-darklight-theme.svg?token=+xA+fO9IYyLQgXpy7PVro8oVO/vjz9TY5sNmJKtn8W8=" alt="Featured on Openbase" height="20">
-    </a>
 </p>
+
 
 
 <p align="center"> Dark and Light theme with switch for your docsify site</p>
 
-<p align="center" >
-    <a target="_blank" href="https://docsify-darklight-theme.boopathikumar.me/#/installation"> view starter template installation guide</a>
-</p>
-
 # What it is
-
 
 **docsify-darklight-theme**  is a simple and highly customizable theme for the documentation websites generated using [docsify.js](https://docsify.js.org/) ( also with [docsify-themeable](https://jhildenbiddle.github.io/docsify-themeable/#/) ). Using this theme, documents will have a theme switcher to switch between <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#ffffff" stroke="#34495e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg> `dark-mode` and <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#ffffff" stroke="#34495e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg> `light-mode` .
 
-See the [Quick start](https://docsify-darklight-theme.boopathikumar.me/#/installation) guide for more details.
+See the [Quick start](installation.md) guide for more details.
 
 # Features
 
-- Default [theme mode detection](https://docsify-darklight-theme.boopathikumar.me/#/configuration?id=default-browser-theme-detection) in supported browser versions.
+- Default [theme mode detection](configuration.md#default-browser-theme-detection) in supported browser versions.
 - Theme Switcher.
-- Switcher support for [docsify-themeable](https://jhildenbiddle.github.io/docsify-themeable/#/). View [setup guide](https://docsify-darklight-theme.boopathikumar.me/#/docsifyThemeable) here.
+- Switcher support for [docsify-themeable](https://jhildenbiddle.github.io/docsify-themeable/#/). View [setup guide](docsifyThemeable.md) here.
+- Tooltip view for long sidebar items.
 - Themes are customizable based on your color preferences.
-- Option for other plugins to support (Dark/Light) mode. View [setup guide](https://docsify-darklight-theme.boopathikumar.me/#/themeSupport) here.
-- Preferences can be modified directly in `window.$docsify` [configuration object](https://docsify-darklight-theme.boopathikumar.me/#/configuration).
-- Using [configuration object](https://docsify-darklight-theme.boopathikumar.me/#/configuration)toogle icons can be configured based on your preference.
+- Option for other plugins to support (Dark/Light) mode. View [setup guide](themeSupport.md) here.
+- Preferences can be modified directly in `window.$docsify` [configuration object](configuration.md).
+- Using [configuration object](configuration.md) toogle icons can be configured based on your preference.
 - Default theme(Dark/Light) can be configured based on your needs.
 - Themes are remembered and retrieved from local storage.
 - Redesigned search box.
@@ -65,18 +51,17 @@ See the [Quick start](https://docsify-darklight-theme.boopathikumar.me/#/install
 
 # Showcase
 
-Check out the [Showcase](https://docsify-darklight-theme.boopathikumar.me/#/showcase) to see **docsify-darklight-theme** with docsify in use.
+Check out the [Showcase](showcase.md) to see **docsify-darklight-theme** with docsify in use.
 
 # Release notes
 
-View the [Change log](https://docsify-darklight-theme.boopathikumar.me/#/changelog) to know the details of each versions.
+View the [Change log](changelog.md) to know the details of each versions.
 
 # Support
 
 - Create a [GitHub issue](https://github.com/boopathikumar018/docsify-darklight-theme/issues) for bug reports, feature requests, or questions
 - Follow [@docsify-darklight-theme](https://twitter.com/docsifyDrkLtThm) for announcements and release updates.
 - Add a ⭐️ [star on GitHub](https://github.com/boopathikumar018/docsify-darklight-theme) to support the plugin!
-
 
 # License
 
