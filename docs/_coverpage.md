@@ -2,10 +2,11 @@
 
 # AICycle Documentation
 
-> A magical documentation site generator with dark and light mode switch.
+> Giải pháp AI đầu tiên hỗ trợ bảo hiểm xe ô tô tại Việt Nam.
 
-[GitHub](https://github.com/docsifyjs/docsify/)
-[Get Started](installation.md)
+
+[About us](https://aicycle.ai/)
+[Documentation](installation.md)
 
 <!-- background color -->
 
