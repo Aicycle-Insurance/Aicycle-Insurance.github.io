@@ -6,7 +6,7 @@
 
 
 [About us](https://aicycle.ai/)
-[Documentation](installation.md)
+[Documentation](apiIntergration.md)
 
 <!-- background color -->
 

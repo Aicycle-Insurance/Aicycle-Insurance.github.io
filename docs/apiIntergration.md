@@ -49,7 +49,7 @@ https://api-aws-insurance.aicycle.ai
 **Chú thích**
 
 > **ID hãng xe** (vehicleBrandId)
-
+>
 >|**Tên hãng xe**|**vehicleBrandId**|
 >|---|---|
 >|KIA Morning|1|
@@ -108,7 +108,7 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/claimfolder
 **Ví dụ**
 ```
 curl --location --request POST 'https://api-aws-insurance.aicycle.ai/images/url' \
---header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1IiwiaWF0IjoxNjY2NTc5ODA5LCJleHAiOjE2NjY2NjYyMDl9.o19AS7sbn_lZ5VyCHO1G86dG-VvglvDMH2ToigOBD8k' \
+--header 'Authorization: Bearer $$API_KEY' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "filePaths": [
@@ -153,7 +153,7 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/images/url'
 |----|----|
 | Method | POST |
 | API Url | https://api-aws-insurance.aicycle.ai//claimimages/triton-assessment |
-| API Headers | `{ "Authorization": "Bearer $$apiKey$$" }` |
+| API Headers | `{ "Authorization": "Bearer $$API_KEY$$" }` |
 
 
 #### b. Chi tiết đầu vào
