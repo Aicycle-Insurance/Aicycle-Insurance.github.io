@@ -1,4 +1,7 @@
-- Getting started
+- Tài liệu tích hợp
+  - [Tích hợp API](apiIntergration.md)
+
+<!-- - Getting started
 
   - [Installation](installation.md)
   - [Configuration](configuration.md)
@@ -7,4 +10,4 @@
 
 - Others
   - [Showcase](showcase.md)
-  - [Changelog](changelog.md)
+  - [Changelog](changelog.md) -->
