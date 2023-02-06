@@ -343,7 +343,7 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/claimimages
 
 ```
 
-### **2.3: API Call Engine AICycle**
+### **2.4: API lấy kết quả Folder (hồ sơ)**
 #### a. Thông tin cơ bản
 
 |||
