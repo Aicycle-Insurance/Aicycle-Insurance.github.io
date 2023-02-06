@@ -11,31 +11,20 @@
 
 ## **1. Đặc tả tài liệu kết nối**
 ### **1.1 Các thông tin cơ bản**
-||
-| ---- |
-| Method |
-| API Url |
-| API Headers |
+|||
+|----|----|
+| Method | |
+| API Url | |
+| API Headers | |
 
-
-### **1.2 Các trường thông tin cần trao đổi**
-||||
-|---|---|---|---|
-| **Tên tham số **||||
-| **Loại đầu vào (hàng này chỉ dành cho đầu vào) (Body, Param, Query)**||||
-|**Mô tả**||||
-| Bắt buộc/Tùy chọn | Kiểu dữ liệu | Min, Max | Ví dụ |
-
-
-
-### **1.3 Các mã HTTP Code trả về**
+### **1.2 Các mã HTTP Code trả về**
 - 200: OK
 - 400: Dữ liệu chưa đúng từ phía Client, client xem xét lại về dữ liệu đầu vào.
 - 401: Lỗi Authenticate
 - 403: Lỗi không có quyền truy cập API
 - 5XX: Lỗi xuất phát từ phía máy chủ từ AICycle, liên hê đội ngũ hỗ trợ của AICycle cùng errorId để giải quyết.
 
-### **1.4 Base Url:** 
+### **1.3 Base Url:** 
 https://api-aws-insurance.aicycle.ai
 
 **API Key:** Liên hệ đội ngũ support tích hợp của AICycle để được cấp apiKey cho tổ chức.
@@ -47,7 +36,7 @@ https://api-aws-insurance.aicycle.ai
 |----|----|
 | Method | POST |
 | API Url | https://api-aws-insurance.aicycle.ai/claimfolders |
-| API Headers | { "Authorization": "Bearer $$apiKey$$" } |
+| API Headers | `{ "Authorization": "Bearer $$apiKey$$" }` |
 
 #### b. Chi tiết đầu vào
 **Loại đầu vào**: Body
@@ -107,7 +96,7 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/claimfolder
 |----|----|
 | Method | POST |
 | API Url | https://api-aws-insurance.aicycle.ai/images/url |
-| API Headers | { "Authorization": "Bearer $$apiKey$$" } |
+| API Headers | `{ "Authorization": "Bearer $$apiKey$$" }` |
 
 #### b. Chi tiết đầu vào
 **Loại đầu vào**: Body
@@ -154,7 +143,6 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/images/url'
 
 	
 **Chú ý**
-
 > Sau khi call api lấy link `uploadUrl` để up ảnh. Trên postman dùng link đó với method là PUT, body dạng binary và select file ảnh trên máy để upload. Khi nhận được status là 200 (upload thành công), dùng đường link `fetchUrl` đó paste lên browser để xem kết quả
 
 
@@ -165,7 +153,7 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/images/url'
 |----|----|
 | Method | POST |
 | API Url | https://api-aws-insurance.aicycle.ai//claimimages/triton-assessment |
-| API Headers | { "Authorization": "Bearer $$apiKey$$" } |
+| API Headers | `{ "Authorization": "Bearer $$apiKey$$" }` |
 
 
 #### b. Chi tiết đầu vào
@@ -183,7 +171,7 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/images/url'
 
 *Lưu ý*
 > **Các giá trị của `imageRangeId`**
-
+>
 >|imageRangeName|imageRangeId|
 >|--------------|------------|
 >|Toàn cảnh|1|
@@ -191,7 +179,7 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/images/url'
 >|Cận cảnh|3|
 
 > **Các giá trị của `partDirectionId`**
-
+>
 >|partDirectionName|partDirectionId|
 >|---|---|
 >|Trước|2|
@@ -231,7 +219,7 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/claimimages
 |errorCodeFromEngine|Mã lỗi ảnh|Bắt buộc|Number|1,999999|0|
 |message|Chi tiết lỗi ảnh|Bắt buộc|Text|1,255|Ảnh chụp qua màn hình|
 
-*Chi tiết Object item  `car_part`*
+*Chi tiết Object item  `carPart`*
 
 |**Tên Tham số**|**Mô tả**|**Bắt buộc**|**Kiểu dữ liệu**|**Min,Max**|**Ví dụ**|
 |---|---|---|---|---|---|
@@ -247,7 +235,8 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/claimimages
 |damage_type_name|Tên hỏng hóc|Bắt buộc|Text|1,255|Trầy (xước)|
 |mask_url|mask hỏng hóc|Bắt buộc|Text|1,255|...|
 
-*Chi tiết Bảng Mã lỗi cùng httpStatus trả về của `errorCodeFromEngine`*
+
+***Chi tiết Bảng Mã lỗi cùng httpStatus trả về của `errorCodeFromEngine`***
 
 *Chú thích*
 > Với những lỗi có level là error sẽ chỉ trả ra mã lỗi và message lỗi, những lỗi level warning sẽ trả ra mã lỗi, message, và car_part, car_damages như bình thường
@@ -361,7 +350,7 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/claimimages
 |----|----|
 | Method | GET |
 | API Url | https://api-aws-insurance.aicycle.ai/claimfolders/claim-results/{claimId} |
-| API Headers | { "Authorization": "Bearer $$apiKey$$" } |
+| API Headers | `{ "Authorization": "Bearer $$apiKey$$" }` |
 
 #### b. Chi tiết đầu vào
 **Loại đầu vào**: Params

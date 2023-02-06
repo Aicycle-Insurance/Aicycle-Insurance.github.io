@@ -1,4 +1,8 @@
-# Installation
+# Tài liệu tích hợp
+## 1. [Tích hợp API](https://developer.aicycle.ai/apiIntergration)
+## 2. [Tích hợp SDK](#)
+
+<!-- # Installation
 
 You can use `docsify-darklight-theme` [by starter template](installation.md#by-starter-template) or [by adding to your existing project](installation.md#by-adding-to-existing-project)
 
@@ -109,4 +113,4 @@ Add below `script` on bottom of the `index.html` file
     src="//cdn.jsdelivr.net/npm/docsify-darklight-theme@latest/dist/index.min.js"
     type="text/javascript">
 </script>
-```
+``` -->
