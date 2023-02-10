@@ -6,7 +6,7 @@
 
 
 [About us](https://aicycle.ai/)
-[Documentation](/api/README)
+[Documentation](/api)
 
 <!-- background color -->
 
