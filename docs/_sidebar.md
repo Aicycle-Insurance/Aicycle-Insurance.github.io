@@ -1,5 +1,5 @@
 - Tài liệu tích hợp
-  - [Tích hợp API](api/)
+  - [Tích hợp API](/)
 
 <!-- - Getting started
 

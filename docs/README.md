@@ -1,7 +1,7 @@
 <h1 align="center">
     <img src="https://bucket-aicycle.s3.ap-southeast-1.amazonaws.com/logo.png" style="width: 400px;height: 100px;" alt="jsdeliver"> 
 </h1>
-<h1 align="center"> AICycle Insurence </h1>
+
 # **Phiên bản hiện tại: 1.0.1**
 | Phiên bản | Mô tả | Chi tiết thay đổi |
 | ---- | ----- |-------|
