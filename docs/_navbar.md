@@ -1,7 +1,7 @@
 - [Home]()
 
-- [AICycle](introduction.md)
+- [AICycle](https://aicycle.ai)
 
-- [About us](https://aicycle.ai/)
+- [About us](https://aicycle.ai/#ve-chung-toi)
 
-- [Donate](donate.md)
+<!-- - [Donate](donate.md) -->

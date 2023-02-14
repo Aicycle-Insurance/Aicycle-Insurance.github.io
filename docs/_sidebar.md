@@ -1,5 +1,4 @@
-- Tài liệu tích hợp
-  - [Tích hợp API](/)
+- [Tích hợp API](/README.md)
 
 <!-- - Getting started
 
