@@ -1,4 +1,4 @@
-- [Tích hợp API](/README.md)
+- [Tích hợp API](README.md)
 
 <!-- - Getting started
 

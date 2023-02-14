@@ -28,16 +28,15 @@
       gtag('js', new Date());
       gtag('config', 'G-9LYZ7R080K');
   </script>
+  <style>
+    td::before { display: none }
+</style>
 </head>
 
 <body>
   <div id="app">We are building somthing special for you ...</div>
   <script>
     window.$docsify = {
-      search: 'auto', // default
-      search : [
-        '/',
-      ],
       repo: 'https://github.com/Aicycle-Insurance',
       plugins: [
         function(hook) {
@@ -64,14 +63,13 @@
       name: 'AICycle Documentation',
       onlyCover: true,
       search: {
-        noData: {
-          '/': 'No results!'
-        },
+        maxAge: 86400000, // Expiration time, the default one day
         paths: 'auto',
-        placeholder: {
-          '/': 'Search'
-        }
-      },
+        placeholder: 'Tìm kiếm',
+        noData: 'Không có kết quả phù hợp!',
+        depth: 4,
+        hideOtherSidebarContent: true, // whether or not to hide other sidebar content
+     },
       formatUpdated: '{MM}/{DD} {HH}:{mm}',
       darklightTheme: {
         siteFont : "PT Sans",
@@ -118,15 +116,16 @@
     type="text/javascript">
 </script>
   <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js"></script>
-  <!-- <script src="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/js/docsify-themeable.min.js"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/js/docsify-themeable.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/docsify-plugin-ethicalads@1"></script>
   <script src="https://cdn.jsdelivr.net/npm/docsify-tabs@1/dist/docsify-tabs.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/docsify-copy-code@2/dist/docsify-copy-code.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/docsify-pagination@2/dist/docsify-pagination.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/external-script.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/zoom-image.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
+  <!-- <script src="//unpkg.com/docsify/lib/docsify.min.js"></script> -->
+  <script src="//unpkg.com/docsify/lib/plugins/search.min.js"></script>
 </body>
 
 </html>
