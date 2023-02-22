@@ -10,6 +10,7 @@
 | 1.0.2 | Thêm API trả về ảnh có vẽ sẵn mask | Chi tiết API |
 | 1.0.3 | Thêm trường oldImageId để xóa ảnh cũ cho API call engine |
 | 1.0.4 | Thay đổi API lấy link upload ảnh (không bắt buộc truyền filePaths và trả thêm 1 trường filePath ở response dùng để call engine) | Chi tiết field |
+| 2.0.0 | Thay đổi API gọi engine cho phần cấp đơn (bắt buộc truyền claimFolderId để call engine) | Chi tiết field |
 
 
 ## **1. Đặc tả tài liệu kết nối**
