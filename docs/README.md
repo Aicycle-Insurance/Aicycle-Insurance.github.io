@@ -512,7 +512,7 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/insurance/i
 |id|Mã bộ phận|Bắt buộc|Text|1,255|den-gam-truoc-trai-d7WevY|
 |name|Tên bộ phận|Bắt buộc|Text|1,255|Đèn gầm trước trái|
 |confidence|Độ dự đoán tin cậy|Bắt buộc|Text|0,1|0.80|
-|mask_url|Url mask bộ phận|Bắt buộc|Text|1,255|https://dyta7vmv7sqle.cloudfront.net/INSURANCE_RESULT/EGfDHztL2Vffgc72cM1DG.png|
+|mask|Url mask bộ phận|Bắt buộc|Text|1,255|https://dyta7vmv7sqle.cloudfront.net/INSURANCE_RESULT/EGfDHztL2Vffgc72cM1DG.png|
 
 *Chi tiết Object item `damage`*
 
@@ -524,7 +524,7 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/insurance/i
 |damaged_type|Mã loại hỏng hóc|Bắt buộc|Text|1,255|MUCDO01|
 |estimate_score|Mức độ tổn thất|Bắt buộc|Text|0,1|0.3|
 |confidence|Độ dự đoán tin cậy|Bắt buộc|Text|0,1|0.8|
-|mask_url|mask hỏng hóc|Bắt buộc|Text|1,255|...|
+|mask|mask hỏng hóc|Bắt buộc|Text|1,255|...|
 
 
 ***Chi tiết Bảng Mã lỗi cùng httpStatus trả về của `errorCodeFromEngine`***
