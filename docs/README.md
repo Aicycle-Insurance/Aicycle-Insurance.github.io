@@ -581,3 +581,98 @@ curl --location --request GET 'https://api-aws-insurance.aicycle.ai/claimfolders
     "summary": 1000000
 }
 ```
+### **2.6: API callback lưu kết quả từ khách hàng**
+#### a. Thông tin cơ bản
+
+|||
+|----|----|
+| Method | POST |
+| API Url | https://api-aws-insurance.aicycle.ai/claimfolders/{claimFolderId}/results-callback |
+| API Headers | `{ "Authorization": "Bearer $$apiKey$$" }` |
+
+#### b. Chi tiết đầu vào
+**Loại đầu vào**: Params
+
+| **Tên Tham số** |**Mô tả**|**Bắt buộc**|**Kiểu dữ liệu**|**Min,Max**|**Ví dụ**|
+|-----------------|---|---|---|---|---|
+| claimFolderId   |Id của folder|Bắt buộc|Number|1,999999|123|
+
+**Loại đầu vào**: Body
+
+| **Tên Tham số** | **Mô tả** | **Bắt buộc** | **Kiểu dữ liệu** | **Min,Max** | **Ví dụ** |
+|---------|--------|---------|------|-------|-----|
+| carPlate | Biển số xe | Optional  | TEXT | 1,255 | 30E 64737 |
+| carCompany | Hãng xe | Optional | TEXT | 1,255 | HYUNDAI |
+| carModel | Mẫu xe | Optional | TEXT | 1,255 | i10 |
+| damages | Danh sách các hỏng hóc | Optional| Array[damage] | n     | [] |
+
+*Chi tiết Object item `damage`*
+
+|**Tên Tham số**|**Mô tả**| **Bắt buộc** | **Kiểu dữ liệu** | **Min,Max** | **Ví dụ** |
+|---|---|----------|------|-----|----------|
+|damageId|ID hỏng hóc| Optional | TEXT | 1,255 | 123      |
+|damageType|Loại hỏng hóc| Optional | TEXT | 1,255 | Trầy (Xước) |
+|damagePart|Bộ phận ghi nhận hỏng hóc| Optional | TEXT | 1,255 |Capo trước|
+|damageName|Tên hỏng hóc| Optional |TEXT|1,255|Trầy (Xước) Capo Trước|
+
+
+**Ví dụ**
+```
+curl --location --request POST 'https://api-aws-insurance.aicycle.ai/claimfolders/52/results-callback' \
+--header 'Authorization: Bearer $$API_KEY$$' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "carPlate": "30A 115.23",
+  "carCompany": "HYUNDAI",
+  "carModel": "i10",
+  "damages": [
+    {
+      "damageId": '123',
+      "damageType": "Trầy (Xước)",
+      "damagePart": "Capo trước",
+      "damageName": "Trầy Capo Trước"
+    }
+  ]
+}'
+```
+
+#### c. Chi tiết đầu ra
+**Loại đầu ra**: Response body
+
+| **Tên Tham số** | **Mô tả**    | **Bắt buộc** | **Kiểu dữ liệu** | **Min,Max** | **Ví dụ** |
+|---------|--------------|-----------|---------|----------|-------|
+| claimId | Tên folder claim | Bắt buộc  | Number  | 1,999999 | 123   |
+| carPlate | Biển số xe   | Bắt buộc  | TEXT    | 1,255    | 30E 64737 |
+| carCompany | Hãng xe      | Bắt buộc  | TEXT    | 1,255    | HYUNDAI |
+| carModel | Mẫu xe       | Bắt buộc  | TEXT    | 1,255    | i10   |
+| damages | Danh sách các hỏng hóc | Bắt buộc  | Array[damage] | n        | []    |
+| ownerOrganizationId | Id tổ chức   | Bắt buộc  | Number  | 1,999999 | 1     |
+
+*Chi tiết Object item `damage`*
+
+|**Tên Tham số**|**Mô tả**| **Bắt buộc** | **Kiểu dữ liệu** | **Min,Max** | **Ví dụ** |
+|---|---|--------------|------|-----|----------|
+|damageId|ID hỏng hóc| Bắt buộc     | TEXT | 1,255 | 123      |
+|damageType|Loại hỏng hóc| Bắt buộc     | TEXT | 1,255 | Trầy (Xước) |
+|damagePart|Bộ phận ghi nhận hỏng hóc| Bắt buộc     | TEXT | 1,255 |Capo trước|
+|damageName|Tên hỏng hóc| Bắt buộc     |TEXT|1,255|Trầy (Xước) Capo Trước|
+
+#### d. Ví dụ đầu ra
+
+```
+{
+    "claimId": 123,
+    "carPlate": "30A 11523",
+    "carCompany": "HYUNDAI",
+    "carModel": "i10",
+    "damages": [
+        {
+            "damageId": '123',
+            "damageType": "Trầy (Xước)",
+            "damagePart": "Capo trước",
+            "damageName": "Trầy Capo Trước"
+        }
+    ],
+    "ownerOrganizationId": 2
+}
+```
