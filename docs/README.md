@@ -610,10 +610,10 @@ curl --location --request GET 'https://api-aws-insurance.aicycle.ai/claimfolders
 
 |**Tên Tham số**|**Mô tả**| **Bắt buộc** | **Kiểu dữ liệu** | **Min,Max** | **Ví dụ** |
 |---|---|----------|------|-----|----------|
-|damageId|ID hỏng hóc| Optional | TEXT | 1,255 | 123      |
-|damageType|Loại hỏng hóc| Optional | TEXT | 1,255 | Trầy (Xước) |
-|damagePart|Bộ phận ghi nhận hỏng hóc| Optional | TEXT | 1,255 |Capo trước|
-|damageName|Tên hỏng hóc| Optional |TEXT|1,255|Trầy (Xước) Capo Trước|
+|damageId|ID hỏng hóc (định danh hỏng hóc ở hệ thống khách hàng) (nếu có)| Optional | TEXT | 1,255 | 123      |
+|damageType|Loại hỏng hóc (theo định nghĩa của khách hàng) (nếu có)| Optional | TEXT | 1,255 | Trầy (Xước) |
+|damagePart|Bộ phận ghi nhận hỏng hóc (theo định nghĩa của khách hàng) (nếu có)| Optional | TEXT | 1,255 |Capo trước|
+|damageName|Tên hỏng hóc được định nghĩa phía client (tùy chọn)| Optional |TEXT|1,255|Trầy (Xước) Capo Trước|
 
 
 **Ví dụ**
