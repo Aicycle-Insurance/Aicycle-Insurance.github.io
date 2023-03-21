@@ -149,13 +149,14 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/images/url'
 **Chú ý**
 > Sau khi call api lấy link `uploadUrl` để up ảnh. Trên postman dùng link đó với method là PUT, body dạng binary và select file ảnh trên máy để upload. Khi nhận được status là 200 (upload thành công), dùng đường link `fetchUrl` đó paste lên browser để xem kết quả
 
-### **2.3: API Call Engine AICycle (khuyên dùng)**
-#### a. Thông tin cơ bản
+### **2.3: Các API Call Engine AICycle**
+#### 2.3.1. API trả ra mask hỏng hóc, bộ phận theo ảnh
+##### a. Thông tin cơ bản
 
 |||
 |----|----|
 | Method | POST |
-| API Url | https://api-aws-insurance.aicycle.ai//claimimages/triton-assessment |
+| API Url | https://api-aws-insurance.aicycle.ai/claimimages/triton-assessment |
 | API Headers | `{ "Authorization": "Bearer $$API_KEY$$" }` |
 
 
@@ -346,8 +347,206 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/claimimages
 
 ```
 
-### **2.4: API gọi Engine AICycle (Cấp đơn upload ảnh trực tiếp, không khuyên dùng)**
-#### a. Thông tin cơ bản
+#### 2.3.2. API vẽ sẵn mask
+##### a. Thông tin cơ bản
+|||
+|----|----|
+| Method | POST |
+| API Url | https://api-aws-insurance.aicycle.ai/claimimages/triton-assessment-box |
+| API Headers | `{ "Authorization": "Bearer $$API_KEY$$" }` |                         |
+
+
+#### b. Chi tiết đầu vào
+**Loại đầu vào**: Body
+
+|**Tên Tham số**|**Mô tả**|**Bắt buộc**|**Kiểu dữ liệu**|**Min,Max**|**Ví dụ**|
+|---|---|---|---|---|---|
+|claimId|Id của folder|Bắt buộc|Number|1,999999|123|
+|imageName|Tên ảnh|Bắt buộc|Text|1,255|INSURANCE_CLAIM/image-1.jpg|
+|filePath|Path ảnh trên s3 (lấy từ kết quả trả về  của API get imageUrl ở mục 2.2)|Bắt buộc|Text|1,255|INSURANCE_CLAIM/image-1.jpg|
+|imageRangeId|ID Loại ảnh (Toàn cảnh, trung cảnh, cận cảnh)|Bắt buộc|Number|1,9999|1|
+|partDirectionId|ID Hướng ảnh|Bắt buộc|Number|1,9999|3|
+|oldImageId|Id ảnh muốn xóa|Optional|Number|1,9999|3|
+|isClaim|True là giám định, false là cấp đơn|Bắt buộc|Boolean|n|true|
+
+*Lưu ý*
+> **Các giá trị của `imageRangeId`**
+>
+>|imageRangeName|imageRangeId|
+>|--------------|------------|
+>|Toàn cảnh|1|
+>|Trung cảnh|2|
+>|Cận cảnh|3|
+
+> **Các giá trị của `partDirectionId`**
+>
+>|partDirectionName|partDirectionId|
+>|---|---|
+>|Trước|2|
+>|45° Phải - Trước|3|
+>|45° Trái - Trước|4|
+>|Sau|5|
+>|45° Phải - Sau|6|
+>|45° Trái - Sau|7|
+>|Phải - Trước|8|
+>|Trái - Trước|9|
+>|Phải - Sau|10|
+>|Trái - Sau|11|
+
+**Ví dụ**
+```
+curl --location --request POST 'https://api-aws-insurance.aicycle.ai/claimimages/triton-assessment' \
+--header 'Authorization: Bearer $$API_KEY$$' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "claimId": 1,
+    "imageName": "INSURANCE/1666145614576/1666145614447.jpg",
+    "filePath": "INSURANCE/1666145614576/1666145614447.jpg",
+    "imageRangeId": 1,
+    "partDirectionId": 2,
+    "isClaim": false,
+     “oldImageId": 123
+}'
+```
+
+#### c. Chi tiết đầu ra
+**Loại đầu ra**: Response body
+
+| **Tên Tham số**     | **Mô tả**                    |**Bắt buộc**|**Kiểu dữ liệu**|**Min,Max**| **Ví dụ**             |
+|---------------------|------------------------------|---|---|---|-----------------------|
+| car_parts           | Chi tiết bộ phận và hỏng hóc |Bắt buộc|Array[carPart]|n| []                    |
+| damages             | Chi tiết hỏng hóc            |Bắt buộc|Array[damage]|n| []                    |
+| errorCodeFromEngine | Mã lỗi ảnh                   |Bắt buộc|Number|1,999999| 0                     |
+| message             | Chi tiết lỗi ảnh             |Bắt buộc|Text|1,255| Ảnh chụp qua màn hình |
+| mask_url            | Url ảnh đã vẽ sẵn mask       |Bắt buộc|Text|1,255| {{maskUrl}}           |
+
+*Chi tiết Object item  `carPart`*
+
+|**Tên Tham số**|**Mô tả**|**Bắt buộc**|**Kiểu dữ liệu**|**Min,Max**|**Ví dụ**|
+|---|---|---|---|---|---|
+|class_uuid|Mã bộ phận|Bắt buộc|Text|1,255|den-gam-truoc-trai-d7WevY|
+|location|Vị trí bộ phận|Bắt buộc|Text|1,255|Trái - Trước|
+|car_part_name|Tên bộ phận|Bắt buộc|Text|1,255|Đèn gầm trước trái|
+|mask_url|Url mask bộ phận|Bắt buộc|Text|1,255|https://dyta7vmv7sqle.cloudfront.net/INSURANCE_RESULT/EGfDHztL2Vffgc72cM1DG.png|
+
+*Chi tiết Object item `damage`*
+
+|**Tên Tham số**|**Mô tả**|**Bắt buộc**|**Kiểu dữ liệu**|**Min,Max**|**Ví dụ**|
+|---|---|---|---|---|---|
+|damage_type_name|Tên hỏng hóc|Bắt buộc|Text|1,255|Trầy (xước)|
+|mask_url|mask hỏng hóc|Bắt buộc|Text|1,255|...|
+
+
+***Chi tiết Bảng Mã lỗi cùng httpStatus trả về của `errorCodeFromEngine`***
+
+*Chú thích*
+> Với những lỗi có level là error sẽ chỉ trả ra mã lỗi và message lỗi, những lỗi level warning sẽ trả ra mã lỗi, message, và car_part, car_damages như bình thường
+
+|**Mã lỗi**|**HTTP Status**|**Response body**|**Level lỗi**|
+|----|----|----|----|
+|0|200|Ảnh hợp lệ||
+|37143|400|`{"errorCodeFromEngine": 37143, "message": "Không thể nhận diện ô tô trong ảnh. Vui lòng chụp lại"}`|Error|
+|40412|400|`{"errorCodeFromEngine": 40412, "message": "Ảnh chụp bị mờ. Vui lòng chụp lại"}`|Error|
+|32324|400|`{"errorCodeFromEngine": 32324, "message": "Không download được ảnh"}`|Error|
+|23212|200|`{"errorCodeFromEngine": 23212, "message": "Ảnh chụp bị tối"}`|Warning|
+|84680|400|`{"errorCodeFromEngine": 84680, "message": "Ảnh chụp qua màn hình. Vui lòng chụp lại"}`|Error|
+|47565|400|`{"errorCodeFromEngine": 47565, "message": "Trả ra error của engine"}`|Error|
+|67219|400|`{"errorCodeFromEngine": 67219, "message": "Không thể nhận diện ô tô trong ảnh. Vui lòng chụp lại"}`|Error|
+|77704|200|`{"errorCodeFromEngine": 77704, "message": "Ảnh chụp bị lóa"}`|Warning|
+|50676|400|`{"errorCodeFromEngine": 50676, "message": "Ảnh không đúng góc chụp. Vui lòng chụp lại"}`|Error|
+
+
+#### d. Ví dụ đầu ra
+
+```
+{
+    "status": "success",
+    "isCarExistInProfile": false,
+    "isPhotoValid": true,
+    "traceId": "80540cf80585486f63432dcdf680fd20",
+    "errorCodeFromEngine": 0,
+    "message": "",
+    "imageId": 4808,
+    "result": [
+        {
+            "img_size": [1920, 1080],
+            "extra_infor": {
+                "plate_number": "",
+                "chassis_number": null,
+                "car_company": "",
+                "car_model": "",
+                "car_color": [222, 220,216],
+                "corner": "Trái - Trước",
+                "imagePosition": 1
+            },
+            "car_damages": [
+                {
+                    "class": "Móp, bẹp(thụng)",
+                    "class_uuid": "zmMJ5xgjmUpqmHd99UNq3",
+                    "location": "",
+                    "score": 1,
+                    "box": [ 0.34, 0.14, 0.79,0.77],
+                    "mask_path": "nfU_HFiSOi4wEkP1ycUwv.png",
+                    "is_part": false,
+                    "mask_url": "{{s3Url}}"
+                },
+                ...
+            ],
+            "car_parts": [
+                {
+                    "class": "Trụ kính cánh cửa",
+                    "class_uuid": "khung-kinh-canh-cua-truoc-trai-KMtJpH",
+                    "location": "Trái - Trước",
+                    "score": 0.83660888671875,
+                    "box": [
+                        0.81875,
+                        0,
+                        0.9994791666666667,
+                        0.2
+                    ],
+                    "mask_path": "vG4wVxBeWvLF5MFGMAfq9.png",
+                    "is_part": true,
+                    "damages": [
+                        {
+                            "class": "Trầy, xước",
+                            "class_uuid": "yfMzer07THdYoCI1SM2LN",
+                            "location": "",
+                            "score": 1,
+                            "box": [
+                                0.2171875,
+                                0.07685185185185185,
+                                0.9989583333333333,
+                                0.9425925925925925
+                            ],
+                            "mask_path": "favy1yqepBr_JM8tAJm2v.png",
+                            "is_part": false,
+                            "overlap_rate": 0.00047147571877818216,
+                            "claimId": 1,
+                            "imageId": "4808",
+                            "isMaskDuplicate": false,
+                            "mask_url": "{{s3Url}}",
+                            "damage_type_name": "Trầy (xước)",
+                            "damage_type_color": "#FFEC05"
+                        },
+                        ...
+                    ],
+                    "car_part_name": "Khung kính cánh cửa trước trái",
+                    "rawLocation": "Trái - Trước",
+                    "car_part_color": "#21E0C1",
+                    "mask_url": "{{s3Url}}"
+                },
+                ...
+            ],
+            "img_url": "{{s3Url}}",
+            "mask_url": "{{s3Url}}"
+        }
+    ]
+}
+
+```
+
+#### **2.3.3: API gọi Engine AICycle (Cấp đơn upload ảnh trực tiếp, không khuyên dùng)**
+##### a. Thông tin cơ bản
 
 |||
 |----|----|
@@ -467,7 +666,7 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/insurance/i
 }
 ```
 
-### **2.5: API lấy kết quả Folder (hồ sơ)**
+### **2.4: API lấy kết quả Folder theo bộ phận (hồ sơ)**
 #### a. Thông tin cơ bản
 
 |||
@@ -582,7 +781,7 @@ curl --location --request GET 'https://api-aws-insurance.aicycle.ai/claimfolders
     "summary": 1000000
 }
 ```
-### **2.6: API callback lưu kết quả từ khách hàng**
+### **2.5: API callback lưu kết quả từ khách hàng**
 #### a. Thông tin cơ bản
 
 |||
@@ -676,4 +875,112 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/claimfolder
     ],
     "ownerOrganizationId": 2
 }
+```
+
+### **2.6: API lấy kết quả Folder theo ảnh (hồ sơ)**
+#### a. Thông tin cơ bản
+|||
+|----|----|
+| Method | GET |
+| API Url | https://api-aws-insurance.aicycle.ai/claimfolders/{claimId}/get-image-results |
+| API Headers | `{ "Authorization": "Bearer $$apiKey$$" }` |
+
+#### b. Chi tiết đầu vào
+**Loại đầu vào**: Params
+
+|**Tên Tham số**|**Mô tả**|**Bắt buộc**|**Kiểu dữ liệu**|**Min,Max**|**Ví dụ**|
+|---|---|---|---|---|---|
+|claimId|Id của folder|Bắt buộc|Number|1,999999|123|
+
+**Ví dụ**
+```
+curl --location --request GET 'https://api-aws-insurance.aicycle.ai/claimfolders/{claimId}/get-image-results' \
+--header 'authorization: Bearer $$API_KEY$$' \
+--data-raw ''
+```
+#### c. Chi tiết đầu ra
+**Loại đầu ra**: Response body
+
+| **Tên Tham số** | **Mô tả**         |**Bắt buộc**| **Kiểu dữ liệu**  | **Min,Max** | **Ví dụ**   |
+|-----------------|-------------------|---|-------------------|-------------|-------------|
+| url             | Link ảnh          |Bắt buộc| Text              | 1,255       | {{imgUrl}}  |
+| imageSize       | Kích thước ảnh    |Bắt buộc| Array[number]     | n           | [1920,1080] |
+| directionName   | Góc chụp          |Bắt buộc| Text              | 1,255       | Trước       |
+| imageRangeName  | Loại ảnh          |Bắt buộc| Text              | 1,255       | Toàn cảnh   |
+| damageInfo      | Chi tiết hỏng hóc |Bắt buộc| Array[damageInfo] | n           | []          |
+
+*Chi tiết Object item `damageInfo`*
+
+| **Tên Tham số** | **Mô tả**                     | **Bắt buộc** | **Kiểu dữ liệu**    | **Min,Max** | **Ví dụ**       |
+|-----------------|-------------------------------|--------------|---------------------|-------------|-----------------|
+| vehiclePartName | Tên bộ phận                   | Bắt buộc     | TEXT                | 1,255       | Ba đờ sốc trước |
+| price           | Giá bộ phận                   | Bắt buộc     | Number              | 1,9999      | 1000000         |
+| location        | Vị trí bộ phận                | Bắt buộc     | TEXT                | 1,255       | Trước           |
+| damageDetail    | Chi tiết hỏng hóc của bộ phận | Bắt buộc     | Array[damageDetail] | n           | []              |
+
+*Chi tiết Object item `damageDetail`*
+
+| **Tên Tham số**  | **Mô tả**          | **Bắt buộc** | **Kiểu dữ liệu**    | **Min,Max** | **Ví dụ**   |
+|------------------|--------------------|--------------|---------------------|-------------|-------------|
+| url              | Link mask hỏng hóc | Bắt buộc     | TEXT                | 1,255       | {{maskUrl}} |
+| damageTypeName   | Loại hỏng hóc      | Bắt buộc     | TEXT                | 1,255       | Trầy (xước) |
+| damagePercentage | Phần trăm hỏng hóc | Bắt buộc     | Number              | 1,9999      | 0.08        |
+
+#### d. Ví dụ đầu ra
+
+```
+{
+    "result": {
+        "images": [
+            {
+                "imageId": 16532,
+                "imageName": "1679373021917.jpg",
+                "filePath": "INSURANCE/1679373021956/1679373021917.jpg",
+                "url": "{{imageUrl}}",
+                "imageSize": [
+                    1920,
+                    1080
+                ],
+                "directionName": "45° Trái - Sau",
+                "imageRangeName": "Toàn cảnh",
+                "timeProcess": 1.693,
+                "timeAppUpload": 1.501,
+                "requestedTime": null,
+                "location": null,
+                "errorType": null,
+                "errorNote": null,
+                "traceId": "265e70b629c05b353b1968693a4ca051",
+                "damageInfo": [
+                    {
+                        "vehiclePartName": "Pa vô lê trái",
+                        "vehiclePartExcelId": "pavole-trai-tEm7AB",
+                        "price": 450000,
+                        "laborCost": 0,
+                        "totalCost": 450000,
+                        "area": 70,
+                        "location": "Trái",
+                        "repairPlan": "Sửa chữa",
+                        "damageDetail": [
+                            {
+                                "filePath": "fxVIBETAr_Buc1h6ngzC4.png",
+                                "url": "{{maskUrl}}",
+                                "damageTypeName": "Trầy (xước)",
+                                "damageTypeColor": "#FFEC05",
+                                "damageUuid": "yfMzer07THdYoCI1SM2LN",
+                                "boxes": [
+                                    0.3125,
+                                    0.6731481481481482,
+                                    0.32135416666666666,
+                                    0.6953703703703704
+                                ],
+                                "damageArea": 0.6255235966733421,
+                                "damagePercentage": 0.008936051381047744
+                            }
+                        ]
+                    }
+                ]
+            }
+     ]
+   }
+ }       
 ```
