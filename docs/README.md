@@ -149,127 +149,7 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/images/url'
 **Chú ý**
 > Sau khi call api lấy link `uploadUrl` để up ảnh. Trên postman dùng link đó với method là PUT, body dạng binary và select file ảnh trên máy để upload. Khi nhận được status là 200 (upload thành công), dùng đường link `fetchUrl` đó paste lên browser để xem kết quả
 
-### **2.3: API gọi Engine AICycle (Cấp đơn)**
-#### a. Thông tin cơ bản
-
-|||
-|----|----|
-| Method | POST |
-| API Url | https://api-aws-insurance.aicycle.ai/insurance/images/upload |
-| API Headers | `{ "Authorization": "Bearer $$API_KEY$$" }` |
-
-
-#### b. Chi tiết đầu vào
-**Loại đầu vào**: Body
-
-|**Tên Tham số**|**Mô tả**|**Bắt buộc**|**Kiểu dữ liệu**|**Min,Max**|**Ví dụ**|
-|---|---|---|---|---|---|
-|formFile|File ảnh|Bắt buộc|File|1|image.jpg|
-|claimFolderId|Id của folder|Bắt buộc|Text|1,255|folder1|
-
-
-
-**Ví dụ**
-```
-curl --location --request POST 'https://api-aws-insurance.aicycle.ai/insurance/images/upload' \
---header 'Authorization: Bearer 2cef5:44c332de62534cdea6f3c27b7afdba0aa254f90b562c47aa9087db66764be4be' \
---header 'Content-Type: application/json' \
---form 'formFile=@"/home/user/Downloads/image/IMG_9917.JPG"' \
---form 'claimFolderId="folder1"'
-```
-
-#### c. Chi tiết đầu ra
-**Loại đầu ra**: Response body
-
-|**Tên Tham số**|**Mô tả**|**Bắt buộc**|**Kiểu dữ liệu**|**Min,Max**|**Ví dụ**|
-|---|---|---|---|---|---|
-|is_photo_valid|Ảnh có phải ô tô hay không|Bắt buộc|Boolean|1,999999|true|
-|car_info|Thông tin xe|Bắt buộc|Object|n|{}|
-|detected_item|Chi tiết bộ phận|Bắt buộc|Array[carPart]|n|[]|
-|damaged_item|Chi tiết hỏng hóc|Bắt buộc|Array[damage]|n|[]|
-|additional_data|Các thông tin bổ sung|Bắt buộc|Object|n|{}|
-|errorCodeFromEngine|Mã lỗi ảnh|Bắt buộc|Number|1,999999|0|
-|message|Chi tiết lỗi ảnh|Bắt buộc|Text|1,255|Ảnh chụp qua màn hình|
-
-*Chi tiết Object item  `carPart`*
-
-|**Tên Tham số**|**Mô tả**|**Bắt buộc**|**Kiểu dữ liệu**|**Min,Max**|**Ví dụ**|
-|---|---|---|---|---|---|
-|id|Mã bộ phận|Bắt buộc|Text|1,255|den-gam-truoc-trai-d7WevY|
-|name|Tên bộ phận|Bắt buộc|Text|1,255|Đèn gầm trước trái|
-|confidence|Độ dự đoán tin cậy|Bắt buộc|Text|0,1|0.80|
-|mask|Url mask bộ phận|Bắt buộc|Text|1,255|https://dyta7vmv7sqle.cloudfront.net/INSURANCE_RESULT/EGfDHztL2Vffgc72cM1DG.png|
-
-*Chi tiết Object item `damage`*
-
-|**Tên Tham số**|**Mô tả**|**Bắt buộc**|**Kiểu dữ liệu**|**Min,Max**|**Ví dụ**|
-|---|---|---|---|---|---|
-|id|Mã hỏng hóc|Bắt buộc|Text|1,255|yfMzer07THdYoCI1SM2LN|
-|title|Tiêu đề hỏng hóc|Bắt buộc|Text|1,255|Trầy (xước) ở cánh cửa|
-|position_id|Mã vị trí chi tiết|Bắt buộc|Text|1,255|khung-kinh-canh-cua-truoc-trai-KMtJpH|
-|damaged_type|Mã loại hỏng hóc|Bắt buộc|Text|1,255|MUCDO01|
-|estimate_score|Mức độ tổn thất|Bắt buộc|Text|0,1|0.3|
-|confidence|Độ dự đoán tin cậy|Bắt buộc|Text|0,1|0.8|
-|mask|mask hỏng hóc|Bắt buộc|Text|1,255|...|
-
-
-***Chi tiết Bảng Mã lỗi cùng httpStatus trả về của `errorCodeFromEngine`***
-
-*Chú thích*
-> Với những lỗi có level là error sẽ chỉ trả ra mã lỗi và message lỗi, những lỗi level warning sẽ trả ra mã lỗi, message, và detected_item, damaged_item như bình thường
-
-|**Mã lỗi**|**HTTP Status**|**Response body**|**Level lỗi**|
-|----|----|----|----|
-|0|200|Ảnh hợp lệ||
-|37143|400|`{"errorCodeFromEngine": 37143, "message": "Không thể nhận diện ô tô trong ảnh. Vui lòng chụp lại"}`|Error|
-|40412|400|`{"errorCodeFromEngine": 40412, "message": "Ảnh chụp bị mờ. Vui lòng chụp lại"}`|Error|
-|32324|400|`{"errorCodeFromEngine": 32324, "message": "Không download được ảnh"}`|Error|
-|23212|200|`{"errorCodeFromEngine": 23212, "message": "Ảnh chụp bị tối"}`|Warning|
-|84680|400|`{"errorCodeFromEngine": 84680, "message": "Ảnh chụp qua màn hình. Vui lòng chụp lại"}`|Error|
-|47565|400|`{"errorCodeFromEngine": 47565, "message": "Trả ra error của engine"}`|Error|
-|67219|400|`{"errorCodeFromEngine": 67219, "message": "Không thể nhận diện ô tô trong ảnh. Vui lòng chụp lại"}`|Error|
-|77704|200|`{"errorCodeFromEngine": 77704, "message": "Ảnh chụp bị lóa"}`|Warning|
-|50676|400|`{"errorCodeFromEngine": 50676, "message": "Ảnh không đúng góc chụp. Vui lòng chụp lại"}`|Error|
-
-
-#### d. Ví dụ đầu ra
-
-```
-{
-    "is_photo_valid": true,
-    "car_info": {
-        "plate_number": "",
-        "chassis_number": null,
-        "car_company": "",
-        "car_model": "",
-        "car_color": [222, 220,216]
-    },
-    "detected_item": [
-        {
-            "id": "khung-kinh-canh-cua-truoc-trai-KMtJpH",
-            "name": "Trụ kính cánh cửa",
-            "confidence": 0.80,
-            "mask_url": "{{s3Url}}"
-        }
-    ],
-    "damaged_item": [
-        {
-            "id": "yfMzer07THdYoCI1SM2LN",
-            "title": "Trầy, xước ở Trụ kính cánh cửa",
-            "position_id": "khung-kinh-canh-cua-truoc-trai-KMtJpH",
-            "damaged_type": "",
-            "estimate_score": 0.3,
-            "confidence": 0.91,
-            "mask_url": "{{s3Url}}"
-        }
-    ],
-    "additional_data": {
-        "img_url": "{{s3Url}}",
-        ...
-    }
-}
-```
-### **2.4: API Call Engine AICycle**
+### **2.3: API Call Engine AICycle (khuyên dùng)**
 #### a. Thông tin cơ bản
 
 |||
@@ -464,6 +344,127 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/claimimages
     ]
 }
 
+```
+
+### **2.4: API gọi Engine AICycle (Cấp đơn upload ảnh trực tiếp, không khuyên dùng)**
+#### a. Thông tin cơ bản
+
+|||
+|----|----|
+| Method | POST |
+| API Url | https://api-aws-insurance.aicycle.ai/insurance/images/upload |
+| API Headers | `{ "Authorization": "Bearer $$API_KEY$$" }` |
+
+
+#### b. Chi tiết đầu vào
+**Loại đầu vào**: Body
+
+|**Tên Tham số**|**Mô tả**|**Bắt buộc**|**Kiểu dữ liệu**|**Min,Max**|**Ví dụ**|
+|---|---|---|---|---|---|
+|formFile|File ảnh|Bắt buộc|File|1|image.jpg|
+|claimFolderId|Id của folder|Bắt buộc|Text|1,255|folder1|
+
+
+
+**Ví dụ**
+```
+curl --location --request POST 'https://api-aws-insurance.aicycle.ai/insurance/images/upload' \
+--header 'Authorization: Bearer 2cef5:44c332de62534cdea6f3c27b7afdba0aa254f90b562c47aa9087db66764be4be' \
+--header 'Content-Type: application/json' \
+--form 'formFile=@"/home/user/Downloads/image/IMG_9917.JPG"' \
+--form 'claimFolderId="folder1"'
+```
+
+#### c. Chi tiết đầu ra
+**Loại đầu ra**: Response body
+
+|**Tên Tham số**|**Mô tả**|**Bắt buộc**|**Kiểu dữ liệu**|**Min,Max**|**Ví dụ**|
+|---|---|---|---|---|---|
+|is_photo_valid|Ảnh có phải ô tô hay không|Bắt buộc|Boolean|1,999999|true|
+|car_info|Thông tin xe|Bắt buộc|Object|n|{}|
+|detected_item|Chi tiết bộ phận|Bắt buộc|Array[carPart]|n|[]|
+|damaged_item|Chi tiết hỏng hóc|Bắt buộc|Array[damage]|n|[]|
+|additional_data|Các thông tin bổ sung|Bắt buộc|Object|n|{}|
+|errorCodeFromEngine|Mã lỗi ảnh|Bắt buộc|Number|1,999999|0|
+|message|Chi tiết lỗi ảnh|Bắt buộc|Text|1,255|Ảnh chụp qua màn hình|
+
+*Chi tiết Object item  `carPart`*
+
+|**Tên Tham số**|**Mô tả**|**Bắt buộc**|**Kiểu dữ liệu**|**Min,Max**|**Ví dụ**|
+|---|---|---|---|---|---|
+|id|Mã bộ phận|Bắt buộc|Text|1,255|den-gam-truoc-trai-d7WevY|
+|name|Tên bộ phận|Bắt buộc|Text|1,255|Đèn gầm trước trái|
+|confidence|Độ dự đoán tin cậy|Bắt buộc|Text|0,1|0.80|
+|mask|Url mask bộ phận|Bắt buộc|Text|1,255|https://dyta7vmv7sqle.cloudfront.net/INSURANCE_RESULT/EGfDHztL2Vffgc72cM1DG.png|
+
+*Chi tiết Object item `damage`*
+
+|**Tên Tham số**|**Mô tả**|**Bắt buộc**|**Kiểu dữ liệu**|**Min,Max**|**Ví dụ**|
+|---|---|---|---|---|---|
+|id|Mã hỏng hóc|Bắt buộc|Text|1,255|yfMzer07THdYoCI1SM2LN|
+|title|Tiêu đề hỏng hóc|Bắt buộc|Text|1,255|Trầy (xước) ở cánh cửa|
+|position_id|Mã vị trí chi tiết|Bắt buộc|Text|1,255|khung-kinh-canh-cua-truoc-trai-KMtJpH|
+|damaged_type|Mã loại hỏng hóc|Bắt buộc|Text|1,255|MUCDO01|
+|estimate_score|Mức độ tổn thất|Bắt buộc|Text|0,1|0.3|
+|confidence|Độ dự đoán tin cậy|Bắt buộc|Text|0,1|0.8|
+|mask|mask hỏng hóc|Bắt buộc|Text|1,255|...|
+
+
+***Chi tiết Bảng Mã lỗi cùng httpStatus trả về của `errorCodeFromEngine`***
+
+*Chú thích*
+> Với những lỗi có level là error sẽ chỉ trả ra mã lỗi và message lỗi, những lỗi level warning sẽ trả ra mã lỗi, message, và detected_item, damaged_item như bình thường
+
+|**Mã lỗi**|**HTTP Status**|**Response body**|**Level lỗi**|
+|----|----|----|----|
+|0|200|Ảnh hợp lệ||
+|37143|400|`{"errorCodeFromEngine": 37143, "message": "Không thể nhận diện ô tô trong ảnh. Vui lòng chụp lại"}`|Error|
+|40412|400|`{"errorCodeFromEngine": 40412, "message": "Ảnh chụp bị mờ. Vui lòng chụp lại"}`|Error|
+|32324|400|`{"errorCodeFromEngine": 32324, "message": "Không download được ảnh"}`|Error|
+|23212|200|`{"errorCodeFromEngine": 23212, "message": "Ảnh chụp bị tối"}`|Warning|
+|84680|400|`{"errorCodeFromEngine": 84680, "message": "Ảnh chụp qua màn hình. Vui lòng chụp lại"}`|Error|
+|47565|400|`{"errorCodeFromEngine": 47565, "message": "Trả ra error của engine"}`|Error|
+|67219|400|`{"errorCodeFromEngine": 67219, "message": "Không thể nhận diện ô tô trong ảnh. Vui lòng chụp lại"}`|Error|
+|77704|200|`{"errorCodeFromEngine": 77704, "message": "Ảnh chụp bị lóa"}`|Warning|
+|50676|400|`{"errorCodeFromEngine": 50676, "message": "Ảnh không đúng góc chụp. Vui lòng chụp lại"}`|Error|
+
+
+#### d. Ví dụ đầu ra
+
+```
+{
+    "is_photo_valid": true,
+    "car_info": {
+        "plate_number": "",
+        "chassis_number": null,
+        "car_company": "",
+        "car_model": "",
+        "car_color": [222, 220,216]
+    },
+    "detected_item": [
+        {
+            "id": "khung-kinh-canh-cua-truoc-trai-KMtJpH",
+            "name": "Trụ kính cánh cửa",
+            "confidence": 0.80,
+            "mask_url": "{{s3Url}}"
+        }
+    ],
+    "damaged_item": [
+        {
+            "id": "yfMzer07THdYoCI1SM2LN",
+            "title": "Trầy, xước ở Trụ kính cánh cửa",
+            "position_id": "khung-kinh-canh-cua-truoc-trai-KMtJpH",
+            "damaged_type": "",
+            "estimate_score": 0.3,
+            "confidence": 0.91,
+            "mask_url": "{{s3Url}}"
+        }
+    ],
+    "additional_data": {
+        "img_url": "{{s3Url}}",
+        ...
+    }
+}
 ```
 
 ### **2.5: API lấy kết quả Folder (hồ sơ)**
