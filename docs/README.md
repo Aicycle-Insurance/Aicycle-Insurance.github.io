@@ -163,15 +163,18 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/images/url'
 #### b. Chi tiết đầu vào
 **Loại đầu vào**: Body
 
-|**Tên Tham số**|**Mô tả**|**Bắt buộc**|**Kiểu dữ liệu**|**Min,Max**|**Ví dụ**|
-|---|---|---|---|---|---|
-|claimId|Id của folder|Bắt buộc|Number|1,999999|123|
-|imageName|Tên ảnh|Bắt buộc|Text|1,255|INSURANCE_CLAIM/image-1.jpg|
-|filePath|Path ảnh trên s3 (lấy từ kết quả trả về  của API get imageUrl ở mục 2.2)|Bắt buộc|Text|1,255|INSURANCE_CLAIM/image-1.jpg|
-|imageRangeId|ID Loại ảnh (Toàn cảnh, trung cảnh, cận cảnh)|Bắt buộc|Number|1,9999|1|
-|partDirectionId|ID Hướng ảnh|Bắt buộc|Number|1,9999|3|
-|oldImageId|Id ảnh muốn xóa|Optional|Number|1,9999|3|
-|isClaim|True là giám định, false là cấp đơn|Bắt buộc|Boolean|n|true|
+|**Tên Tham số**| **Mô tả**                                                   | **Bắt buộc** | **Kiểu dữ liệu** | **Min,Max** | **Ví dụ**                      |
+|---|-------------------------------------------------------------|----------|---------|-------|--------------------------------|
+|claimId| Id của folder | Bắt buộc | Number  | 1,999999 | 123 |
+|imageName| Tên ảnh | Bắt buộc | Text | 1,255 | INSURANCE_CLAIM/image-1.jpg |
+|filePath| Path ảnh trên s3 (lấy từ kết quả trả về  của API get imageUrl ở mục 2.2) | Bắt buộc | Text | 1,255 | INSURANCE_CLAIM/image-1.jpg |
+|imageRangeId| ID Loại ảnh (Toàn cảnh, trung cảnh, cận cảnh) | Bắt buộc | Number | 1,9999 | 1 |
+|partDirectionId| ID Hướng ảnh | Bắt buộc | Number | 1,9999 | 3 |
+|oldImageId| Id ảnh muốn xóa | Optional | Number  | 1,9999 | 3 |
+|isClaim| True là giám định, false là cấp đơn | Bắt buộc | Boolean | n  | true |
+|location | Nơi ảnh được chụp | Optional | TEXT | 1,255 | Duy Tân, Cầu Giấy, Hà Nội |
+|requestedTime | Thời gian chụp ảnh | Optional | TEXT | 1,255 | 2023-03-24 03:28:29.414232 +00:00 |
+|uploadLocation | Nơi upload ảnh để thực hiện claim | Optional | TEXT | 1,255 | Hai Bà Trưng, Hà Nội |
 
 *Lưu ý*
 > **Các giá trị của `imageRangeId`**
@@ -368,6 +371,9 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/claimimages
 |partDirectionId|ID Hướng ảnh|Bắt buộc|Number|1,9999|3|
 |oldImageId|Id ảnh muốn xóa|Optional|Number|1,9999|3|
 |isClaim|True là giám định, false là cấp đơn|Bắt buộc|Boolean|n|true|
+|location | Nơi ảnh được chụp | Optional | TEXT | 1,255 | Duy Tân, Cầu Giấy, Hà Nội |
+|requestedTime | Thời gian chụp ảnh | Optional | TEXT | 1,255 | 2023-03-24 03:28:29.414232 +00:00 |
+|uploadLocation | Nơi upload ảnh để thực hiện claim | Optional | TEXT | 1,255 | Hai Bà Trưng, Hà Nội |
 
 *Lưu ý*
 > **Các giá trị của `imageRangeId`**
@@ -714,6 +720,10 @@ curl --location --request GET 'https://api-aws-insurance.aicycle.ai/claimfolders
 |---|---|---|---|---|---|
 |imageUrl|Url ảnh|Bắt buộc|Text|1,255|https://dyta7vmv7sqle.cloudfront.net/INSURANCE_RESULT/EGfDHztL2Vffgc72cM1DG.png|
 |imageRange|Loại ảnh|Bắt buộc|Text|1,255|Toàn cảnh|
+|location | Nơi ảnh được chụp | Bắt buộc | TEXT | 1,255 | Duy Tân, Cầu Giấy, Hà Nội |
+|requestedTime | Thời gian chụp ảnh | Bắt buộc | TEXT | 1,255 | 2023-03-24 03:28:29.414232 +00:00 |
+| uploadedTime | Thời gian ảnh được upload lên hệ thống | Bắt buộc | TEXT | 1,255 | 2023-03-24 03:28:29.414232 +00:00 |
+|uploadLocation | Nơi upload ảnh để thực hiện claim | Bắt buộc | TEXT | 1,255 | Hai Bà Trưng, Hà Nội |
 |damageMasks|Chi tiết hỏng hóc của ảnh|Bắt buộc|Array[damageMask]|n|[]|
 
 *Chi tiết Object item `damageMask`*
@@ -750,6 +760,10 @@ curl --location --request GET 'https://api-aws-insurance.aicycle.ai/claimfolders
                     "damageExist": true,
                     "errorType": null,
                     "errorNote": null,
+                    "location": "Duy Tân, Cầu Giấy, Hà Nội",
+                    "requestedTime": "2023-03-24T03:28:29.414Z",
+                    "uploadedTime": "2023-03-27T03:04:53.001Z",
+                    "uploadLocation": "Quận Cầu Giấy, Hà Nội",
                     "timeProcess": 2.678,
                     "damageMasks": [
                         {
@@ -907,6 +921,10 @@ curl --location --request GET 'https://api-aws-insurance.aicycle.ai/claimfolders
 | imageSize       | Kích thước ảnh    |Bắt buộc| Array[number]     | n           | [1920,1080] |
 | directionName   | Góc chụp          |Bắt buộc| Text              | 1,255       | Trước       |
 | imageRangeName  | Loại ảnh          |Bắt buộc| Text              | 1,255       | Toàn cảnh   |
+|location | Nơi ảnh được chụp | Bắt buộc | TEXT | 1,255 | Duy Tân, Cầu Giấy, Hà Nội |
+|requestedTime | Thời gian chụp ảnh | Bắt buộc | TEXT | 1,255 | 2023-03-24 03:28:29.414232 +00:00 |
+| uploadedTime | Thời gian ảnh được upload lên hệ thống | Bắt buộc | TEXT | 1,255 | 2023-03-24 03:28:29.414232 +00:00 |
+|uploadLocation | Nơi upload ảnh để thực hiện claim | Bắt buộc | TEXT | 1,255 | Hai Bà Trưng, Hà Nội |
 | damageInfo      | Chi tiết hỏng hóc |Bắt buộc| Array[damageInfo] | n           | []          |
 
 *Chi tiết Object item `damageInfo`*
@@ -945,8 +963,10 @@ curl --location --request GET 'https://api-aws-insurance.aicycle.ai/claimfolders
                 "imageRangeName": "Toàn cảnh",
                 "timeProcess": 1.693,
                 "timeAppUpload": 1.501,
-                "requestedTime": null,
-                "location": null,
+                "requestedTime": "2023-03-24T03:28:29.414Z",
+                "uploadedTime": "2023-03-27T03:04:53.001Z",
+                "uploadLocation": "Quận Cầu Giấy, Hà Nội",
+                "location": "Duy Tân, Cầu Giấy, Hà Nội",
                 "errorType": null,
                 "errorNote": null,
                 "traceId": "265e70b629c05b353b1968693a4ca051",
