@@ -1217,3 +1217,62 @@ curl --location --request GET 'https://api-aws-insurance.aicycle.ai/car-info/com
     }
 ]
 ```
+
+#### **2.7.5: API định giá xe**
+##### a. Thông tin cơ bản
+
+|||
+|----|----|
+| Method | POST |
+| API Url | https://api-aws-insurance.aicycle.ai/valuation/car-valuate |
+| API Headers | `{ "Authorization": "Bearer $$API_KEY$$" }` |
+
+##### b. Chi tiết đầu vào
+**Loại đầu vào**: Body
+
+| **Tên Tham số** | **Mô tả**       | **Bắt buộc** | **Kiểu dữ liệu** | **Min,Max** | **Ví dụ**         |
+|-----------------|-----------------|--------------|------------------|-------------|-------------------|
+| carCompanyId    | Id hãng xe      | Bắt buộc     | Text             | 1,255       | uuid-hang-xe      |
+| carModelId      | Id hiệu xe      | Bắt buộc     | Text             | 1,255       | uuid-hieu-xe      |
+| carVersionId    | Id phiên bản xe | Bắt buộc     | Text             | 1,255       | uuid-phien-ban-xe |
+| year            | Năm sản xuất    | Bắt buộc     | Number           | 1,9999      | 2020              |
+| numberOfKmTraveled | Số km đã đi     | Tùy chọn     | Number           | 1,999999999 | 30000             |
+
+**Ví dụ**
+```
+curl --location --request POST 'https://api-aws-insurance.aicycle.ai/valuation/car-valuate' \
+--header 'Authorization: Bearer <API Key>' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "carCompanyId": "uuid-hang-xe",
+    "carModelId": "uuid-hieu-xe",
+    "carVersionId": "uuid-phien-ban-xe",
+    "year": 2020,
+    "numberOfKmTraveled": 30000
+}'
+```
+#### c. Chi tiết đầu ra
+**Loại đầu ra**: Response body
+
+| **Tên Tham số** | **Mô tả**       |**Bắt buộc**|**Kiểu dữ liệu**|**Min,Max**| **Ví dụ**         |
+|-----------------|-----------------|--------------|------------------|-------------|-------------------|
+| carCompanyId    | Id hãng xe      | Bắt buộc     | Text             | 1,255       | uuid-hang-xe      |
+| carModelId      | Id hiệu xe      | Bắt buộc     | Text             | 1,255       | uuid-hieu-xe      |
+| carVersionId    | Id phiên bản xe | Bắt buộc     | Text             | 1,255       | uuid-phien-ban-xe |
+| year            | Năm sản xuất    | Bắt buộc     | Number           | 1,9999      | 2020              |
+| kmTravel        | Số km đã đi     | Tùy chọn     | Number           | 1,999999999 | 30000             |
+| price           | Giá xe          | Tùy chọn     | Number           | 1,999999999 | 300000000         |
+
+#### d. Ví dụ đầu ra
+```
+[
+    {
+        "carVersionId": "<carVersionId>",
+        "carCompanyId": "<carCompanyId>",
+        "carModelId": "<carModelId>",
+        "year": 2011,
+        "price": 237120000,
+        "kmTravel": 30000
+    }
+]
+```
