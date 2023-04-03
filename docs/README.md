@@ -1,4 +1,4 @@
-<h1 align="center">
+ GET                                                                                                            lign="center">
     <img src="https://bucket-aicycle.s3.ap-southeast-1.amazonaws.com/logo.png" style="width: 400px;height: 100px;" alt="jsdeliver"> 
 </h1>
 
@@ -1003,4 +1003,217 @@ curl --location --request GET 'https://api-aws-insurance.aicycle.ai/claimfolders
      ]
    }
  }       
+```
+
+### **2.7: Bộ API định giá xe**
+#### **2.7.1: API lấy thông tin các hãng xe (car company)**
+##### a. Thông tin cơ bản
+
+|||
+|----|----|
+| Method | GET |
+| API Url | https://api-aws-insurance.aicycle.ai/car-info/company |
+| API Headers | `{ "Authorization": "Bearer $$API_KEY$$" }` |
+
+##### b. Chi tiết đầu vào
+**Loại đầu vào**: Query
+
+| **Tên Tham số**  | **Mô tả**                     | **Bắt buộc** | **Kiểu dữ liệu** | **Min,Max** | **Ví dụ** |
+|------------------|-------------------------------|--------------|------------------|-------------|-----------|
+| vehicleBrandName | Tên hãng xe                   | Tùy chọn     | Text             | 1, 255      | TOYOTA    |
+| limit            | Limit số lượng bản ghi trả về | Tùy chọn     | Number           | 1,9999      | 30        |
+| offset           | Bỏ qua 1 số bản ghi           | Tùy chọn     | Number           | 0,9999      | 0         |
+
+**Ví dụ**
+```
+curl --location --request GET 'https://stage-api-insurance.aicycle.ai/car-info/company?limit=1000' \
+--header 'Authorization: Bearer <API Key>'
+
+```
+#### c. Chi tiết đầu ra
+**Loại đầu ra**: Response body
+
+| **Tên Tham số**     | **Mô tả**             |**Bắt buộc**| **Kiểu dữ liệu**      | **Min,Max** | **Ví dụ**             |
+|---------------------|-----------------------|---|-----------------------|-------------|-----------------------|
+| count               | Số lượng bản ghi      |Bắt buộc| Number                | 1,9999      | 30                    |
+| limit               | Giới hạn bản ghi      |Bắt buộc| Number                | 1,9999      | 100                   |
+| offset              | Bỏ qua 1 số bản ghi   |Bắt buộc| Number                | 0,9999      | 0                     |
+| records             | Chi tiết các hãng xe  |Bắt buộc| Array[carCompanyInfo] | n           | []                    |
+
+
+*Chi tiết Object item  `carCompanyInfo`*
+
+| **Tên Tham số**  | **Mô tả**          |**Bắt buộc**|**Kiểu dữ liệu**|**Min,Max**| **Ví dụ**    |
+|------------------|--------------------|---|---|---|--------------|
+| carCompanyId     | Mã hãng xe         |Bắt buộc|Text|1,255| uuid-hang-xe |
+| vehicleBrandName | Tên hãng xe        |Bắt buộc|Text|1,255| TOYOTA       |
+
+#### d. Ví dụ đầu ra
+```
+{
+    "count": 114,
+    "limit": 1000,
+    "offset": 0,
+    "records": [
+        {
+            "carCompanyId": "uuid-hang-xe",
+            "vehicleBrandName": "TOYOTA"
+        }
+    ]
+}
+```
+
+#### **2.7.2: API lấy hiệu xe (car model)**
+##### a. Thông tin cơ bản
+|||
+|----|----|
+| Method | GET |
+| API Url | https://api-aws-insurance.aicycle.ai/car-info/model |
+| API Headers | `{ "Authorization": "Bearer $$API_KEY$$" }` |
+
+##### b. Chi tiết đầu vào
+**Loại đầu vào**: Query
+
+| **Tên Tham số** | **Mô tả**   |**Bắt buộc**| **Kiểu dữ liệu** | **Min,Max** | **Ví dụ**    |
+|-----------------|-------------|---|------------------|-------------|--------------|
+| name            | Tên hiệu xe |Tùy chọn| Text             | 1,255       | VIOS         |
+| carCompanyId    | Id hãng xe  |Tùy chọn| Text             | 1,255       | uuid-hieu-xe |
+| limit            | Limit số lượng bản ghi trả về | Tùy chọn     | Number           | 1,9999      | 30        |
+| offset           | Bỏ qua 1 số bản ghi           | Tùy chọn     | Number           | 0,9999      | 0         |
+
+**Ví dụ**
+```
+curl --location --request GET 'https://stage-api-insurance.aicycle.ai/car-info/model?carCompanyId=<uuid-hang-xe>&limit=100' \
+--header 'Authorization: Bearer <API Key>'
+```
+
+#### c. Chi tiết đầu ra
+**Loại đầu ra**: Response body
+
+| **Tên Tham số**     | **Mô tả**            |**Bắt buộc**| **Kiểu dữ liệu**    | **Min,Max** | **Ví dụ**             |
+|---------------------|----------------------|---|---------------------|-------------|-----------------------|
+| count               | Số lượng bản ghi     |Bắt buộc| Number              | 1,9999      | 30                    |
+| limit               | Giới hạn bản ghi     |Bắt buộc| Number              | 1,9999      | 100                   |
+| offset              | Bỏ qua 1 số bản ghi  |Bắt buộc| Number              | 0,9999      | 0                     |
+| records             | Chi tiết các hiệu xe |Bắt buộc| Array[carModelInfo] | n           | []                    |
+
+
+*Chi tiết Object item  `carModelInfo`*
+
+| **Tên Tham số** | **Mô tả**   |**Bắt buộc**|**Kiểu dữ liệu**|**Min,Max**| **Ví dụ**    |
+|-----------------|-------------|---|---|---|--------------|
+| carModelId      | Mã hiệu xe  |Bắt buộc|Text|1,255| uuid-hieu-xe |
+| carModelName    | Tên hiệu xe |Bắt buộc|Text|1,255| VIOS         |
+
+#### d. Ví dụ đầu ra
+```
+{
+    "count": 114,
+    "limit": 1000,
+    "offset": 0,
+    "records": [
+        {
+            "carModelId": "uuid-hieu-xe",
+            "carModelName": "VIOS"
+        }
+    ]
+}
+```
+
+#### **2.7.3: API lấy danh sách các năm sản xuất (manufactured year)**
+##### a. Thông tin cơ bản
+|||
+|----|----------------------------------------------------------------------------------------------------------------|
+| Method | GET                                                                                                            |
+| API Url | https://api-aws-insurance.aicycle.ai/car-info/company/{carCompanyId}/model/{carModelId}/manufactured-years |
+| API Headers | `{ "Authorization": "Bearer $$API_KEY$$" }`                                                                    |
+
+#### b. Chi tiết đầu vào
+**Loại đầu vào**: Param
+
+| **Tên Tham số** | **Mô tả**  |**Bắt buộc**| **Kiểu dữ liệu** | **Min,Max** | **Ví dụ**    |
+|-----------------|------------|---|------------------|-------------|--------------|
+| carCompanyId    | Id hãng xe |Bắt buộc| Text             | 1,255       | uuid-hang-xe |
+| carModelId   | Id hiệu xe |Bắt buộc| Text             | 1,255       | uuid-hieu-xe |
+
+**Ví dụ**
+```
+curl --location --request GET 'https://api-aws-insurance.aicycle.ai/car-info/company/{carCompanyId}/model/{carModelId}/manufactured-years' \
+--header 'Authorization: Bearer <API Key>'
+```
+
+#### c. Ví dụ đầu ra
+```
+[
+    2023,
+    2022,
+    2021,
+    2020,
+    2019,
+    2018,
+    2017,
+    2016,
+    2015,
+    2014,
+    2013,
+    2012,
+    2011
+]
+```
+
+#### **2.7.4: API lấy ra các phiên bản xe (car version)**
+##### a. Thông tin cơ bản
+
+|||
+|----|----|
+| Method | POST |
+| API Url | https://api-aws-insurance.aicycle.ai/car-info/company/{carCompanyId}/model/{carModelId}/versions |
+| API Headers | `{ "Authorization": "Bearer $$API_KEY$$" }` |
+
+#### b. Chi tiết đầu vào
+**Loại đầu vào**: Param
+
+| **Tên Tham số** | **Mô tả**  |**Bắt buộc**| **Kiểu dữ liệu** | **Min,Max** | **Ví dụ**    |
+|-----------------|------------|---|------------------|-------------|--------------|
+| carCompanyId    | Id hãng xe |Bắt buộc| Text             | 1,255       | uuid-hang-xe |
+| carModelId   | Id hiệu xe |Bắt buộc| Text             | 1,255       | uuid-hieu-xe |
+
+**Loại đầu vào**: Query
+
+| **Tên Tham số** | **Mô tả**    | **Bắt buộc** | **Kiểu dữ liệu** | **Min,Max** | **Ví dụ** |
+|-----------------|--------------|--------------|------------------|-------------|-----------|
+| year            | Năm sản xuất | Tùy chọn     | Number           | 1,9999      | 2001      |
+
+**Ví dụ**
+```
+curl --location --request GET 'https://api-aws-insurance.aicycle.ai/car-info/company/{carCompanyId}/model/{carModelId}/versions?year=2011' \
+--header 'Authorization: Bearer <API Key>'
+```
+
+#### c. Chi tiết đầu ra
+**Loại đầu ra**: Response body
+
+| **Tên Tham số** | **Mô tả**                   |**Bắt buộc**| **Kiểu dữ liệu** | **Min,Max** | **Ví dụ**             |
+|-----------------|-----------------------------|---|------------------|-------------|-----------------------|
+| carVersionId    | Id phiên bản xe             |Bắt buộc| Text             | 1,255       | uuid-phien-ban-xe     |
+| carVersionName  | Tên phiên bản xe            |Bắt buộc| Text             | 1,255       | VIOS 1.5.G            |
+| carCompanyId    | Id hãng xe                  |Bắt buộc| Text             | 1,255       | uuid-hang-xe          |
+| carModelId      | Id hiệu xe                  |Bắt buộc| Text             | 1,255       | uuid-hieu-xe          |
+| carVersionKey   | Key unique của phiên bản xe |Bắt buộc| Text             | 1,255       | key-version           |
+| year            | Năm sản xuất                |Bắt buộc| Number           | 1,999999    | 2011                  |
+| price           | Giá xe                      |Bắt buộc| Number           | 1,999999999 | 950000000 | 
+
+#### d. Ví dụ đầu ra
+```
+[
+    {
+        "carVersionId": "<carVersionId>",
+        "carVersionName": "Vios.1.5.G",
+        "carCompanyId": "<carCompanyId>",
+        "carModelId": "<carModelId>",
+        "carVersionKey": "toyota-vios-vios.1.5.g-2011",
+        "year": 2011,
+        "price": 237120000
+    }
+]
 ```
