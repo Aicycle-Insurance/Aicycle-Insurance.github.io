@@ -1,4 +1,4 @@
- GET                                                                                                            lign="center">
+<h1 align="center">
     <img src="https://bucket-aicycle.s3.ap-southeast-1.amazonaws.com/logo.png" style="width: 400px;height: 100px;" alt="jsdeliver"> 
 </h1>
 
