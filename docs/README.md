@@ -1201,7 +1201,6 @@ curl --location --request GET 'https://api-aws-insurance.aicycle.ai/car-info/com
 | carModelId      | Id hiệu xe                  |Bắt buộc| Text             | 1,255       | uuid-hieu-xe          |
 | carVersionKey   | Key unique của phiên bản xe |Bắt buộc| Text             | 1,255       | key-version           |
 | year            | Năm sản xuất                |Bắt buộc| Number           | 1,999999    | 2011                  |
-| price           | Giá xe                      |Bắt buộc| Number           | 1,999999999 | 950000000 | 
 
 #### d. Ví dụ đầu ra
 ```
@@ -1212,8 +1211,7 @@ curl --location --request GET 'https://api-aws-insurance.aicycle.ai/car-info/com
         "carCompanyId": "<carCompanyId>",
         "carModelId": "<carModelId>",
         "carVersionKey": "toyota-vios-vios.1.5.g-2011",
-        "year": 2011,
-        "price": 237120000
+        "year": 2011
     }
 ]
 ```
@@ -1261,7 +1259,8 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/valuation/c
 | carVersionId    | Id phiên bản xe | Bắt buộc     | Text             | 1,255       | uuid-phien-ban-xe |
 | year            | Năm sản xuất    | Bắt buộc     | Number           | 1,9999      | 2020              |
 | kmTravel        | Số km đã đi     | Tùy chọn     | Number           | 1,999999999 | 30000             |
-| price           | Giá xe          | Tùy chọn     | Number           | 1,999999999 | 300000000         |
+| minPrice        | Giá min của xe  | Tùy chọn     | Number           | 1,999999999 | 100000000         |
+| maxPrice        | Giá max của xe  | Tùy chọn     | Number           | 1,999999999 | 300000000         |
 
 #### d. Ví dụ đầu ra
 ```
@@ -1271,7 +1270,8 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/valuation/c
         "carCompanyId": "<carCompanyId>",
         "carModelId": "<carModelId>",
         "year": 2011,
-        "price": 237120000,
+        "minPrice": 220000000,
+        "maxPrice": 237120000,
         "kmTravel": 30000
     }
 ]
