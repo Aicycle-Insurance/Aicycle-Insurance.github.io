@@ -362,18 +362,19 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/claimimages
 #### b. Chi tiết đầu vào
 **Loại đầu vào**: Body
 
-|**Tên Tham số**|**Mô tả**|**Bắt buộc**|**Kiểu dữ liệu**|**Min,Max**|**Ví dụ**|
-|---|---|---|---|---|---|
-|claimId|Id của folder|Bắt buộc|Number|1,999999|123|
-|imageName|Tên ảnh|Bắt buộc|Text|1,255|INSURANCE_CLAIM/image-1.jpg|
-|filePath|Path ảnh trên s3 (lấy từ kết quả trả về  của API get imageUrl ở mục 2.2)|Bắt buộc|Text|1,255|INSURANCE_CLAIM/image-1.jpg|
-|imageRangeId|ID Loại ảnh (Toàn cảnh, trung cảnh, cận cảnh)|Bắt buộc|Number|1,9999|1|
-|partDirectionId|ID Hướng ảnh|Bắt buộc|Number|1,9999|3|
-|oldImageId|Id ảnh muốn xóa|Optional|Number|1,9999|3|
-|isClaim|True là giám định, false là cấp đơn|Bắt buộc|Boolean|n|true|
-|location | Nơi ảnh được chụp | Optional | TEXT | 1,255 | Duy Tân, Cầu Giấy, Hà Nội |
-|requestedTime | Thời gian chụp ảnh | Optional | TEXT | 1,255 | 2023-03-24 03:28:29.414232 +00:00 |
-|uploadLocation | Nơi upload ảnh để thực hiện claim | Optional | TEXT | 1,255 | Hai Bà Trưng, Hà Nội |
+| **Tên Tham số** | **Mô tả**                                                                                            |**Bắt buộc**| **Kiểu dữ liệu** | **Min,Max** | **Ví dụ**                         |
+|-----------------|------------------------------------------------------------------------------------------------------|---|------------------|-------------|-----------------------------------|
+| claimId         | Id của folder                                                                                        |Bắt buộc| Number           | 1,999999    | 123                               |
+| imageName       | Tên ảnh                                                                                              |Bắt buộc| Text             | 1,255       | INSURANCE_CLAIM/image-1.jpg       |
+| filePath        | Path ảnh trên s3 (lấy từ kết quả trả về  của API get imageUrl ở mục 2.2)                             |Bắt buộc| Text             | 1,255       | INSURANCE_CLAIM/image-1.jpg       |
+| imageRangeId    | ID Loại ảnh (Toàn cảnh, trung cảnh, cận cảnh)                                                        |Bắt buộc| Number           | 1,9999      | 1                                 |
+| partDirectionId | ID Hướng ảnh                                                                                         |Bắt buộc| Number           | 1,9999      | 3                                 |
+| oldImageId      | Id ảnh muốn xóa                                                                                      |Optional| Number           | 1,9999      | 3                                 |
+| isClaim         | True là giám định, false là cấp đơn                                                                  |Bắt buộc| Boolean          | n           | true                              |
+| location        | Nơi ảnh được chụp                                                                                    | Optional | TEXT             | 1,255       | Duy Tân, Cầu Giấy, Hà Nội         |
+| requestedTime   | Thời gian chụp ảnh                                                                                   | Optional | TEXT             | 1,255       | 2023-03-24 03:28:29.414232 +00:00 |
+| uploadLocation  | Nơi upload ảnh để thực hiện claim                                                                    | Optional | TEXT             | 1,255       | Hai Bà Trưng, Hà Nội              |
+| isValidate      | true để bật validate ảnh (ảnh chụp qua màn hình, sai góc chụp,...), false để tắt (mặc định là false) | Optional | Boolean          | n           | true                              |
 
 *Lưu ý*
 > **Các giá trị của `imageRangeId`**
