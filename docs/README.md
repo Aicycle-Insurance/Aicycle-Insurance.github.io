@@ -1259,9 +1259,10 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/valuation/c
 | carModelId      | Id hiệu xe      | Bắt buộc     | Text             | 1,255       | uuid-hieu-xe      |
 | carVersionId    | Id phiên bản xe | Bắt buộc     | Text             | 1,255       | uuid-phien-ban-xe |
 | year            | Năm sản xuất    | Bắt buộc     | Number           | 1,9999      | 2020              |
-| kmTravel        | Số km đã đi     | Tùy chọn     | Number           | 1,999999999 | 30000             |
-| minPrice        | Giá min của xe  | Tùy chọn     | Number           | 1,999999999 | 100000000         |
-| maxPrice        | Giá max của xe  | Tùy chọn     | Number           | 1,999999999 | 300000000         |
+| kmTravel        | Số km đã đi     | Bắt buộc     | Number           | 1,999999999 | 30000             |
+| minPrice        | Giá min của xe  | Bắt buộc     | Number           | 1,999999999 | 100000000         |
+| maxPrice        | Giá max của xe  | Bắt buộc     | Number           | 1,999999999 | 300000000         |
+| carValue        | Giá trị xe      | Bắt buộc     | Number           | 1,999999999 | 300000000         |
 
 #### d. Ví dụ đầu ra
 ```
@@ -1270,9 +1271,10 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/valuation/c
         "carVersionId": "<carVersionId>",
         "carCompanyId": "<carCompanyId>",
         "carModelId": "<carModelId>",
-        "year": 2011,
-        "minPrice": 220000000,
+        "year": <year>,
         "maxPrice": 237120000,
+        "carValue": 229000000,
+        "minPrice": 220000000,
         "kmTravel": 30000
     }
 ]
