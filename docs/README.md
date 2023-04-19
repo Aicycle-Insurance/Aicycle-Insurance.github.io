@@ -1208,10 +1208,10 @@ curl --location --request GET 'https://api-aws-insurance.aicycle.ai/car-info/com
 [
     {
         "carVersionId": "<carVersionId>",
-        "carVersionName": "Vios.1.5.G",
+        "carVersionName": "1.5 G",
         "carCompanyId": "<carCompanyId>",
         "carModelId": "<carModelId>",
-        "carVersionKey": "toyota-vios-vios.1.5.g-2011",
+        "carVersionKey": "toyota-vios-1.5.g-2011",
         "year": 2011
     }
 ]
