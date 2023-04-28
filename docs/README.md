@@ -1235,7 +1235,6 @@ curl --location --request GET 'https://api-aws-insurance.aicycle.ai/car-info/com
 | carModelId      | Id hiệu xe      | Bắt buộc     | Text             | 1,255       | uuid-hieu-xe      |
 | carVersionId    | Id phiên bản xe | Bắt buộc     | Text             | 1,255       | uuid-phien-ban-xe |
 | year            | Năm sản xuất    | Bắt buộc     | Number           | 1,9999      | 2020              |
-| numberOfKmTraveled | Số km đã đi     | Tùy chọn     | Number           | 1,999999999 | 30000             |
 
 **Ví dụ**
 ```
@@ -1246,8 +1245,7 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/valuation/c
     "carCompanyId": "uuid-hang-xe",
     "carModelId": "uuid-hieu-xe",
     "carVersionId": "uuid-phien-ban-xe",
-    "year": 2020,
-    "numberOfKmTraveled": 30000
+    "year": 2020
 }'
 ```
 #### c. Chi tiết đầu ra
@@ -1259,7 +1257,6 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/valuation/c
 | carModelId      | Id hiệu xe      | Bắt buộc     | Text             | 1,255       | uuid-hieu-xe      |
 | carVersionId    | Id phiên bản xe | Bắt buộc     | Text             | 1,255       | uuid-phien-ban-xe |
 | year            | Năm sản xuất    | Bắt buộc     | Number           | 1,9999      | 2020              |
-| kmTravel        | Số km đã đi     | Bắt buộc     | Number           | 1,999999999 | 30000             |
 | minPrice        | Giá min của xe  | Bắt buộc     | Number           | 1,999999999 | 100000000         |
 | maxPrice        | Giá max của xe  | Bắt buộc     | Number           | 1,999999999 | 300000000         |
 | carValue        | Giá trị xe      | Bắt buộc     | Number           | 1,999999999 | 300000000         |
@@ -1274,8 +1271,7 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/valuation/c
         "year": <year>,
         "maxPrice": 237120000,
         "carValue": 229000000,
-        "minPrice": 220000000,
-        "kmTravel": 30000
+        "minPrice": 220000000
     }
 ]
 ```
