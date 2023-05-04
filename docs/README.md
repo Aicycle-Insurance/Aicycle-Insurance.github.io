@@ -1275,3 +1275,59 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/valuation/c
     }
 ]
 ```
+### **2.8: API kiểm tra các ảnh trong folder**
+#### a. Thông tin cơ bản
+
+|||
+|----|----|
+| Method | POST |
+| API Url | https://api-aws-insurance.aicycle.ai/insurance/checkCar/{claimId} |
+| API Headers | `{ "Authorization": "Bearer $$API_KEY$$" }` |
+
+#### b. Chi tiết đầu vào
+**Loại đầu vào**: Params
+
+| **Tên Tham số** | **Mô tả** | **Bắt buộc** | **Kiểu dữ liệu** | **Min,Max** | **Ví dụ** |
+|-----------------|-----------|--------------|------------------|-------------|-----------|
+| claimId         | Id folder | Bắt buộc     | Number           | 1,999999    | 1111      |
+
+#### c. Chi tiết đầu ra
+**Loại đầu ra**: Response body
+
+| **Tên Tham số** | **Mô tả**             |**Bắt buộc**| **Kiểu dữ liệu** | **Min,Max** | **Ví dụ**    |
+|-----------------|-----------------------|--------------|------------------|-------------|--------------|
+| state           | trạng thái của folder | Bắt buộc     | Number           | 1,999999    | 1            |
+| message         | thông báo chi tiết về trạng thái của folder            | Bắt buộc     | Text             | 1,255       | Các ảnh thuộc cùng một xe |
+
+#### d. Chi tiết các state
+**Loại đầu ra**: Response body
+
+| **state** | **Mô tả** |
+|-----------| ----------- |
+| 0         |trạng thái mặc định, các ảnh thuộc cùng một xe|
+| 1         |chỉ có 1 ảnh trong folder|
+| 2         |có ít nhất 1 ảnh trong folder chụp không đúng góc|
+| 3         |các ảnh trong folder thuộc cùng một xe|
+| 4         |các ảnh trong folder không thuộc cùng một xe|
+| 5         |không nhận diện được biển số nào trong folder|
+| 6         |thư mục ảnh rỗng|
+
+#### e. Ví dụ đầu ra
+```
+{
+    state: 3,
+    message: 'Các ảnh cùng một xe'
+ } 
+
+```
+
+#### f. Ví dụ curl
+```
+curl --location --request GET 'https://api-aws-insurance.aicycle.ai/insurance/checkCar/1111' \
+--header 'Authorization: Bearer {API Key}'
+
+```
+
+
+
+
