@@ -225,6 +225,8 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/claimimages
 |damages|Chi tiết hỏng hóc|Bắt buộc|Array[damage]|n|[]|
 |errorCodeFromEngine|Mã lỗi ảnh|Bắt buộc|Number|1,999999|0|
 |message|Chi tiết lỗi ảnh|Bắt buộc|Text|1,255|Ảnh chụp qua màn hình|
+| img_size            | Kích thước ảnh               |Bắt buộc| [Number]         | 1,9999999   | [1920,1080]           |
+| extra_infor         | 1 số thông tin khác của ảnh  |Bắt buộc| Object           | n           | {}                    |
 
 *Chi tiết Object item  `carPart`*
 
@@ -241,6 +243,17 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/claimimages
 |---|---|---|---|---|---|
 |damage_type_name|Tên hỏng hóc|Bắt buộc|Text|1,255|Trầy (xước)|
 |mask_url|mask hỏng hóc|Bắt buộc|Text|1,255|...|
+
+*Chi tiết Object item `extra_info`*
+
+| **Tên Tham số** | **Mô tả**   |**Bắt buộc**| **Kiểu dữ liệu** | **Min,Max** | **Ví dụ**     |
+|-----------------|-------------|---|------------------|-------------|---------------|
+| plate_number    | Biển số xe  |Bắt buộc| Text             | 1,255       | 30A 9999      |
+| car_company     | Hãng xe     |Bắt buộc| Text             | 1,255       | TOYOTA        |
+| car_model       | Hiệu xe     |Bắt buộc| Text             | 1,255       | Vios          |
+| car_color       | Hiệu xe     |Bắt buộc| [Number]         | 1,999999    | [220,219,215] |
+| imagePosition   | Id loại ảnh |Bắt buộc| Number           | 1,3         | 1             |
+| corner_id       | Id góc chụp |Bắt buộc| Text             | 1,255       | trai-truoc-r6BEZd             |
 
 
 ***Chi tiết Bảng Mã lỗi cùng httpStatus trả về của `errorCodeFromEngine`***
@@ -260,6 +273,32 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/claimimages
 |67219|400|`{"errorCodeFromEngine": 67219, "message": "Không thể nhận diện ô tô trong ảnh. Vui lòng chụp lại"}`|Error|
 |77704|200|`{"errorCodeFromEngine": 77704, "message": "Ảnh chụp bị lóa"}`|Warning|
 |50676|400|`{"errorCodeFromEngine": 50676, "message": "Ảnh không đúng góc chụp. Vui lòng chụp lại"}`|Error|
+
+***Chi tiết bảng mã id loại ảnh***
+
+| **imagePosition** | **Loại ảnh** |
+|-------------------|--------------|
+| 1                 | Toàn cảnh    |
+| 2                 | Trung cảnh   |
+| 3                 | Cận cảnh     |
+
+
+***Chi tiết bảng mã id góc chụp***
+
+| **corner_id** | **Góc chụp** |
+|---------------|--------------|
+| truoc-sT9qgX             | Trước    |
+| 45-phai-truoc-UoYzs6             | 45° Phải - Trước   |
+| 45-trai-truoc-C1xM02            | 45° Trái - Trước     |
+| sau-htBwjB          | Sau     |
+| 45-phai-sau-fRzY3r           | 45° Phải - Sau     |
+| 45-trai-sau-1q3G3J            | 45° Trái - Sau     |
+| phai-truoc-eYWg1d            | Phải - Trước     |
+| trai-truoc-r6BEZd            | Trái - Trước     |
+| phai-sau-v1hAm6            | Phải - Sau    |
+| trai-sau-t8QgFO            | Trái - Sau    |
+| phai-4wif2Z            | phai-4wif2Z     |
+| trai-MyuVUE            | trai-MyuVUE    |
 
 
 #### d. Ví dụ đầu ra
@@ -283,7 +322,8 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/claimimages
                 "car_model": "",
                 "car_color": [222, 220,216],
                 "corner": "Trái - Trước",
-                "imagePosition": 1
+                "imagePosition": 1,
+                "corner_id": trai-truoc-r6BEZd
             },
             "car_damages": [
                 {
@@ -419,13 +459,15 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/claimimages
 #### c. Chi tiết đầu ra
 **Loại đầu ra**: Response body
 
-| **Tên Tham số**     | **Mô tả**                    |**Bắt buộc**|**Kiểu dữ liệu**|**Min,Max**| **Ví dụ**             |
-|---------------------|------------------------------|---|---|---|-----------------------|
-| car_parts           | Chi tiết bộ phận và hỏng hóc |Bắt buộc|Array[carPart]|n| []                    |
-| damages             | Chi tiết hỏng hóc            |Bắt buộc|Array[damage]|n| []                    |
-| errorCodeFromEngine | Mã lỗi ảnh                   |Bắt buộc|Number|1,999999| 0                     |
-| message             | Chi tiết lỗi ảnh             |Bắt buộc|Text|1,255| Ảnh chụp qua màn hình |
-| mask_url            | Url ảnh đã vẽ sẵn mask       |Bắt buộc|Text|1,255| {{maskUrl}}           |
+| **Tên Tham số**     | **Mô tả**                    |**Bắt buộc**| **Kiểu dữ liệu** | **Min,Max** | **Ví dụ**             |
+|---------------------|------------------------------|---|------------------|-------------|-----------------------|
+| car_parts           | Chi tiết bộ phận và hỏng hóc |Bắt buộc| Array[carPart]   | n           | []                    |
+| damages             | Chi tiết hỏng hóc            |Bắt buộc| Array[damage]    | n           | []                    |
+| errorCodeFromEngine | Mã lỗi ảnh                   |Bắt buộc| Number           | 1,999999    | 0                     |
+| message             | Chi tiết lỗi ảnh             |Bắt buộc| Text             | 1,255       | Ảnh chụp qua màn hình |
+| mask_url            | Url ảnh đã vẽ sẵn mask       |Bắt buộc| Text             | 1,255       | {{maskUrl}}           |
+| img_size            | Kích thước ảnh               |Bắt buộc| [Number]         | 1,9999999   | [1920,1080]           |
+| extra_infor         | 1 số thông tin khác của ảnh  |Bắt buộc| Object           | n           | {}                    |
 
 *Chi tiết Object item  `carPart`*
 
@@ -442,6 +484,17 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/claimimages
 |---|---|---|---|---|---|
 |damage_type_name|Tên hỏng hóc|Bắt buộc|Text|1,255|Trầy (xước)|
 |mask_url|mask hỏng hóc|Bắt buộc|Text|1,255|...|
+
+*Chi tiết Object item `extra_info`*
+
+| **Tên Tham số** | **Mô tả**   |**Bắt buộc**| **Kiểu dữ liệu** | **Min,Max** | **Ví dụ**     |
+|-----------------|-------------|---|------------------|-------------|---------------|
+| plate_number    | Biển số xe  |Bắt buộc| Text             | 1,255       | 30A 9999      |
+| car_company     | Hãng xe     |Bắt buộc| Text             | 1,255       | TOYOTA        |
+| car_model       | Hiệu xe     |Bắt buộc| Text             | 1,255       | Vios          |
+| car_color       | Hiệu xe     |Bắt buộc| [Number]         | 1,999999    | [220,219,215] |
+| imagePosition   | Id loại ảnh |Bắt buộc| Number           | 1,3         | 1             |
+| corner_id       | Id góc chụp |Bắt buộc| Text             | 1,255       | trai-truoc-r6BEZd             |
 
 
 ***Chi tiết Bảng Mã lỗi cùng httpStatus trả về của `errorCodeFromEngine`***
@@ -461,6 +514,32 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/claimimages
 |67219|400|`{"errorCodeFromEngine": 67219, "message": "Không thể nhận diện ô tô trong ảnh. Vui lòng chụp lại"}`|Error|
 |77704|200|`{"errorCodeFromEngine": 77704, "message": "Ảnh chụp bị lóa"}`|Warning|
 |50676|400|`{"errorCodeFromEngine": 50676, "message": "Ảnh không đúng góc chụp. Vui lòng chụp lại"}`|Error|
+
+***Chi tiết bảng mã id loại ảnh***
+
+| **imagePosition** | **Loại ảnh** |
+|-------------------|--------------|
+| 1                 | Toàn cảnh    |
+| 2                 | Trung cảnh   |
+| 3                 | Cận cảnh     |
+
+
+***Chi tiết bảng mã id góc chụp***
+
+| **corner_id** | **Góc chụp** |
+|---------------|--------------|
+| truoc-sT9qgX             | Trước    |
+| 45-phai-truoc-UoYzs6             | 45° Phải - Trước   |
+| 45-trai-truoc-C1xM02            | 45° Trái - Trước     |
+| sau-htBwjB          | Sau     |
+| 45-phai-sau-fRzY3r           | 45° Phải - Sau     |
+| 45-trai-sau-1q3G3J            | 45° Trái - Sau     |
+| phai-truoc-eYWg1d            | Phải - Trước     |
+| trai-truoc-r6BEZd            | Trái - Trước     |
+| phai-sau-v1hAm6            | Phải - Sau    |
+| trai-sau-t8QgFO            | Trái - Sau    |
+| phai-4wif2Z            | phai-4wif2Z     |
+| trai-MyuVUE            | trai-MyuVUE    |
 
 
 #### d. Ví dụ đầu ra
@@ -484,7 +563,8 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/claimimages
                 "car_model": "",
                 "car_color": [222, 220,216],
                 "corner": "Trái - Trước",
-                "imagePosition": 1
+                "imagePosition": 1,
+                "corner_id": trai-truoc-r6BEZd
             },
             "car_damages": [
                 {
