@@ -285,20 +285,20 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/claimimages
 
 ***Chi tiết bảng mã id góc chụp***
 
-| **corner_id** | **Góc chụp** |
-|---------------|--------------|
-| truoc-sT9qgX             | Trước    |
-| 45-phai-truoc-UoYzs6             | 45° Phải - Trước   |
-| 45-trai-truoc-C1xM02            | 45° Trái - Trước     |
-| sau-htBwjB          | Sau     |
-| 45-phai-sau-fRzY3r           | 45° Phải - Sau     |
-| 45-trai-sau-1q3G3J            | 45° Trái - Sau     |
+| **corner_id** | **Góc chụp**     |
+|---------------|------------------|
+| truoc-sT9qgX             | Trước            |
+| 45-phai-truoc-UoYzs6             | 45° Phải - Trước |
+| 45-trai-truoc-C1xM02            | 45° Trái - Trước |
+| sau-htBwjB          | Sau              |
+| 45-phai-sau-fRzY3r           | 45° Phải - Sau   |
+| 45-trai-sau-1q3G3J            | 45° Trái - Sau   |
 | phai-truoc-eYWg1d            | Phải - Trước     |
 | trai-truoc-r6BEZd            | Trái - Trước     |
-| phai-sau-v1hAm6            | Phải - Sau    |
-| trai-sau-t8QgFO            | Trái - Sau    |
-| phai-4wif2Z            | phai-4wif2Z     |
-| trai-MyuVUE            | trai-MyuVUE    |
+| phai-sau-v1hAm6            | Phải - Sau       |
+| trai-sau-t8QgFO            | Trái - Sau       |
+| phai-4wif2Z            | Phải             |
+| trai-MyuVUE            | Trái             |
 
 
 #### d. Ví dụ đầu ra
@@ -526,20 +526,20 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/claimimages
 
 ***Chi tiết bảng mã id góc chụp***
 
-| **corner_id** | **Góc chụp** |
-|---------------|--------------|
-| truoc-sT9qgX             | Trước    |
-| 45-phai-truoc-UoYzs6             | 45° Phải - Trước   |
-| 45-trai-truoc-C1xM02            | 45° Trái - Trước     |
-| sau-htBwjB          | Sau     |
-| 45-phai-sau-fRzY3r           | 45° Phải - Sau     |
-| 45-trai-sau-1q3G3J            | 45° Trái - Sau     |
+| **corner_id** | **Góc chụp**     |
+|---------------|------------------|
+| truoc-sT9qgX             | Trước            |
+| 45-phai-truoc-UoYzs6             | 45° Phải - Trước |
+| 45-trai-truoc-C1xM02            | 45° Trái - Trước |
+| sau-htBwjB          | Sau              |
+| 45-phai-sau-fRzY3r           | 45° Phải - Sau   |
+| 45-trai-sau-1q3G3J            | 45° Trái - Sau   |
 | phai-truoc-eYWg1d            | Phải - Trước     |
 | trai-truoc-r6BEZd            | Trái - Trước     |
-| phai-sau-v1hAm6            | Phải - Sau    |
-| trai-sau-t8QgFO            | Trái - Sau    |
-| phai-4wif2Z            | phai-4wif2Z     |
-| trai-MyuVUE            | trai-MyuVUE    |
+| phai-sau-v1hAm6            | Phải - Sau       |
+| trai-sau-t8QgFO            | Trái - Sau       |
+| phai-4wif2Z            | Phải             |
+| trai-MyuVUE            | Trái             |
 
 
 #### d. Ví dụ đầu ra
