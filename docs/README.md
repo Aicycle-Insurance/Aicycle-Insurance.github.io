@@ -1331,16 +1331,16 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/valuation/c
 #### c. Chi tiết đầu ra
 **Loại đầu ra**: Response body
 
-| **Tên Tham số** | **Mô tả**       |**Bắt buộc**|**Kiểu dữ liệu**|**Min,Max**| **Ví dụ**         |
-|-----------------|-----------------|--------------|------------------|-------------|-------------------|
-| carCompanyId    | Id hãng xe      | Bắt buộc     | Text             | 1,255       | uuid-hang-xe      |
-| carModelId      | Id hiệu xe      | Bắt buộc     | Text             | 1,255       | uuid-hieu-xe      |
-| carVersionId    | Id phiên bản xe | Bắt buộc     | Text             | 1,255       | uuid-phien-ban-xe |
-| year            | Năm sản xuất    | Bắt buộc     | Number           | 1,9999      | 2020              |
-| minPrice        | Giá min của xe  | Bắt buộc     | Number           | 1,999999999 | 100000000         |
-| maxPrice        | Giá max của xe  | Bắt buộc     | Number           | 1,999999999 | 300000000         |
-| carValue        | Giá trị xe      | Bắt buộc     | Number           | 1,999999999 | 300000000         |
-
+| **Tên Tham số** | **Mô tả**                                |**Bắt buộc**| **Kiểu dữ liệu** | **Min,Max** | **Ví dụ**         |
+|-----------------|------------------------------------------|--------------|------------------|-------------|-------------------|
+| carCompanyId    | Id hãng xe                               | Bắt buộc     | Text             | 1,255       | uuid-hang-xe      |
+| carModelId      | Id hiệu xe                               | Bắt buộc     | Text             | 1,255       | uuid-hieu-xe      |
+| carVersionId    | Id phiên bản xe                          | Bắt buộc     | Text             | 1,255       | uuid-phien-ban-xe |
+| year            | Năm sản xuất                             | Bắt buộc     | Number           | 1,9999      | 2020              |
+| minPrice        | Giá min của xe                           | Bắt buộc     | Number           | 1,999999999 | 100000000         |
+| maxPrice        | Giá max của xe                           | Bắt buộc     | Number           | 1,999999999 | 300000000         |
+| carValue        | Giá trị xe                               | Bắt buộc     | Number           | 1,999999999 | 300000000         |
+| isWarning       | Giá trả ra có sát với thực tế hay không? | Bắt buộc     | Boolean          | n           | true              |
 #### d. Ví dụ đầu ra
 ```
 [
@@ -1351,7 +1351,8 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/valuation/c
         "year": <year>,
         "maxPrice": 237120000,
         "carValue": 229000000,
-        "minPrice": 220000000
+        "minPrice": 220000000,
+        "isWarning": true
     }
 ]
 ```
