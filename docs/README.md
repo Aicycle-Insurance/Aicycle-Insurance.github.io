@@ -1392,6 +1392,7 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/valuation/c
 | 4         |các ảnh trong folder không thuộc cùng một xe|
 | 5         |không nhận diện được biển số nào trong folder|
 | 6         |thư mục ảnh rỗng|
+| 7         |Dòng xe chưa hỗ trợ check trùng 1 xe|
 
 #### e. Ví dụ đầu ra
 ```
