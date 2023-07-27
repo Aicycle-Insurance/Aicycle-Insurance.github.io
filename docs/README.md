@@ -45,10 +45,11 @@ https://api-aws-insurance.aicycle.ai
 #### b. Chi tiết đầu vào
 **Loại đầu vào**: Body
 
-|**Tên Tham số**|**Mô tả**|**Bắt buộc**|**Kiểu dữ liệu**|**Min,Max**|**Ví dụ**|
-|---|---|---|---|---|---|
-|claimName|Tên folder claim|Bắt buộc|Text|1,255|Folder 1|
-|vehicleBrandId|Id hãng xe|Bắt buộc|Number|1,9999|1|
+| **Tên Tham số** | **Mô tả**                            |**Bắt buộc**| **Kiểu dữ liệu** | **Min,Max** | **Ví dụ** |
+|-----------------|--------------------------------------|---|------------------|-------------|-----------|
+| claimName       | Tên folder claim                     |Bắt buộc| Text             | 1,255       | Folder 1  |
+| vehicleBrandId  | Id hãng xe                           |Bắt buộc| Number           | 1,9999      | 1         |
+| isClaim         | true là bồi thường, false là cấp đơn |Bắt buộc| Boolean          | n           | false     |
 
 **Chú thích**
 
@@ -69,7 +70,8 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/claimfolder
 --header 'Content-Type: application/json' \
 --data-raw '{
     "claimName":"34AAAAA",
-    "vehicleBrandId":"5"
+    "vehicleBrandId":"5",
+    "isClaim": false
 }'
 ```
 
