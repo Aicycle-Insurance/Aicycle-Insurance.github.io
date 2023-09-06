@@ -28,8 +28,8 @@
 - 403: Lỗi không có quyền truy cập API
 - 5XX: Lỗi xuất phát từ phía máy chủ từ AICycle, liên hê đội ngũ hỗ trợ của AICycle cùng errorId để giải quyết.
 
-### **1.3 Base Url:** 
-https://api-aws-insurance.aicycle.ai
+### **1.3 Base Url:**
+https://api.aicycle.ai/insurance
 
 **API Key:** Liên hệ đội ngũ support tích hợp của AICycle để được cấp apiKey cho tổ chức.
 
@@ -39,17 +39,16 @@ https://api-aws-insurance.aicycle.ai
 |||
 |----|----|
 | Method | POST |
-| API Url | https://api-aws-insurance.aicycle.ai/claimfolders |
+| API Url | https://api.aicycle.ai/insurance/claimfolders |
 | API Headers | `{ "Authorization": "Bearer $$apiKey$$" }` |
 
 #### b. Chi tiết đầu vào
 **Loại đầu vào**: Body
 
-| **Tên Tham số** | **Mô tả**                            |**Bắt buộc**| **Kiểu dữ liệu** | **Min,Max** | **Ví dụ** |
-|-----------------|--------------------------------------|---|------------------|-------------|-----------|
-| claimName       | Tên folder claim                     |Bắt buộc| Text             | 1,255       | Folder 1  |
-| vehicleBrandId  | Id hãng xe                           |Bắt buộc| Number           | 1,9999      | 1         |
-| isClaim         | true là bồi thường, false là cấp đơn |Bắt buộc| Boolean          | n           | false     |
+|**Tên Tham số**|**Mô tả**|**Bắt buộc**|**Kiểu dữ liệu**|**Min,Max**|**Ví dụ**|
+|---|---|---|---|---|---|
+|claimName|Tên folder claim|Bắt buộc|Text|1,255|Folder 1|
+|vehicleBrandId|Id hãng xe|Bắt buộc|Number|1,9999|1|
 
 **Chú thích**
 
@@ -65,13 +64,12 @@ https://api-aws-insurance.aicycle.ai
 
 **Ví dụ**
 ```
-curl --location --request POST 'https://api-aws-insurance.aicycle.ai/claimfolders' \
+curl --location --request POST 'https://api.aicycle.ai/insurance/claimfolders' \
 --header 'authorization: Bearer $$apiKey$$' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "claimName":"34AAAAA",
-    "vehicleBrandId":"5",
-    "isClaim": false
+    "vehicleBrandId":"5"
 }'
 ```
 
@@ -101,7 +99,7 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/claimfolder
 |||
 |----|----|
 | Method | POST |
-| API Url | https://api-aws-insurance.aicycle.ai/images/url |
+| API Url | https://api.aicycle.ai/insurance/images/url |
 | API Headers | `{ "Authorization": "Bearer $$apiKey$$" }` |
 
 #### b. Chi tiết đầu vào
@@ -113,7 +111,7 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/claimfolder
 
 **Ví dụ**
 ```
-curl --location --request POST 'https://api-aws-insurance.aicycle.ai/images/url' \
+curl --location --request POST 'https://api.aicycle.ai/insurance/images/url' \
 --header 'Authorization: Bearer $$API_KEY' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -147,7 +145,7 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/images/url'
 }
 ```
 
-	
+
 **Chú ý**
 > Sau khi call api lấy link `uploadUrl` để up ảnh. Trên postman dùng link đó với method là PUT, body dạng binary và select file ảnh trên máy để upload. Khi nhận được status là 200 (upload thành công), dùng đường link `fetchUrl` đó paste lên browser để xem kết quả
 
@@ -158,7 +156,7 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/images/url'
 |||
 |----|----|
 | Method | POST |
-| API Url | https://api-aws-insurance.aicycle.ai/claimimages/triton-assessment |
+| API Url | https://api.aicycle.ai/insurance/claimimages/triton-assessment |
 | API Headers | `{ "Authorization": "Bearer $$API_KEY$$" }` |
 
 
@@ -204,7 +202,7 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/images/url'
 
 **Ví dụ**
 ```
-curl --location --request POST 'https://api-aws-insurance.aicycle.ai/claimimages/triton-assessment' \
+curl --location --request POST 'https://api.aicycle.ai/insurance/claimimages/triton-assessment' \
 --header 'Authorization: Bearer $$API_KEY$$' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -397,7 +395,7 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/claimimages
 |||
 |----|----|
 | Method | POST |
-| API Url | https://api-aws-insurance.aicycle.ai/claimimages/triton-assessment-box |
+| API Url | https://api.aicycle.ai/insurance/claimimages/triton-assessment-box |
 | API Headers | `{ "Authorization": "Bearer $$API_KEY$$" }` |                         |
 
 
@@ -444,7 +442,7 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/claimimages
 
 **Ví dụ**
 ```
-curl --location --request POST 'https://api-aws-insurance.aicycle.ai/claimimages/triton-assessment' \
+curl --location --request POST 'https://api.aicycle.ai/insurance/claimimages/triton-assessment' \
 --header 'Authorization: Bearer $$API_KEY$$' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -640,7 +638,7 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/claimimages
 |||
 |----|----|
 | Method | POST |
-| API Url | https://api-aws-insurance.aicycle.ai/insurance/images/upload |
+| API Url | https://api.aicycle.ai/insurance/images/upload |
 | API Headers | `{ "Authorization": "Bearer $$API_KEY$$" }` |
 
 
@@ -656,7 +654,7 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/claimimages
 
 **Ví dụ**
 ```
-curl --location --request POST 'https://api-aws-insurance.aicycle.ai/insurance/images/upload' \
+curl --location --request POST 'https://api.aicycle.ai/insurance/images/upload' \
 --header 'Authorization: Bearer 2cef5:44c332de62534cdea6f3c27b7afdba0aa254f90b562c47aa9087db66764be4be' \
 --header 'Content-Type: application/json' \
 --form 'formFile=@"/home/user/Downloads/image/IMG_9917.JPG"' \
@@ -761,7 +759,7 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/insurance/i
 |||
 |----|----|
 | Method | GET |
-| API Url | https://api-aws-insurance.aicycle.ai/claimfolders/claim-results/{claimId} |
+| API Url | https://api.aicycle.ai/insurance/claimfolders/claim-results/{claimId} |
 | API Headers | `{ "Authorization": "Bearer $$apiKey$$" }` |
 
 #### b. Chi tiết đầu vào
@@ -773,7 +771,7 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/insurance/i
 
 **Ví dụ**
 ```
-curl --location --request GET 'https://api-aws-insurance.aicycle.ai/claimfolders/claim-results/2450' \
+curl --location --request GET 'https://api.aicycle.ai/insurance/claimfolders/claim-results/2450' \
 --header 'authorization: Bearer $$API_KEY$$' \
 --data-raw ''
 ```
@@ -884,7 +882,7 @@ curl --location --request GET 'https://api-aws-insurance.aicycle.ai/claimfolders
 |||
 |----|----|
 | Method | POST |
-| API Url | https://api-aws-insurance.aicycle.ai/claimfolders/{claimFolderId}/results-callback |
+| API Url | https://api.aicycle.ai/insurance/claimfolders/{claimFolderId}/results-callback |
 | API Headers | `{ "Authorization": "Bearer $$apiKey$$" }` |
 
 #### b. Chi tiết đầu vào
@@ -915,7 +913,7 @@ curl --location --request GET 'https://api-aws-insurance.aicycle.ai/claimfolders
 
 **Ví dụ**
 ```
-curl --location --request POST 'https://api-aws-insurance.aicycle.ai/claimfolders/52/results-callback' \
+curl --location --request POST 'https://api.aicycle.ai/insurance/claimfolders/52/results-callback' \
 --header 'Authorization: Bearer $$API_KEY$$' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -979,7 +977,7 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/claimfolder
 |||
 |----|----|
 | Method | GET |
-| API Url | https://api-aws-insurance.aicycle.ai/claimfolders/{claimId}/get-image-results |
+| API Url | https://api.aicycle.ai/insurance/claimfolders/{claimId}/get-image-results |
 | API Headers | `{ "Authorization": "Bearer $$apiKey$$" }` |
 
 #### b. Chi tiết đầu vào
@@ -991,7 +989,7 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/claimfolder
 
 **Ví dụ**
 ```
-curl --location --request GET 'https://api-aws-insurance.aicycle.ai/claimfolders/{claimId}/get-image-results' \
+curl --location --request GET 'https://api.aicycle.ai/insurance/claimfolders/{claimId}/get-image-results' \
 --header 'authorization: Bearer $$API_KEY$$' \
 --data-raw ''
 ```
@@ -1095,7 +1093,7 @@ curl --location --request GET 'https://api-aws-insurance.aicycle.ai/claimfolders
 |||
 |----|----|
 | Method | GET |
-| API Url | https://api-aws-insurance.aicycle.ai/car-info/company |
+| API Url | https://api.aicycle.ai/insurance/car-info/company |
 | API Headers | `{ "Authorization": "Bearer $$API_KEY$$" }` |
 
 ##### b. Chi tiết đầu vào
@@ -1151,7 +1149,7 @@ curl --location --request GET 'https://stage-api-insurance.aicycle.ai/car-info/c
 |||
 |----|----|
 | Method | GET |
-| API Url | https://api-aws-insurance.aicycle.ai/car-info/model |
+| API Url | https://api.aicycle.ai/insurance/car-info/model |
 | API Headers | `{ "Authorization": "Bearer $$API_KEY$$" }` |
 
 ##### b. Chi tiết đầu vào
@@ -1208,7 +1206,7 @@ curl --location --request GET 'https://stage-api-insurance.aicycle.ai/car-info/m
 |||
 |----|----------------------------------------------------------------------------------------------------------------|
 | Method | GET                                                                                                            |
-| API Url | https://api-aws-insurance.aicycle.ai/car-info/company/{carCompanyId}/model/{carModelId}/manufactured-years |
+| API Url | https://api.aicycle.ai/insurance/car-info/company/{carCompanyId}/model/{carModelId}/manufactured-years |
 | API Headers | `{ "Authorization": "Bearer $$API_KEY$$" }`                                                                    |
 
 #### b. Chi tiết đầu vào
@@ -1221,7 +1219,7 @@ curl --location --request GET 'https://stage-api-insurance.aicycle.ai/car-info/m
 
 **Ví dụ**
 ```
-curl --location --request GET 'https://api-aws-insurance.aicycle.ai/car-info/company/{carCompanyId}/model/{carModelId}/manufactured-years' \
+curl --location --request GET 'https://api.aicycle.ai/insurance/car-info/company/{carCompanyId}/model/{carModelId}/manufactured-years' \
 --header 'Authorization: Bearer <API Key>'
 ```
 
@@ -1250,7 +1248,7 @@ curl --location --request GET 'https://api-aws-insurance.aicycle.ai/car-info/com
 |||
 |----|----|
 | Method | POST |
-| API Url | https://api-aws-insurance.aicycle.ai/car-info/company/{carCompanyId}/model/{carModelId}/versions |
+| API Url | https://api.aicycle.ai/insurance/car-info/company/{carCompanyId}/model/{carModelId}/versions |
 | API Headers | `{ "Authorization": "Bearer $$API_KEY$$" }` |
 
 #### b. Chi tiết đầu vào
@@ -1269,7 +1267,7 @@ curl --location --request GET 'https://api-aws-insurance.aicycle.ai/car-info/com
 
 **Ví dụ**
 ```
-curl --location --request GET 'https://api-aws-insurance.aicycle.ai/car-info/company/{carCompanyId}/model/{carModelId}/versions?year=2011' \
+curl --location --request GET 'https://api.aicycle.ai/insurance/car-info/company/{carCompanyId}/model/{carModelId}/versions?year=2011' \
 --header 'Authorization: Bearer <API Key>'
 ```
 
@@ -1305,7 +1303,7 @@ curl --location --request GET 'https://api-aws-insurance.aicycle.ai/car-info/com
 |||
 |----|----|
 | Method | POST |
-| API Url | https://api-aws-insurance.aicycle.ai/valuation/car-valuate |
+| API Url | https://api.aicycle.ai/insurance/valuation/car-valuate |
 | API Headers | `{ "Authorization": "Bearer $$API_KEY$$" }` |
 
 ##### b. Chi tiết đầu vào
@@ -1320,7 +1318,7 @@ curl --location --request GET 'https://api-aws-insurance.aicycle.ai/car-info/com
 
 **Ví dụ**
 ```
-curl --location --request POST 'https://api-aws-insurance.aicycle.ai/valuation/car-valuate' \
+curl --location --request POST 'https://api.aicycle.ai/insurance/valuation/car-valuate' \
 --header 'Authorization: Bearer <API Key>' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -1364,7 +1362,7 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/valuation/c
 |||
 |----|----|
 | Method | POST |
-| API Url | https://api-aws-insurance.aicycle.ai/insurance/checkCar/{claimId} |
+| API Url | https://api.aicycle.ai/insurance/checkCar/{claimId} |
 | API Headers | `{ "Authorization": "Bearer $$API_KEY$$" }` |
 
 #### b. Chi tiết đầu vào
@@ -1394,7 +1392,6 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/valuation/c
 | 4         |các ảnh trong folder không thuộc cùng một xe|
 | 5         |không nhận diện được biển số nào trong folder|
 | 6         |thư mục ảnh rỗng|
-| 7         |Dòng xe chưa hỗ trợ check trùng 1 xe|
 
 #### e. Ví dụ đầu ra
 ```
@@ -1407,7 +1404,7 @@ curl --location --request POST 'https://api-aws-insurance.aicycle.ai/valuation/c
 
 #### f. Ví dụ curl
 ```
-curl --location --request GET 'https://api-aws-insurance.aicycle.ai/insurance/checkCar/1111' \
+curl --location --request GET 'https://api.aicycle.ai/insurance/checkCar/1111' \
 --header 'Authorization: Bearer {API Key}'
 
 ```
