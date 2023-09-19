@@ -1297,7 +1297,7 @@ curl --location --request GET 'https://api.aicycle.ai/insurance/car-info/company
 ]
 ```
 
-#### **2.7.5: API định giá xe**
+#### **2.7.5: API định giá xe (v1)**
 ##### a. Thông tin cơ bản
 
 |||
@@ -1341,6 +1341,12 @@ curl --location --request POST 'https://api.aicycle.ai/insurance/valuation/car-v
 | maxPrice        | Giá max của xe                                                    | Bắt buộc     | Number           | 1,999999999 | 300000000         |
 | carValue        | Giá trị xe                                                        | Bắt buộc     | Number           | 1,999999999 | 300000000         |
 | isWarning       | Thông tin về dòng xe này trên thị trường có đang thiếu hay không? | Bắt buộc     | Boolean          | n           | true              |
+| listedPrice        | Giá xe niêm yết                                                   | Bắt buộc     | Number           | 1,999999999        | 320000000         |
+| minListedPrice     | Giá trị min của giá niêm yết                                      | Bắt buộc     | Number          | 1,999999999        | 305000000         |
+| maxListedPrice     | Giá trị max của giá niêm yết                                      | Bắt buộc     | Number          | 1,999999999        | 330000000         |
+| hanoiOnRoadPrice   | Gía lăn bánh tại Hà Nội                                           | Bắt buộc     | Number          | 1,999999999        | 323000000         |
+| hcmOnRoadPrice     | Gía lăn bánh tại TP HCM                                           | Bắt buộc     | Number          | 1,999999999        | 323000000         |
+| generalOnRoadPrice | Gía lăn bánh tại các tỉnh khác                                    | Bắt buộc     | Number          | 1,999999999        | 323000000         |
 #### d. Ví dụ đầu ra
 ```
 [
@@ -1349,10 +1355,87 @@ curl --location --request POST 'https://api.aicycle.ai/insurance/valuation/car-v
         "carCompanyId": "<carCompanyId>",
         "carModelId": "<carModelId>",
         "year": <year>,
-        "maxPrice": 237120000,
-        "carValue": 229000000,
-        "minPrice": 220000000,
-        "isWarning": true
+        "maxPrice": 679943600,
+        "carValue": 601720000,
+        "minPrice": 559599600,
+        "isWarning": true,
+        "listedPrice": 710000000,
+        "minListedPrice": 674500000,
+        "maxListedPrice": 816500000,
+        "hanoiOnRoadPrice": 732380000,
+        "generalOnRoadPrice": 713380000,
+        "hcmOnRoadPrice": 732380000
+    }
+]
+```
+#### **2.7.5: API định giá xe (v3)**
+##### a. Thông tin cơ bản
+
+||                                                          |
+|----|----------------------------------------------------------|
+| Method | POST                                                     |
+| API Url | https://api.aicycle.ai/insurance/valuation/v3/car-valuate |
+| API Headers | `{ "Authorization": "Bearer $$API_KEY$$" }`              |
+
+##### b. Chi tiết đầu vào
+**Loại đầu vào**: Body
+
+| **Tên Tham số** | **Mô tả**         | **Bắt buộc** | **Kiểu dữ liệu** | **Min,Max** | **Ví dụ**         |
+|-----------------|-------------------|--------------|------------------|-------------|-------------------|
+| companyCode     | Code hãng xe      | Tùy chọn     | Text             | 1,255       | BMW      |
+| modelCode       | Code hiệu xe      | Tùy chọn     | Text             | 1,255       | BMW01      |
+| versionCode     | Code phiên bản xe | Bắt buộc     | Text             | 1,255       | BMW02006 |
+| year            | Năm sản xuất      | Bắt buộc     | Number           | 1,9999      | 2020              |
+
+**Ví dụ**
+```
+curl --location 'https://api.aicycle.ai/insurance/valuation/v3/car-valuate' \
+--header 'Authorization: Bearer <API Key>' \
+--header 'Content-Type: application/json' \
+--data '{
+    "companyCode": "BMW",
+    "modelCode": "BMW01",
+    "versionCode": "BMW02006",
+    "year": 2021
+}'
+```
+#### c. Chi tiết đầu ra
+**Loại đầu ra**: Response body
+
+| **Tên Tham số**    | **Mô tả**                                                         | **Bắt buộc** | **Kiểu dữ liệu** | **Min,Max** | **Ví dụ**         |
+|--------------------|-------------------------------------------------------------------|--------------|------------------|---------|-------------------|
+| companyCode        | Mã hãng xe của tổ chức                                            | Tùy chọn     | Text             | 1,255   | code-hang-xe      |
+| modelCode          | Mã hiệu xe của tổ chức                                                       | Tùy chọn     | Text             | 1,255   | code-hieu-xe      |
+| versionCode        | Mã phiên bản xe của tổ chức                                                  | Bắt buộc     | Text             | 1,255   | code-phien-ban-xe |
+| year               | Năm sản xuất                                                      | Bắt buộc     | Number           | 1,9999  | 2020              |
+| minPrice           | Giá min của xe                                                    | Bắt buộc     | Number           | 1,999999999 | 100000000         |
+| maxPrice           | Giá max của xe                                                    | Bắt buộc     | Number           | 1,999999999 | 300000000         |
+| carValue           | Giá trị xe                                                        | Bắt buộc     | Number           | 1,999999999 | 300000000         |
+| isWarning          | Thông tin về dòng xe này trên thị trường có đang thiếu hay không? | Bắt buộc     | Boolean          | n       | true              |
+| listedPrice        | Giá xe niêm yết                                                   | Bắt buộc     | Number           | 1,999999999        | 320000000         |
+| minListedPrice     | Giá trị min của giá niêm yết                                      | Bắt buộc     | Number          | 1,999999999        | 305000000         |
+| maxListedPrice     | Giá trị max của giá niêm yết                                      | Bắt buộc     | Number          | 1,999999999        | 330000000         |
+| hanoiOnRoadPrice   | Gía lăn bánh tại Hà Nội                                           | Bắt buộc     | Number          | 1,999999999        | 323000000         |
+| hcmOnRoadPrice     | Gía lăn bánh tại TP HCM                                           | Bắt buộc     | Number          | 1,999999999        | 323000000         |
+| generalOnRoadPrice | Gía lăn bánh tại các tỉnh khác                                    | Bắt buộc     | Number          | 1,999999999        | 323000000         |
+#### d. Ví dụ đầu ra
+```
+[
+    {
+        "companyCode": "<companyCode>",
+        "modelCode": "<modelCode>",
+        "versionCode": "<versionCode>",
+        "year": <year>,
+        "maxPrice": 679943600,
+        "carValue": 601720000,
+        "minPrice": 559599600,
+        "isWarning": true,
+        "listedPrice": 710000000,
+        "minListedPrice": 674500000,
+        "maxListedPrice": 816500000,
+        "hanoiOnRoadPrice": 732380000,
+        "generalOnRoadPrice": 713380000,
+        "hcmOnRoadPrice": 732380000
     }
 ]
 ```
