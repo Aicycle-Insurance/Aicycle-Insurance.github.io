@@ -38,7 +38,7 @@ https://api-aws-insurance.aicycle.ai
 |||
 |----|----|
 | Method | POST |
-| API Url | https://api-aws-insurance.aicycle.ai/claimfolders |
+| API Url | https://api.aicycle.ai/insurance/claimfolders |
 | API Headers | `{ "Authorization": "Bearer $$APIKEY$$" }` |
 
 #### b. Input Details
@@ -46,8 +46,7 @@ https://api-aws-insurance.aicycle.ai
 
 |**ParamName**|**Description**|**IsRequired**|**DataType**|**Min,Max**|**Sample Data**|
 |---|---|---|---|---|---|
-|claimName|The Claim Folder name|Yes|Text|1,255|My Test Folder 1|
-|vehicleBrandId|ID of vehicle brand name in AICycle system|Yes|Number|1,9999|1|
+|claimName|The Claim Folder name or partner's folder code|Yes|Text|1,255|My Test Folder 1|
 
 **Note**
 
