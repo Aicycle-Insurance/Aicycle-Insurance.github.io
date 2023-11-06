@@ -73,6 +73,7 @@ curl --location 'https://api.aicycle.ai/insurance/valuation/v3/car-valuate' \
 [<ValuationResult>]
 ```
 *Chi tiết Object item `ValuationResult`*
+
 | **Tên Tham số**    | **Mô tả**                                                         | **Bắt buộc** | **Kiểu dữ liệu** | **Min,Max** | **Ví dụ**         |
 |--------------------|-------------------------------------------------------------------|--------------|------------------|---------|-------------------|
 | companyCode        | Mã hãng xe của tổ chức                                            | Tùy chọn     | Text             | 1,255   | code-hang-xe      |
