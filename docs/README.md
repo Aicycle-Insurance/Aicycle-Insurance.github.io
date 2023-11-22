@@ -463,7 +463,7 @@ curl --location --request POST 'https://api.aicycle.ai/insurance/claimfolders' \
 
 |**Tên Tham số**|**Mô tả**|**Bắt buộc**|**Kiểu dữ liệu**|**Min,Max**|**Ví dụ**|
 |---|---|---|---|---|---|
-|filePaths|Đường dẫn file trên S3|Optional|Text|1,100|INSURANCE_CLAIM/image-1.jpg|
+|filePaths|Đường dẫn file trên S3|Optional|Array[Text]|1,100|["INSURANCE_CLAIM/image-1.jpg", "INSURANCE_CLAIM/image-2.jpg"]|
 
 **Ví dụ**
 ```
@@ -471,7 +471,7 @@ curl --location --request POST 'https://api.aicycle.ai/insurance/images/url' \
 --header 'Authorization: Bearer $$API_KEY' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-    "filePaths": "INSURANCE_CLAIM/image-1.jpg"
+    "filePaths": ['INSURANCE_CLAIM/image-1.jpg', 'INSURANCE_CLAIM/image-2.jpg']
 }'
 ```
 
@@ -481,19 +481,26 @@ curl --location --request POST 'https://api.aicycle.ai/insurance/images/url' \
 
 |**Tên Tham số**|**Mô tả**|**Bắt buộc**|**Kiểu dữ liệu**|**Min,Max**|**Ví dụ**|
 |---|---|---|---|---|---|
-|urls|Url upload và lấy image trên s3|Bắt buộc|Object|1,255|INSURANCE_CLAIM/image-1.jpg|
-|urls.fetchUrl|Url lấy ảnh|Bắt buộc|Text|1,255|https://dyta7vmv7sqle.cloudfront.net/INSURANCE_CLAIM/image-1.jpg|
-|urls.uploadUrl|Url upload ảnh|Bắt buộc|Text|1,255|https://dyta7vmv7sqle.cloudfront.net/INSURANCE_CLAIM/image-1.jpg|
-|urls.filePath|filePath dùng để call engine|Bắt buộc|Text|1,255|INSURANCE/image-1.jpg|
+|urls[]|Array Urls upload và lấy image trên s3|Bắt buộc|Object|1,255|INSURANCE_CLAIM/image-1.jpg|
+|urls[n].fetchUrl|Url lấy ảnh|Bắt buộc|Text|1,255|https://dyta7vmv7sqle.cloudfront.net/INSURANCE_CLAIM/image-1.jpg|
+|urls[n].uploadUrl|Url upload ảnh|Bắt buộc|Text|1,255|https://dyta7vmv7sqle.cloudfront.net/INSURANCE_CLAIM/image-1.jpg|
+|urls[n].filePath|filePath dùng để call engine|Bắt buộc|Text|1,255|INSURANCE/image-1.jpg|
 
 #### d. Ví dụ đầu ra
 ```
 {
-    "urls": {
-        "fetchUrl": "https://dyta7vmv7sqle.cloudfront.net/INSURANCE_CLAIM/quang-6.jpg",
-        "uploadUrl": "https://dyta7vmv7sqle.cloudfront.net/INSURANCE_CLAIM/quang-6.jpg",
-        “filePath": “INSURANCE/image-1.jpg”
-    },
+    "urls": [
+        {
+            "fetchUrl": "https://dyta7vmv7sqle.cloudfront.net/INSURANCE_CLAIM/quang-6.jpg",
+            "uploadUrl": "https://dyta7vmv7sqle.cloudfront.net/INSURANCE_CLAIM/quang-6.jpg",
+            “filePath": “INSURANCE/image-1.jpg”
+        },
+        {
+            "fetchUrl": "https://dyta7vmv7sqle.cloudfront.net/INSURANCE_CLAIM/quang-6.jpg",
+            "uploadUrl": "https://dyta7vmv7sqle.cloudfront.net/INSURANCE_CLAIM/quang-6.jpg",
+            “filePath": “INSURANCE/image-2.jpg”
+        }
+    ],
     "msg": "Get url image success",
     "status": "success"
 }
