@@ -69,8 +69,8 @@ curl --location 'https://api.aicycle.ai/insurance/valuation/v3/car-valuate' \
 ```
 #### c. Chi tiết đầu ra
 **HTTP Status trả về**
-| **HTTP Status Code**    | **Mô tả**  |
-|--------------------|----------------------------------|
+| **HTTP Status Code** | **Mô tả**  |
+|----------------------|------------|
 | 200        | Định giá thành công |
 | 400        | Định giá không thành công (do sai dữ liệu đầu vào) |
 | 401        | Sai thông tin xác thực |
