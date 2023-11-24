@@ -50,10 +50,12 @@ https://api.aicycle.ai/insurance
 
 | **Tên Tham số** | **Mô tả**         | **Bắt buộc** | **Kiểu dữ liệu** | **Min,Max** | **Ví dụ**         |
 |-----------------|-------------------|--------------|------------------|-------------|-------------------|
-| companyCode     | Code hãng xe      | Tùy chọn     | Text             | 1,255       | BMW      |
-| modelCode       | Code hiệu xe      | Tùy chọn     | Text             | 1,255       | BMW01      |
-| versionCode     | Code phiên bản xe | Bắt buộc     | Text             | 1,255       | BMW02006 |
-| year            | Năm sản xuất      | Bắt buộc     | Number           | 1,9999      | 2020              |
+| **versionCode**     | **Code phiên bản xe** | **Bắt buộc**     | **Text**             | **1,255**       | **BMW02006** |
+| year            | Năm sản xuất      |   Tùy chọn  | Number           | 1,9999      | 2020              |
+| vinCode            | Thông tin số khung (số VIN) |   Tùy chọn  | Text           | 1,9999      | VNICODETOY211       |
+| gearBox            | Hộp số  |   Tùy chọn  | Text           | 1,9999      | AT       |
+| wheelDrive            | Dẫn động |   Tùy chọn  | Text           | 1,9999      | 4WD  |
+| engineCapacity    | Dung tích động cơ |   Tùy chọn  | Float       | 1,9999      | 1.5  |
 
 **Ví dụ**
 ```
@@ -61,14 +63,62 @@ curl --location 'https://api.aicycle.ai/insurance/valuation/v3/car-valuate' \
 --header 'Authorization: Bearer <API Key>' \
 --header 'Content-Type: application/json' \
 --data '{
-    "companyCode": "BMW",
-    "modelCode": "BMW01",
     "versionCode": "BMW02006",
     "year": 2021
 }'
 ```
 #### c. Chi tiết đầu ra
-**Loại đầu ra**: Response body
+**HTTP Status trả về**
+| **HTTP Status Code**    | **Mô tả**  |
+|--------------------|----------------------------------|
+| 200        | Định giá thành công |
+| 400        | Định giá không thành công (do sai dữ liệu đầu vào) |
+| 401        | Sai thông tin xác thực |
+| 500        | Lỗi từ hệ thống AICycle (liên hệ AIC Customer Support với) |
+
+**Loại đầu ra khi định giá không thành công (HTTP 4xx)**: Response body
+Khi các mã codebook không tồn tại:
+```
+{
+    "message": "This version not support versionCode (TOYAVA0111NK)",
+    "name": "BadRequestError",
+    "status": 400,
+    "traceId": "6ae1188803e4aebc9bb7ade579994fc3"
+}
+```
+Khi codebook đúng mà sai năm:
+```
+{
+    "message": "This version not support year (2020)",
+    "name": "BadRequestError",
+    "status": 400,
+    "errors": null,
+    "listAvailableYears": [
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2011,
+        2012,
+        2013,
+        2013,
+        2014,
+        2014,
+        2015
+    ],
+    "traceId": "d097a03a9e03e50ef7925b72bdeef9a8"
+}
+```
+Khi sai token (401):
+```
+{
+    "message": "Api token is required.",
+    "traceId": "1716f059b256f097771ceba42667f3c6"
+}
+```
+
+**Loại đầu ra khi định giá thành công (HTTP 200)**: Response body
 ```
 [<ValuationResult>]
 ```
@@ -90,6 +140,7 @@ curl --location 'https://api.aicycle.ai/insurance/valuation/v3/car-valuate' \
 | hanoiOnRoadPrice   | Gía lăn bánh tại Hà Nội                                           | Bắt buộc     | Number          | 1,999999999        | 323000000         |
 | hcmOnRoadPrice     | Gía lăn bánh tại TP HCM                                           | Bắt buộc     | Number          | 1,999999999        | 323000000         |
 | generalOnRoadPrice | Gía lăn bánh tại các tỉnh khác                                    | Bắt buộc     | Number          | 1,999999999        | 323000000         |
+| listAvailableYears | Danh sách các năm gợi ý hợp lệ cho CodeBook hiện tại                   | Bắt buộc     | Array[Number]          | 1,999999999        | [2020,2021]         |
 #### d. Ví dụ đầu ra
 ```
 [
@@ -107,7 +158,21 @@ curl --location 'https://api.aicycle.ai/insurance/valuation/v3/car-valuate' \
         "maxListedPrice": 816500000,
         "hanoiOnRoadPrice": 732380000,
         "generalOnRoadPrice": 713380000,
-        "hcmOnRoadPrice": 732380000
+        "hcmOnRoadPrice": 732380000,
+        "listAvailableYears": [
+            2006,
+            2007,
+            2008,
+            2009,
+            2010,
+            2011,
+            2012,
+            2013,
+            2013,
+            2014,
+            2014,
+            2015
+        ]
     }
 ]
 ```
