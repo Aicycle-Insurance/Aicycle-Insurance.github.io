@@ -35,7 +35,7 @@ https://api.aicycle.ai/insurance
 
 ## **2. APIs tích hợp ValueMe**
 ### 2.1: Flow tích hợp giữa các đối tác và AICycle
-![alt text](https://drive.google.com/uc?id=17vpFwMIM6yqLUx5iA7HOOj-QeqcwVqVd)
+![alt text](https://dyta7vmv7sqle.cloudfront.net/AICycle-flow-client.png)
 ### **2.2: API định giá xe v3 (sử dụng CodeBook hãng hiệu và phiên bản của đối tác)**
 #### a. Thông tin cơ bản
 
@@ -460,7 +460,9 @@ curl --location --request POST 'https://api.aicycle.ai/insurance/valuation/car-v
 
 ## **3. APIs tích hợp BuyMe**
 ### **3.1: Flow diagram tích hợp cho BuyMe realtime**
-![alt text](https://drive.google.com/uc?id=1anBAk9Z3eyEZKY2huJNhJAvsRs_aS6Aq)
+![Alt text](https://dyta7vmv7sqle.cloudfront.net/AICycle-flow.png "a title")
+
+
 ### **3.2: Tạo mới hồ sơ (claimFolder)**
 #### a. Thông tin cơ bản
 |||
@@ -650,6 +652,7 @@ curl --location --request POST 'https://api.aicycle.ai/insurance/v2/buy-me/proce
 }
 ```
 *Chi tiết Object item  `Image`*
+
 | **Tên Tham số**     | **Mô tả**            |**Bắt buộc**| **Kiểu dữ liệu** | **Min,Max** | **Ví dụ** |
 |---------------------|----------------------|---|------------------|-------------|---------|
 | imgSize             | Kích thước ảnh       |Bắt buộc| Array[number]    | n           | [1920, 1080] |
@@ -657,7 +660,7 @@ curl --location --request POST 'https://api.aicycle.ai/insurance/v2/buy-me/proce
 | errorCodeFromEngine | Mã lỗi ảnh           |Bắt buộc| Number           | 1,999999    | 0       |
 | message             | Chi tiết lỗi ảnh     |Bắt buộc| Text             | 1,255       | Ảnh chụp qua màn hình |
 | damages             | Các hỏng hóc của ảnh |Bắt buộc| Array[damage]    | n           |         |
-| carParts            | Các bộ phận của ảnh  |Bắt buộc| Array[carPart]   | n           |         |
+| carParts            | Các bộ phận của ảnh  |Bắt buộc| Array[carPart]   | n           |    |
 
 *Chi tiết Object item  `carPart`*
 
@@ -944,6 +947,7 @@ curl --location --request GET 'https://api.aicycle.ai/insurance/claimfolders/{cl
 ```
 
 *Chi tiết Object item `Image`*
+
 | **Tên Tham số** | **Mô tả**         |**Bắt buộc**| **Kiểu dữ liệu**  | **Min,Max** | **Ví dụ**   |
 |-----------------|-------------------|---|-------------------|-------------|-------------|
 | url             | Link ảnh          |Bắt buộc| Text              | 1,255       | {{imgUrl}}  |
@@ -1156,6 +1160,7 @@ curl --location --request POST 'https://api.aicycle.ai/insurance/claimfolders/52
 
 *Chi tiết Object item `damage`*
 
+
 |**Tên Tham số**|**Mô tả**| **Bắt buộc** | **Kiểu dữ liệu** | **Min,Max** | **Ví dụ** |
 |---|---|--------------|------|-----|----------|
 |damageId|ID hỏng hóc| Bắt buộc     | TEXT | 1,255 | 123      |
@@ -1263,6 +1268,7 @@ curl --location --request POST 'https://api.aicycle.ai/insurance/v2/claim-me/pro
 ```
 
 *Chi tiết Object item `Image`*
+
 | **Tên Tham số**     | **Mô tả**            |**Bắt buộc**| **Kiểu dữ liệu** | **Min,Max** | **Ví dụ** |
 |---------------------|----------------------|---|------------------|-------------|---------|
 | imgSize             | Kích thước ảnh       |Bắt buộc| Array[number]    | n           | [1920, 1080] |
