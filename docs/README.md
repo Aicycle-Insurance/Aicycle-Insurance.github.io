@@ -474,13 +474,13 @@ curl --location --request POST 'https://api.aicycle.ai/insurance/valuation/car-v
 #### b. Chi tiết đầu vào
 **Loại đầu vào**: Body
 
-|**Tên Tham số**|**Mô tả**|**Bắt buộc**|**Kiểu dữ liệu**|**Min,Max**|**Ví dụ**|
-|---|---|---|---|---|---|
-|claimName|Mã hồ sơ của đối tác|Bắt buộc|Text|1,255|Folder-1|
-|vehicleBrandName|Tên hãng xe của hồ sơ||Text|1,255|mazda|
-|vehicleModel|Tên hiệu xe của hồ sơ||Text|1,255|mazda.3_sedan|
-|vehicleSpec|Tên phiên bản xe của hồ sơ||Text|1,255|luxury_1_5l_at|
-|vehicleLicensePlates|Tên hãng xe của hồ sơ||Text|1,255|30H84142|
+|**Tên Tham số**| **Mô tả**                  |**Bắt buộc**|**Kiểu dữ liệu**|**Min,Max**|**Ví dụ**|
+|---|----------------------------|---|---|---|---|
+|claimName| Mã hồ sơ của đối tác       |Bắt buộc|Text|1,255|Folder-1|
+|vehicleBrandName| Tên hãng xe của hồ sơ      ||Text|1,255|mazda|
+|vehicleModel| Tên hiệu xe của hồ sơ      ||Text|1,255|mazda.3_sedan|
+|vehicleSpec| Tên phiên bản xe của hồ sơ ||Text|1,255|luxury_1_5l_at|
+|vehicleLicensePlates| Biển số xe của hồ sơ       ||Text|1,255|30H84142|
 
 **Ví dụ**
 ```
