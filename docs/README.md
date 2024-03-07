@@ -1309,12 +1309,14 @@ curl --location --request GET 'https://api.aicycle.ai/insurance/car-info/company
 ##### b. Chi tiết đầu vào
 **Loại đầu vào**: Body
 
-| **Tên Tham số** | **Mô tả**       | **Bắt buộc** | **Kiểu dữ liệu** | **Min,Max** | **Ví dụ**         |
-|-----------------|-----------------|--------------|------------------|-------------|-------------------|
-| carCompanyId    | Id hãng xe      | Bắt buộc     | Text             | 1,255       | uuid-hang-xe      |
-| carModelId      | Id hiệu xe      | Bắt buộc     | Text             | 1,255       | uuid-hieu-xe      |
-| carVersionId    | Id phiên bản xe | Bắt buộc     | Text             | 1,255       | uuid-phien-ban-xe |
-| year            | Năm sản xuất    | Bắt buộc     | Number           | 1,9999      | 2020              |
+| **Tên Tham số** | **Mô tả**           | **Bắt buộc** | **Kiểu dữ liệu** | **Min,Max**  | **Ví dụ**         |
+|-----------------|---------------------|--------------|------------------|--------------|-------------------|
+| carCompanyId    | Id hãng xe          | Bắt buộc     | Text             | 1,255        | uuid-hang-xe      |
+| carModelId      | Id hiệu xe          | Bắt buộc     | Text             | 1,255        | uuid-hieu-xe      |
+| carVersionId    | Id phiên bản xe     | Bắt buộc     | Text             | 1,255        | uuid-phien-ban-xe |
+| year            | Năm sản xuất        | Bắt buộc     | Number           | 1,9999       | 2020              |
+| option          | Option riêng của xe | Optional     | Text             | 1,255        | pin               |
+| carStatus       | Tình trạng xe       | Optional     | Text             | 1,255        | old               |
 
 **Ví dụ**
 ```
