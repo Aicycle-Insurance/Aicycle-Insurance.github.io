@@ -386,7 +386,7 @@ curl --location --request GET 'https://api.aicycle.ai/insurance/car-info/company
 ]
 ```
 
-### **2.6: API yêu cầu mở mới codebook**
+### **2.7: API yêu cầu mở mới codebook**
 #### a. Thông tin cơ bản
 
 ||                                                    |
@@ -446,7 +446,7 @@ curl --location 'https://api.aicycle.ai/insurance/codebook-requests' \
 | 401   | Lỗi thông tin xác thực hoặc ủy quyền             |
 | 500   | Lỗi từ hệ thống API             |
 
-### **3.5: API định giá xe v1 (sử dụng CodeBook hãng hiệu và phiên bản của AICycle) (deprecated)**
+### **2.8: API định giá xe v1 (sử dụng CodeBook hãng hiệu và phiên bản của AICycle) (deprecated)**
 #### a. Thông tin cơ bản
 
 |||
@@ -520,7 +520,7 @@ curl --location --request POST 'https://api.aicycle.ai/insurance/valuation/car-v
 ]
 ```
 
-## **3. APIs tích hợp BuyMe**
+## **3. APIs tích hợp BuyMe/ClaimMe**
 ### **3.1: Flow diagram tích hợp cho BuyMe realtime**
 ![Alt text](https://dyta7vmv7sqle.cloudfront.net/AICycle-flow.png "a title")
 
@@ -977,7 +977,7 @@ curl --location --request GET 'https://api.aicycle.ai/insurance/claimfolders/cla
 }
 ```
 
-### **3.7: API lấy kết quả Hồ sơ (nhóm theo ảnh)**
+### **3.6: API lấy kết quả Hồ sơ (nhóm theo ảnh)**
 #### a. Thông tin cơ bản
 |||
 |----|----|
@@ -1100,7 +1100,7 @@ curl --location --request GET 'https://api.aicycle.ai/insurance/claimfolders/{cl
  }       
 ```
 
-### **3.8: API kiểm tra các ảnh trong Hồ sơ**
+### **3.7: API kiểm tra các ảnh trong Hồ sơ**
 #### a. Thông tin cơ bản
 
 |||
@@ -1154,7 +1154,7 @@ curl --location --request GET 'https://api.aicycle.ai/insurance/checkCar/1111' \
 ```
 
 
-### **3.9: API callback lưu kết quả từ khách hàng**
+### **3.8: API callback lưu kết quả từ khách hàng**
 #### a. Thông tin cơ bản
 
 |||
@@ -1250,7 +1250,7 @@ curl --location --request POST 'https://api.aicycle.ai/insurance/claimfolders/52
 }
 ```
 
-## 3. APIs tích hợp Claim Me
+### 3.9 APIs tích hợp Claim Me
 ##### a. Thông tin cơ bản
 
 ||                                                      |
