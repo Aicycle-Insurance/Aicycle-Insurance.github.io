@@ -386,6 +386,66 @@ curl --location --request GET 'https://api.aicycle.ai/insurance/car-info/company
 ]
 ```
 
+### **2.6: API yêu cầu mở mới codebook**
+#### a. Thông tin cơ bản
+
+||                                                    |
+|----|----------------------------------------------------|
+| Method | POST                                               |
+| API Url | https://api.aicycle.ai/insurance/codebook-requests |
+| API Headers | `{ "Authorization": "Bearer $$API_KEY$$" }`        |
+
+#### b. Chi tiết đầu vào
+**Loại đầu vào**: Body
+
+| **Tên Tham số** | **Mô tả**         | **Bắt buộc** | **Kiểu dữ liệu** | **Min,Max** | **Ví dụ** |
+|-----------------|-------------------|--------------|------------------|-------------|-----------|
+| carCompanyName    | Tên hãng xe       | Bắt buộc     | Text             | 1,255       | TOYOTA    |
+| carCompanyCode   | Code hãng xe      | Tùy chọn     | Text             | 1,255       | TOY       |
+| carModelName   | Tên hiệu xe       | Bắt buộc     | Text             | 1,255       | FORTUNER  |
+| carModelCode   | Code hiệu xe      | Tùy chọn     | Text             | 1,255       | TOY03     |
+| carVersionName   | Tên phiên bản     | Bắt buộc     | Text             | 1,255       | 3.0 V     |
+| carVersionCode   | Code phiên bản    | Tùy chọn     | Text             | 1,255       | TOY03011  |
+| option   | Option riêng      | Tùy chọn     | Text             | 1,255       | PIN       |
+| carType   | Kiểu xe           | Tùy chọn     | Text             | 1,255       | SUV       |
+| carGearBox   | Hộp số            | Tùy chọn     | Text             | 1,255       | AT        |
+| engineCapacity   | Dung tích động cơ | Tùy chọn     | Number             | 1,9999       | 2.7       |
+| numOfSeat   | Số chỗ ngồi       | Tùy chọn     | Number             | 1,9999       | 7         |
+| carFuel   | Nhiên liệu        | Tùy chọn     | Text             | 1,255       | Xăng      |
+| carWheelDrive   | Dẫn động          | Tùy chọn     | Text             | 1,255       | RFD       |
+
+**Ví dụ**
+```
+curl --location 'https://api.aicycle.ai/insurance/codebook-requests' \
+--header 'Authorization: Bearer <API Key> \
+--header 'Content-Type: application/json' \
+--data '{
+    "carCompanyName": "TOYOTA",
+    "carCompanyCode": "TOY",
+    "carModelName": "FORTUNER",
+    "carModelCode": "TOY03",
+    "carVersionName": "3.0 V",
+    "carVersionCode": "TOY03011",
+    "option": "PIN",
+    "carType": "SUV",
+    "carGearBox": "AT",
+    "engineCapacity": 2.7,
+    "numOfSeat": 7,
+    "carFuel": "Xăng",
+    "carWheelDrive": "RFD"
+}'
+```
+
+#### c. Chi tiết đầu ra
+**Loại đầu ra**: StatusCode
+
+| **Code**       | **Mô tả**                   |
+|----------------|-----------------------------|
+| 201   | Tạo request codebook thành công             |
+| 400   | Lỗi request từ client, review lại request và thử lại             |
+| 401   | Lỗi thông tin xác thực hoặc ủy quyền             |
+| 500   | Lỗi từ hệ thống API             |
+
 ### **3.5: API định giá xe v1 (sử dụng CodeBook hãng hiệu và phiên bản của AICycle) (deprecated)**
 #### a. Thông tin cơ bản
 
