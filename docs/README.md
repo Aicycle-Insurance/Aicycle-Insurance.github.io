@@ -660,6 +660,7 @@ curl --location --request POST 'https://api.aicycle.ai/insurance/images/url' \
 | position        | Slug Loại ảnh (Toàn cảnh, trung cảnh, cận cảnh)                          | Bắt buộc | Text             | 1,255       | toan-canh-afh4l5 |
 | direction       | Slug Hướng ảnh                                                           | Bắt buộc | Text             | 1,255       | 45-trai-truoc-C1xM02 |
 | oldImageId      | Id ảnh cũ muốn xóa                                                       | Optional | Number           | 1,9999      | 3 |
+| vehicleType     | Loại xe muốn engine detect (xe tải, xe con)                              | Optional | ENUM(truck, car) | 1,255       | truck                       |
 
 *Lưu ý*
 > **Các giá trị của `position`**
@@ -769,6 +770,8 @@ curl --location --request POST 'https://api.aicycle.ai/insurance/v2/buy-me/proce
 |67219|400|`{"errorCodeFromEngine": 67219, "message": "Không thể nhận diện ô tô trong ảnh. Vui lòng chụp lại"}`|Error|
 |77704|200|`{"errorCodeFromEngine": 77704, "message": "Ảnh chụp bị lóa"}`|Warning|
 |50676|400|`{"errorCodeFromEngine": 50676, "message": "Ảnh không đúng góc chụp. Vui lòng chụp lại"}`|Error|
+|378224|400|`{"errorCodeFromEngine": 378224, "message": "Ảnh không phải xe tải"}`|Error|
+|178434|400|`{"errorCodeFromEngine": 178434, "message": "Ảnh không phải xe con"}`|Error|
 
 #### d. Ví dụ đầu ra
 
@@ -1210,15 +1213,18 @@ curl --location --request POST 'https://api.aicycle.ai/insurance/claimfolders/52
 ```
 
 #### c. Chi tiết đầu ra
-**Loại đầu ra**: Response body
-| **Tên Tham số** | **Mô tả**    | **Bắt buộc** | **Kiểu dữ liệu** | **Min,Max** | **Ví dụ** |
-|---------|--------------|-----------|---------|----------|-------|
-| claimId | Tên folder claim | Bắt buộc  | Number  | 1,999999 | 123   |
-| carPlate | Biển số xe   | Bắt buộc  | TEXT    | 1,255    | 30E 64737 |
-| carCompany | Hãng xe      | Bắt buộc  | TEXT    | 1,255    | HYUNDAI |
-| carModel | Mẫu xe       | Bắt buộc  | TEXT    | 1,255    | i10   |
-| damages | Danh sách các hỏng hóc | Bắt buộc  | Array[damage] | n        | []    |
-| ownerOrganizationId | Id tổ chức   | Bắt buộc  | Number  | 1,999999 | 1     |
+**Loại đầu ra**:Response body
+
+|**Tên Tham số**| **Mô tả**        | **Bắt buộc** | **Kiểu dữ liệu** | **Min, Max**           | **Ví dụ**              |
+|---|------------------|--------------|------|------------------|------------------------|
+|claimId| Tên folder claim | Bắt buộc     | Number | 1,999999         | 123                    
+|carPlate| Biển số xe       | Bắt buộc     | TEXT | 1,255            | 30E 64737             
+|carCompany| Hãng xe          | Bắt buộc     | TEXT | 1,255            | HYUNDAI              
+|carModel| Hiệu xe          | Bắt buộc     |TEXT| 1,255            | i10                    
+|damages| Danh sách các hỏng hóc     | Bắt buộc     |Array[damage]| n                | []                     
+|ownerOrganizationId| Id tổ chức      | Bắt buộc     |Number| 1,999999            | 1 
+
+
 
 *Chi tiết Object item `damage`*
 
@@ -1228,7 +1234,7 @@ curl --location --request POST 'https://api.aicycle.ai/insurance/claimfolders/52
 |damageId|ID hỏng hóc| Bắt buộc     | TEXT | 1,255 | 123      |
 |damageType|Loại hỏng hóc| Bắt buộc     | TEXT | 1,255 | Trầy (Xước) |
 |damagePart|Bộ phận ghi nhận hỏng hóc| Bắt buộc     | TEXT | 1,255 |Capo trước|
-|damageName|Tên hỏng hóc| Bắt buộc     |TEXT|1,255|Trầy (Xước) Capo Trước|
+|damageName|Tên hỏng hóc| Bắt buộc     |TEXT|1,255|Trầy (Xước) Capo Trước| 
 
 #### d. Ví dụ đầu ra
 
@@ -1263,14 +1269,15 @@ curl --location --request POST 'https://api.aicycle.ai/insurance/claimfolders/52
 #### b. Chi tiết đầu vào
 **Loại đầu vào**: Body
 
-| **Tên Tham số** | **Mô tả**                                                                | **Bắt buộc** | **Kiểu dữ liệu** | **Min,Max** | **Ví dụ**                    |
-|-----------------|--------------------------------------------------------------------------|----------|------------------|-------------|------------------------------|
-| claimId         | Id của folder                                                            | Bắt buộc | Number           | 1,999999    | 123 |
+| **Tên Tham số** | **Mô tả**                                                                | **Bắt buộc** | **Kiểu dữ liệu** | **Min,Max** | **Ví dụ**                   |
+|-----------------|--------------------------------------------------------------------------|----------|------------------|-------------|-----------------------------|
+| claimId         | Id của folder                                                            | Bắt buộc | Number           | 1,999999    | 123                         |
 | imageName       | Tên ảnh                                                                  | Bắt buộc | Text             | 1,255       | INSURANCE_CLAIM/image-1.jpg |
 | filePath        | Path ảnh trên s3 (lấy từ kết quả trả về  của API get imageUrl ở mục 2.2) | Bắt buộc | Text             | 1,255       | INSURANCE_CLAIM/image-1.jpg |
-| position        | Slug Loại ảnh (Toàn cảnh, trung cảnh, cận cảnh)                          | Bắt buộc | Text             | 1,255       | toan-canh-afh4l5 |
-| direction       | Slug Hướng ảnh                                                           | Bắt buộc | Text             | 1,255       | 45-trai-truoc-C1xM02 |
-| oldImageId      | Id ảnh cũ muốn xóa                                                       | Optional | Number           | 1,9999      | 3 |
+| position        | Slug Loại ảnh (Toàn cảnh, trung cảnh, cận cảnh)                          | Bắt buộc | Text             | 1,255       | toan-canh-afh4l5            |
+| direction       | Slug Hướng ảnh                                                           | Bắt buộc | Text             | 1,255       | 45-trai-truoc-C1xM02        |
+| oldImageId      | Id ảnh cũ muốn xóa                                                       | Optional | Number           | 1,9999      | 3                           |
+| vehicleType     | Loại xe muốn engine detect (xe tải, xe con)                              | Optional | ENUM(truck, car) | 1,255       | truck                       |
 
 
 
@@ -1376,6 +1383,8 @@ curl --location --request POST 'https://api.aicycle.ai/insurance/v2/claim-me/pro
 |67219|400|`{"errorCodeFromEngine": 67219, "message": "Không thể nhận diện ô tô trong ảnh. Vui lòng chụp lại"}`|Error|
 |77704|200|`{"errorCodeFromEngine": 77704, "message": "Ảnh chụp bị lóa"}`|Warning|
 |50676|400|`{"errorCodeFromEngine": 50676, "message": "Ảnh không đúng góc chụp. Vui lòng chụp lại"}`|Error|
+|378224|400|`{"errorCodeFromEngine": 378224, "message": "Ảnh không phải xe tải"}`|Error|
+|178434|400|`{"errorCodeFromEngine": 178434, "message": "Ảnh không phải xe con"}`|Error|
 
 #### d. Ví dụ đầu ra
 ```
@@ -1441,4 +1450,177 @@ curl --location --request POST 'https://api.aicycle.ai/insurance/v2/claim-me/pro
         }
     ]
 }
+```
+
+### 3.10 APIs tích hợp Buy Me V1 (deprecated)
+##### a. Thông tin cơ bản
+
+||                                                                    |
+|----|--------------------------------------------------------------------|
+| Method | POST                                                               |
+| API Url | https://api.aicycle.ai/insurance/claimimages/triton-assessment-box |
+| API Headers | `{ "Authorization": "Bearer $$API_KEY$$" }`                        |
+
+
+#### b. Chi tiết đầu vào
+**Loại đầu vào**: Body
+
+| **Tên Tham số** | **Mô tả**                                                                | **Bắt buộc** | **Kiểu dữ liệu** | **Min,Max** | **Ví dụ**                   |
+|-----------------|--------------------------------------------------------------------------|----------|------------------|-------------|-----------------------------|
+| claimId         | Id của folder                                                            | Bắt buộc | Number           | 1,999999    | 123                         |
+| imageName       | Tên ảnh                                                                  | Bắt buộc | Text             | 1,255       | INSURANCE_CLAIM/image-1.jpg |
+| filePath        | Path ảnh trên s3 (lấy từ kết quả trả về  của API get imageUrl ở mục 2.2) | Bắt buộc | Text             | 1,255       | INSURANCE_CLAIM/image-1.jpg |
+| imageRangeId    | Id Loại ảnh (Toàn cảnh, trung cảnh, cận cảnh)                            | Bắt buộc | Number           | 1,999999       | 1                           |
+| partDirectionId | Id Hướng ảnh                                                             | Bắt buộc | Number             | 1,999999        | 2                           |
+| oldImageId      | Id ảnh cũ muốn xóa                                                       | Optional | Number           | 1,9999      | 3                           |
+| vehicleType     | Loại xe muốn engine detect (xe tải, xe con)                              | Optional | ENUM(truck, car) | 1,255       | truck                       |
+
+
+
+
+
+*Lưu ý*
+> **Các giá trị của `imageRangeId`**
+>
+>| imageRangeName | positionSlug |
+>|----------------|--------------|
+>| Toàn cảnh      | 1            |
+>| Trung cảnh     | 2            |
+>| Cận cảnh       | 3            |
+
+> **Các giá trị của `direction`**
+>
+>| directionName    | directionSlug |
+>|------------------|---------------|
+>| Trước            | 2             |
+>| 45° Phải - Trước | 3             |
+>| 45° Trái - Trước | 4             |
+>| Sau              | 5             |
+>| 45° Phải - Sau   | 6             |
+>| 45° Trái - Sau   | 7             |
+>| Phải - Trước     | 8             |
+>| Trái - Trước     | 9             |
+>| Phải - Sau       | 10            |
+>| Trái - Sau       | 11            |
+
+**Ví dụ**
+```
+curl --location --request POST 'https://api.aicycle.ai/insurance/v2/claim-me/process' \
+--header 'Authorization: Bearer $$API_KEY$$' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "claimId": 1,
+    "imageName": "INSURANCE/1666145614576/1666145614447.jpg",
+    "filePath": "INSURANCE/1666145614576/1666145614447.jpg",
+    "imageRangeId": 1,
+    "partDirectionId": 2,
+     “oldImageId": 123
+}'
+```
+
+***Chi tiết Bảng Mã lỗi cùng httpStatus trả về của `errorCodeFromEngine`***
+
+*Chú thích*
+> Với những lỗi có level là error sẽ chỉ trả ra mã lỗi và message lỗi, những lỗi level warning sẽ trả ra mã lỗi, message, và car_part, car_damages như bình thường
+
+|**Mã lỗi**|**HTTP Status**|**Response body**|**Level lỗi**|
+|----|----|----|----|
+|0|200|Ảnh hợp lệ||
+|37143|400|`{"errorCodeFromEngine": 37143, "message": "Không thể nhận diện ô tô trong ảnh. Vui lòng chụp lại"}`|Error|
+|40412|400|`{"errorCodeFromEngine": 40412, "message": "Ảnh chụp bị mờ. Vui lòng chụp lại"}`|Error|
+|32324|400|`{"errorCodeFromEngine": 32324, "message": "Không download được ảnh"}`|Error|
+|23212|200|`{"errorCodeFromEngine": 23212, "message": "Ảnh chụp bị tối"}`|Warning|
+|84680|400|`{"errorCodeFromEngine": 84680, "message": "Ảnh chụp qua màn hình. Vui lòng chụp lại"}`|Error|
+|47565|400|`{"errorCodeFromEngine": 47565, "message": "Trả ra error của engine"}`|Error|
+|67219|400|`{"errorCodeFromEngine": 67219, "message": "Không thể nhận diện ô tô trong ảnh. Vui lòng chụp lại"}`|Error|
+|77704|200|`{"errorCodeFromEngine": 77704, "message": "Ảnh chụp bị lóa"}`|Warning|
+|50676|400|`{"errorCodeFromEngine": 50676, "message": "Ảnh không đúng góc chụp. Vui lòng chụp lại"}`|Error|
+|378224|400|`{"errorCodeFromEngine": 378224, "message": "Ảnh không phải xe tải"}`|Error|
+|178434|400|`{"errorCodeFromEngine": 178434, "message": "Ảnh không phải xe con"}`|Error|
+
+#### c. Ví dụ đầu ra
+```
+{
+    "status": "success",
+    "isCarExistInProfile": false,
+    "isPhotoValid": true,
+    "traceId": "80540cf80585486f63432dcdf680fd20",
+     “errorCodeFromEngine”: 0,
+     “message: “: “”,
+    "imageId": 4808,
+    "result": [
+        {
+            "img_size": [1920, 1080],
+            "extra_infor": {
+                "plate_number": "",
+                "chassis_number": null,
+                "car_company": "",
+                "car_model": "",
+                "car_color": [222, 220,216],
+                "corner": "Trái - Trước",
+                "imagePosition": 1
+            },
+            "car_damages": [
+                {
+                    "class": "Móp, bẹp(thụng)",
+                    "class_uuid": "zmMJ5xgjmUpqmHd99UNq3",
+                    "location": "",
+                    "score": 1,
+                    "box": [ 0.34, 0.14, 0.79,0.77],
+                    "mask_path": "nfU_HFiSOi4wEkP1ycUwv.png",
+                    "is_part": false,
+                    "mask_url": "{{s3Url}}"
+                },
+	    ….
+            ],
+            "car_parts": [
+                {
+                    "class": "Trụ kính cánh cửa",
+                    "class_uuid": "khung-kinh-canh-cua-truoc-trai-KMtJpH",
+                    "location": "Trái - Trước",
+                    "score": 0.83660888671875,
+                    "box": [
+                        0.81875,
+                        0,
+                        0.9994791666666667,
+                        0.2
+                    ],
+                    "mask_path": "vG4wVxBeWvLF5MFGMAfq9.png",
+                    "is_part": true,
+                    "damages": [
+                        {
+                            "class": "Trầy, xước",
+                            "class_uuid": "yfMzer07THdYoCI1SM2LN",
+                            "location": "",
+                            "score": 1,
+                            "box": [
+                                0.2171875,
+                                0.07685185185185185,
+                                0.9989583333333333,
+                                0.9425925925925925
+                            ],
+                            "mask_path": "favy1yqepBr_JM8tAJm2v.png",
+                            "is_part": false,
+                            "overlap_rate": 0.00047147571877818216,
+                            "claimId": 1,
+                            "imageId": "4808",
+                            "isMaskDuplicate": false,
+                            "mask_url": "{{s3Url}}",
+                            "damage_type_name": "Trầy (xước)",
+                            "damage_type_color": "#FFEC05"
+                        },
+		…..
+                    ],
+                    "car_part_name": "Khung kính cánh cửa trước trái",
+                    "rawLocation": "Trái - Trước",
+                    "car_part_color": "#21E0C1",
+                    "mask_url": "{{s3Url}}"
+                },
+	…..
+            ],
+            "img_url": "{{s3Url}}"
+        }
+    ]
+}
+
 ```
