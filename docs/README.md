@@ -127,20 +127,22 @@ Khi sai token (401):
 | **Tên Tham số**    | **Mô tả**                                                         | **Bắt buộc** | **Kiểu dữ liệu** | **Min,Max** | **Ví dụ**         |
 |--------------------|-------------------------------------------------------------------|--------------|------------------|---------|-------------------|
 | companyCode        | Mã hãng xe của tổ chức                                            | Tùy chọn     | Text             | 1,255   | code-hang-xe      |
-| modelCode          | Mã hiệu xe của tổ chức                                                       | Tùy chọn     | Text             | 1,255   | code-hieu-xe      |
-| versionCode        | Mã phiên bản xe của tổ chức                                                  | Bắt buộc     | Text             | 1,255   | code-phien-ban-xe |
+| modelCode          | Mã hiệu xe của tổ chức                                            | Tùy chọn     | Text             | 1,255   | code-hieu-xe      |
+| versionCode        | Mã phiên bản xe của tổ chức                                       | Bắt buộc     | Text             | 1,255   | code-phien-ban-xe |
 | year               | Năm sản xuất                                                      | Bắt buộc     | Number           | 1,9999  | 2020              |
 | minPrice           | Giá min của xe                                                    | Bắt buộc     | Number           | 1,999999999 | 100000000         |
 | maxPrice           | Giá max của xe                                                    | Bắt buộc     | Number           | 1,999999999 | 300000000         |
 | carValue           | Giá trị xe                                                        | Bắt buộc     | Number           | 1,999999999 | 300000000         |
 | isWarning          | Thông tin về dòng xe này trên thị trường có đang thiếu hay không? | Bắt buộc     | Boolean          | n       | true              |
 | listedPrice        | Giá xe niêm yết                                                   | Bắt buộc     | Number           | 1,999999999        | 320000000         |
-| minListedPrice     | Giá trị min của giá niêm yết                                      | Bắt buộc     | Number          | 1,999999999        | 305000000         |
-| maxListedPrice     | Giá trị max của giá niêm yết                                      | Bắt buộc     | Number          | 1,999999999        | 330000000         |
-| hanoiOnRoadPrice   | Gía lăn bánh tại Hà Nội                                           | Bắt buộc     | Number          | 1,999999999        | 323000000         |
-| hcmOnRoadPrice     | Gía lăn bánh tại TP HCM                                           | Bắt buộc     | Number          | 1,999999999        | 323000000         |
-| generalOnRoadPrice | Gía lăn bánh tại các tỉnh khác                                    | Bắt buộc     | Number          | 1,999999999        | 323000000         |
-| listAvailableYears | Danh sách các năm gợi ý hợp lệ cho CodeBook hiện tại                   | Bắt buộc     | Array[Number]          | 1,999999999        | [2020,2021]         |
+| minListedPrice     | Giá trị min của giá niêm yết                                      | Bắt buộc     | Number           | 1,999999999        | 305000000         |
+| maxListedPrice     | Giá trị max của giá niêm yết                                      | Bắt buộc     | Number           | 1,999999999        | 330000000         |
+| hanoiOnRoadPrice   | Gía lăn bánh tại Hà Nội                                           | Bắt buộc     | Number           | 1,999999999        | 323000000         |
+| hcmOnRoadPrice     | Gía lăn bánh tại TP HCM                                           | Bắt buộc     | Number           | 1,999999999        | 323000000         |
+| generalOnRoadPrice | Gía lăn bánh tại các tỉnh khác                                    | Bắt buộc     | Number           | 1,999999999        | 323000000         |
+| carFuelName | Nhiên liệu                                                        | Bắt buộc     | Text             | 1,255        | Xăng              |
+| numOfSeat | Số chỗ ngồi                                                       | Bắt buộc     | Number           | 1,9999        | 5                 |
+| listAvailableYears | Danh sách các năm gợi ý hợp lệ cho CodeBook hiện tại              | Bắt buộc     | Array[Number]    | 1,999999999        | [2020,2021]       |
 #### d. Ví dụ đầu ra
 ```
 [
@@ -159,6 +161,8 @@ Khi sai token (401):
         "hanoiOnRoadPrice": 732380000,
         "generalOnRoadPrice": 713380000,
         "hcmOnRoadPrice": 732380000,
+        "carFuelName": "Xăng",
+        "numOfSeat": 5,
         "listAvailableYears": [
             2006,
             2007,
