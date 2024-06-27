@@ -1628,3 +1628,218 @@ curl --location --request POST 'https://api.aicycle.ai/insurance/v2/claim-me/pro
 }
 
 ```
+
+## **4. APIs tích hợp OCR**
+### 4.1 API OCR căn cước công dân
+
+##### a. Thông tin cơ bản
+
+||                                                             |
+|----|-------------------------------------------------------------|
+| Method | POST                                                        |
+| API Url | https://api.aicycle.ai/insurance/v2/ocr/identification-card |
+| API Headers | `{ "Authorization": "Bearer $$API_KEY$$" }`                 |
+
+#### b. Chi tiết đầu vào
+**Loại đầu vào**: Body
+
+| **Tên Tham số** | **Mô tả**                                                                              | **Bắt buộc** | **Kiểu dữ liệu** | **Min,Max** | **Ví dụ**                    |
+|-----------------|----------------------------------------------------------------------------------------|----------|------------------|-------------|------------------------------|
+| frontFilePath   | Path ảnh mặt trước cccd trên s3 (lấy từ kết quả trả về của API get imageUrl ở mục 2.2) | Bắt buộc | Text             | 1,255       | OCR_IMAGES/front-image-1.jpg |
+| rearFilePath    | Path ảnh mặt sau cccd trên s3 (lấy từ kết quả trả về của API get imageUrl ở mục 2.2)   | Bắt buộc | Text             | 1,255       | OCR_IMAGES/rear-image-1.jpg  |
+
+
+**Ví dụ**
+
+```
+curl --location 'https://api.aicycle.ai/insurance/v2/ocr/identification-card' \
+--header 'Authorization: Bearer $$API_KEY$$' \
+--header 'Content-Type: application/json' \
+--data '{
+    "frontFilePath": "OCR_IMAGES/front-img-1.jpg",
+    "rearFilePath": "OCR_IMAGES/rear-img-2.jpg"
+}'
+
+```
+
+#### c. Chi tiết đầu ra
+**Loại đầu ra**: Response body
+```
+{
+    "status": <Trạng thái của Request (String)>,
+    "frontImgUrl": <Url ảnh mặt trước cccd (String)>,
+    "rearImgUrl": <Url ảnh mặt sau cccd (String)>,
+    "cardNumber": <Mã số định danh (String)>,
+    "fullName": <Họ và tên (String)>,
+    "dob": <Ngày, tháng, năm sinh (String)>,
+    "gender": <Giới tính (String)>,
+    "nationality": <Quốc tịch (String)>,
+    "homeTown": <Quê quán (String)>,
+    "duration":  <Ngày hết hạn (String)>,
+    "placeOfResidence": <Nơi cấp (String)>,
+    "identifyingCharacteristics": <Đặc điểm nhận dạng (String)>,
+    "dateIssuance": <Ngày cấp (String)>
+}
+```
+
+#### d. Ví dụ đầu ra
+```
+{
+    "status": "success",
+    "frontImgUrl": "{{s3Url}}",
+    "rearImgUrl": "{{s3Url}}",
+    "problem": "",
+    "isValidDocument": true,
+    "cardNumber": "0123456789012",
+    "fullName": "Nguyễn Văn A",
+    "dob": "01/02/2003",
+    "gender": "Nam",
+    "nationality": "Việt Nam",
+    "homeTown": "Làng Nhì, Trạm Tàu, Yên Bái",
+    "duration": "01/02/2003",
+    "placeOfResidence": "Thôn Láng Nhĩ Làng Nhì Tram Tầu, Yên Bái",
+    "identifyingCharacteristics": "Sẹo chấm C:1cm trên sau đầu lông mày trái",
+    "dateIssuance": "01/02/2003"
+}
+```
+
+
+### 4.2 API OCR đăng kiểm xe 
+
+##### a. Thông tin cơ bản
+
+||                                                             |
+|----|-------------------------------------------------------------|
+| Method | POST                                                        |
+| API Url | https://api.aicycle.ai/insurance/v2/ocr/vehicle-inspection |
+| API Headers | `{ "Authorization": "Bearer $$API_KEY$$" }`                 |
+
+#### b. Chi tiết đầu vào
+**Loại đầu vào**: Body
+
+| **Tên Tham số** | **Mô tả**                                                                         | **Bắt buộc** | **Kiểu dữ liệu** | **Min,Max** | **Ví dụ**              |
+|-----------------|-----------------------------------------------------------------------------------|----------|------------------|-------------|------------------------|
+| filePath        | Path ảnh đăng kiểm trên s3 (lấy từ kết quả trả về của API get imageUrl ở mục 2.2) | Bắt buộc | Text             | 1,255       | OCR_IMAGES/image-2.jpg |
+
+
+
+**Ví dụ**
+
+```
+curl --location 'https://api.aicycle.ai/insurance/v2/ocr/vehicle-inspection' \
+--header 'Authorization: Bearer $$API_KEY$$' \
+--header 'Content-Type: application/json' \
+--data '{
+    "filePath": "OCR_IMAGES/img-2.jpg",
+}'
+
+```
+
+#### c. Chi tiết đầu ra
+**Loại đầu ra**: Response body
+```
+{
+    "status": <Trạng thái của Request (String)>,
+    "imgUrl": <Url ảnh đăng kiểm (String)>,
+    "registrationNumber": <Biển đăng ký (String)>,
+    "inspectionNumber": <Số quản lý  (String)>,
+    "typeValue": <Loại xe  (String)>,
+    "markValue": <Nhãn hiệu (String)>,
+    "modelCode": <Số loại (String)>,
+    "engineNumber": <Số máy (String)>,
+    "chassisNumber":  <Số khung (String)>,
+    "manufacturedYearCountry": <Năm, nơi sản xuất (String)>,
+    "wheelFormula": <Công thức bánh xe (String)>,
+    "typeOfFuel": <Loại nhiên liệu (String)>,
+    "engineDisplacement": <Dung tích động cơ (String)>
+}
+```
+
+#### d. Ví dụ đầu ra
+```
+{
+    "status": "success",
+    "imgUrl": "{{s3Url}}",
+    "problem": "",
+    "isValidDocument": true,
+    "registrationNumber": "01A-012.34",
+    "inspectionNumber": "01A-012.34",
+    "typeValue": "ô tô con",
+    "modelCode": "VIOS123456",
+    "engineNumber": "1AB-CDEF",
+    "chassisNumber": "ABCD123456",
+    "manufacturedYearCountry": "2012,Việt Nam",
+    "wheelFormula": "4x2",
+    "typeOfFuel": "Xăng",
+    "engineDisplacement": "1000 (cm3)"
+}
+```
+
+
+### 4.3 API OCR đăng kiểm xe
+
+##### a. Thông tin cơ bản
+
+||                                                         |
+|----|---------------------------------------------------------|
+| Method | POST                                                    |
+| API Url | https://api.aicycle.ai/insurance/v2/ocr/driving-license |
+| API Headers | `{ "Authorization": "Bearer $$API_KEY$$" }`             |
+
+#### b. Chi tiết đầu vào
+**Loại đầu vào**: Body
+
+| **Tên Tham số** | **Mô tả**                                                                                | **Bắt buộc** | **Kiểu dữ liệu** | **Min,Max** | **Ví dụ**              |
+|-----------------|------------------------------------------------------------------------------------------|----------|------------------|-------------|------------------------|
+| filePath        | Path ảnh giấy phép lái xe trên s3 (lấy từ kết quả trả về của API get imageUrl ở mục 2.2) | Bắt buộc | Text             | 1,255       | OCR_IMAGES/image-3.jpg |
+
+
+
+**Ví dụ**
+
+```
+curl --location 'https://api.aicycle.ai/insurance/v2/ocr/driving-license' \
+--header 'Authorization: Bearer $$API_KEY$$' \
+--header 'Content-Type: application/json' \
+--data '{
+    "filePath": "OCR_IMAGES/img-3.jpg",
+}'
+
+```
+
+#### c. Chi tiết đầu ra
+**Loại đầu ra**: Response body
+```
+{
+    "status": <Trạng thái của Request (String)>,
+    "imgUrl": <Url ảnh đăng kiểm (String)>,
+    "cardNumber": <Số thẻ (String)>,
+    "fullName": <Họ và tên  (String)>,
+    "dob": <Ngày, tháng , năm sinh  (String)>,
+    "nationality": <Quốc tịch (String)>,
+    "placeOfResidence": <Nơi cư trú (String)>,
+    "placeIssuance": <Nơi cấp (String)>,
+    "dateIssuance":  <Ngày cấp (String)>,
+    "rank": <Hạng (String)>,
+    "duration": <Ngày hết hạn (String)>,
+}
+```
+
+#### d. Ví dụ đầu ra
+```
+{
+    "status": "success",
+    "imgUrl": "{{s3Url}}",
+    "problem": "",
+    "isValidDocument": true,
+    "cardNumber": "0123456789",
+    "fullName": "Nguyễn Văn A",
+    "dob": "01/02/2003",
+    "nationality": "VIỆT NAM",
+    "placeOfResidence": "Số 1, đường Nguyễn Văn A, Q.Đống Đa, Hà Nội",
+    "placeIssuance": "Hà Nội",
+    "dateIssuance": "01/01/2000",
+    "rank": "C",
+    "duration": "01/01/2000"
+}
+```
