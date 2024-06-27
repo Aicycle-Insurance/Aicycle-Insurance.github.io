@@ -1776,7 +1776,7 @@ curl --location 'https://api.aicycle.ai/insurance/v2/ocr/vehicle-inspection' \
 ```
 
 
-### 4.3 API OCR đăng kiểm xe
+### 4.3 API OCR giấy phép lái xe
 
 ##### a. Thông tin cơ bản
 
