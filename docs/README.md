@@ -658,9 +658,9 @@ curl --location --request POST 'https://api.aicycle.ai/insurance/images/url' \
 
 | **Tên Tham số** | **Mô tả**                                                                | **Bắt buộc** | **Kiểu dữ liệu** | **Min,Max** | **Ví dụ**                    |
 |-----------------|--------------------------------------------------------------------------|----------|------------------|-------------|------------------------------|
-| claimId         | Id của Hồ sơ                                                            | Bắt buộc | Number           | 1,999999    | 123 |
+| claimId         | Id của Hồ sơ                                                             | Bắt buộc | Number           | 1,999999    | 123 |
 | imageName       | Tên ảnh                                                                  | Bắt buộc | Text             | 1,255       | INSURANCE_CLAIM/image-1.jpg |
-| filePath        | Path ảnh trên s3 (lấy từ kết quả trả về  của API get imageUrl ở mục 2.2) | Bắt buộc | Text             | 1,255       | INSURANCE_CLAIM/image-1.jpg |
+| filePath        | Path ảnh trên s3 (lấy từ kết quả trả về  của API get imageUrl ở mục 3.3) | Bắt buộc | Text             | 1,255       | INSURANCE_CLAIM/image-1.jpg |
 | position        | Slug Loại ảnh (Toàn cảnh, trung cảnh, cận cảnh)                          | Bắt buộc | Text             | 1,255       | toan-canh-afh4l5 |
 | direction       | Slug Hướng ảnh                                                           | Bắt buộc | Text             | 1,255       | 45-trai-truoc-C1xM02 |
 | oldImageId      | Id ảnh cũ muốn xóa                                                       | Optional | Number           | 1,9999      | 3 |
@@ -1277,7 +1277,7 @@ curl --location --request POST 'https://api.aicycle.ai/insurance/claimfolders/52
 |-----------------|--------------------------------------------------------------------------|----------|------------------|-------------|-----------------------------|
 | claimId         | Id của folder                                                            | Bắt buộc | Number           | 1,999999    | 123                         |
 | imageName       | Tên ảnh                                                                  | Bắt buộc | Text             | 1,255       | INSURANCE_CLAIM/image-1.jpg |
-| filePath        | Path ảnh trên s3 (lấy từ kết quả trả về  của API get imageUrl ở mục 2.2) | Bắt buộc | Text             | 1,255       | INSURANCE_CLAIM/image-1.jpg |
+| filePath        | Path ảnh trên s3 (lấy từ kết quả trả về  của API get imageUrl ở mục 3.3) | Bắt buộc | Text             | 1,255       | INSURANCE_CLAIM/image-1.jpg |
 | position        | Slug Loại ảnh (Toàn cảnh, trung cảnh, cận cảnh)                          | Bắt buộc | Text             | 1,255       | toan-canh-afh4l5            |
 | direction       | Slug Hướng ảnh                                                           | Bắt buộc | Text             | 1,255       | 45-trai-truoc-C1xM02        |
 | oldImageId      | Id ảnh cũ muốn xóa                                                       | Optional | Number           | 1,9999      | 3                           |
@@ -1473,7 +1473,7 @@ curl --location --request POST 'https://api.aicycle.ai/insurance/v2/claim-me/pro
 |-----------------|--------------------------------------------------------------------------|----------|------------------|-------------|-----------------------------|
 | claimId         | Id của folder                                                            | Bắt buộc | Number           | 1,999999    | 123                         |
 | imageName       | Tên ảnh                                                                  | Bắt buộc | Text             | 1,255       | INSURANCE_CLAIM/image-1.jpg |
-| filePath        | Path ảnh trên s3 (lấy từ kết quả trả về  của API get imageUrl ở mục 2.2) | Bắt buộc | Text             | 1,255       | INSURANCE_CLAIM/image-1.jpg |
+| filePath        | Path ảnh trên s3 (lấy từ kết quả trả về  của API get imageUrl ở mục 3.3) | Bắt buộc | Text             | 1,255       | INSURANCE_CLAIM/image-1.jpg |
 | imageRangeId    | Id Loại ảnh (Toàn cảnh, trung cảnh, cận cảnh)                            | Bắt buộc | Number           | 1,999999       | 1                           |
 | partDirectionId | Id Hướng ảnh                                                             | Bắt buộc | Number             | 1,999999        | 2                           |
 | oldImageId      | Id ảnh cũ muốn xóa                                                       | Optional | Number           | 1,9999      | 3                           |
@@ -1645,8 +1645,8 @@ curl --location --request POST 'https://api.aicycle.ai/insurance/v2/claim-me/pro
 
 | **Tên Tham số** | **Mô tả**                                                                              | **Bắt buộc** | **Kiểu dữ liệu** | **Min,Max** | **Ví dụ**                    |
 |-----------------|----------------------------------------------------------------------------------------|----------|------------------|-------------|------------------------------|
-| frontFilePath   | Path ảnh mặt trước cccd trên s3 (lấy từ kết quả trả về của API get imageUrl ở mục 2.2) | Bắt buộc | Text             | 1,255       | OCR_IMAGES/front-image-1.jpg |
-| rearFilePath    | Path ảnh mặt sau cccd trên s3 (lấy từ kết quả trả về của API get imageUrl ở mục 2.2)   | Bắt buộc | Text             | 1,255       | OCR_IMAGES/rear-image-1.jpg  |
+| frontFilePath   | Path ảnh mặt trước cccd trên s3 (lấy từ kết quả trả về của API get imageUrl ở mục 3.3) | Bắt buộc | Text             | 1,255       | OCR_IMAGES/front-image-1.jpg |
+| rearFilePath    | Path ảnh mặt sau cccd trên s3 (lấy từ kết quả trả về của API get imageUrl ở mục 3.3)   | Bắt buộc | Text             | 1,255       | OCR_IMAGES/rear-image-1.jpg  |
 
 
 **Ví dụ**
@@ -1719,7 +1719,7 @@ curl --location 'https://api.aicycle.ai/insurance/v2/ocr/identification-card' \
 
 | **Tên Tham số** | **Mô tả**                                                                         | **Bắt buộc** | **Kiểu dữ liệu** | **Min,Max** | **Ví dụ**              |
 |-----------------|-----------------------------------------------------------------------------------|----------|------------------|-------------|------------------------|
-| filePath        | Path ảnh đăng kiểm trên s3 (lấy từ kết quả trả về của API get imageUrl ở mục 2.2) | Bắt buộc | Text             | 1,255       | OCR_IMAGES/image-2.jpg |
+| filePath        | Path ảnh đăng kiểm trên s3 (lấy từ kết quả trả về của API get imageUrl ở mục 3.3) | Bắt buộc | Text             | 1,255       | OCR_IMAGES/image-2.jpg |
 
 
 
@@ -1791,7 +1791,7 @@ curl --location 'https://api.aicycle.ai/insurance/v2/ocr/vehicle-inspection' \
 
 | **Tên Tham số** | **Mô tả**                                                                                | **Bắt buộc** | **Kiểu dữ liệu** | **Min,Max** | **Ví dụ**              |
 |-----------------|------------------------------------------------------------------------------------------|----------|------------------|-------------|------------------------|
-| filePath        | Path ảnh giấy phép lái xe trên s3 (lấy từ kết quả trả về của API get imageUrl ở mục 2.2) | Bắt buộc | Text             | 1,255       | OCR_IMAGES/image-3.jpg |
+| filePath        | Path ảnh giấy phép lái xe trên s3 (lấy từ kết quả trả về của API get imageUrl ở mục 3.3) | Bắt buộc | Text             | 1,255       | OCR_IMAGES/image-3.jpg |
 
 
 
@@ -1841,5 +1841,75 @@ curl --location 'https://api.aicycle.ai/insurance/v2/ocr/driving-license' \
     "dateIssuance": "01/01/2000",
     "rank": "C",
     "duration": "01/01/2000"
+}
+```
+
+### 4.4 API OCR đăng ký xe
+
+##### a. Thông tin cơ bản
+
+||                                                              |
+|----|--------------------------------------------------------------|
+| Method | POST                                                         |
+| API Url | https://api.aicycle.ai/insurance/v2/ocr/vehicle-registration |
+| API Headers | `{ "Authorization": "Bearer $$API_KEY$$" }`                  |
+
+#### b. Chi tiết đầu vào
+**Loại đầu vào**: Body
+
+| **Tên Tham số** | **Mô tả**                                                                          | **Bắt buộc** | **Kiểu dữ liệu** | **Min,Max** | **Ví dụ**              |
+|-----------------|------------------------------------------------------------------------------------|----------|------------------|-------------|------------------------|
+| filePath        | Path ảnh đăng ký xe trên s3 (lấy từ kết quả trả về của API get imageUrl ở mục 3.3) | Bắt buộc | Text             | 1,255       | OCR_IMAGES/image-3.jpg |
+
+
+
+**Ví dụ**
+
+```
+curl --location 'https://api.aicycle.ai/insurance/v2/ocr/vehicle-registration' \
+--header 'Authorization: Bearer $$API_KEY$$' \
+--header 'Content-Type: application/json' \
+--data '{
+    "filePath": "OCR_IMAGES/img-3.jpg",
+}'
+
+```
+
+#### c. Chi tiết đầu ra
+**Loại đầu ra**: Response body
+```
+{
+    "status": <Trạng thái của Request (String)>,
+    "imgUrl": <Url ảnh đăng ký xe (String)>,
+    "name": <Họ và tên (String)>,
+    "address": <Địa chỉ  (String)>,
+    "modelCode": <Số loại (String)>,
+    "brand": <Hãng xe (String)>,
+    "engine": <Động cơ (String)>,
+    "chassis": <Số khung (String)>,
+    "color":  <Màu xe (String)>,
+    "plate": <Biển số (String)>,
+    "place": <Nơi cấp (String)>,
+    "date": <Ngày cấp (String)>
+}
+```
+
+#### d. Ví dụ đầu ra
+```
+{
+    "status": "success",
+    "imgUrl": "{{s3Url}}",
+    "problem": "",
+    "isValidDocument": true,
+    "name": "Nguyễn Văn A",
+    "address": "TDP Dộc, Tây Mỗ, Nam Từ Liêm, HIN",
+    "modelCode": "VIOS",
+    "brand": "TOYOTA",
+    "engine": "ABC123456",
+    "chassis": "12345678",
+    "color": "Đen",
+    "plate": "30E-111.11",
+    "place": "Hà Nội",
+    "date": "01/01/2011"
 }
 ```
