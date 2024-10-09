@@ -2141,6 +2141,135 @@ curl --location --request GET 'https://api.aicycle.ai/insurance/v2/claimfolders/
  }       
 ```
 
+### **3.14: API lấy kết quả Hồ sơ (nhóm theo bộ phận) V2**
+#### a. Thông tin cơ bản
+
+|||
+|----|----|
+| Method | GET |
+| API Url | https://api.aicycle.ai/insurance/v2/claimfolders/{externalSessionId}/external-segment-result |
+| API Headers | `{ "Authorization": "Bearer $$apiKey$$" }` |
+
+#### b. Chi tiết đầu vào
+**Loại đầu vào**: Params
+
+|**Tên Tham số**|**Mô tả**|**Bắt buộc**|**Kiểu dữ liệu**|**Min,Max**|**Ví dụ**|
+|---|---|---|---|---|---|
+|externalSessionId|Id hồ sơ (giấy chứng nhận) của khách hàng|Bắt buộc|Text|1,255|folder1|
+
+**Ví dụ**
+```
+curl --location --request GET 'https://api.aicycle.ai/insurance/v2/claimfolders/${externalSessionId}/external-segment-result' \
+--header 'authorization: Bearer $$API_KEY$$' \
+--data-raw ''
+```
+
+#### c. Chi tiết đầu ra
+**Loại đầu ra**: Response body:
+```
+{
+    ${VehiclePart}
+}
+```
+*Chi tiết Object item `VehiclePart`*
+
+|**Tên Tham số**|**Mô tả**|**Bắt buộc**|**Kiểu dữ liệu**|**Min,Max**|**Ví dụ**|
+|---|---|---|---|---|---|
+|vehiclePartExcelId|Mã bộ phận|Bắt buộc|Text|1,255|ba-do-soc-truoc-WUBZvD|
+|vehiclePartName|Tên bộ phận|Bắt buộc|Text|1,255|Ba đờ sốc trước|
+|location|Vị trí bộ phận|Bắt buộc|Text|1,255|Trước|
+|damages|Chi tiết hỏng hóc|Bắt buộc|Array[damage]|n|[]|
+|images|Ảnh|Bắt buộc|Array[image]|n|[]|
+
+*Chi tiết Object item `damage`*
+
+|**Tên Tham số**|**Mô tả**|**Bắt buộc**|**Kiểu dữ liệu**|**Min,Max**|**Ví dụ**|
+|---|---|---|---|---|---|
+|damageTypeName|Tên hỏng hóc|Bắt buộc|Text|1,255|Trầy (xước)|
+|damagePercentage|Phần trăm hỏng hóc|Bắt buộc|Number|0,1|0.05|
+|damageArea|Diện tích hỏng hóc|Bắt buộc|Number|0,1|0.05|
+
+*Chi tiết Object item `image`*
+
+|**Tên Tham số**|**Mô tả**|**Bắt buộc**|**Kiểu dữ liệu**|**Min,Max**|**Ví dụ**|
+|---|---|---|---|---|---|
+|imageUrl|Url ảnh|Bắt buộc|Text|1,255|https://dyta7vmv7sqle.cloudfront.net/INSURANCE_RESULT/EGfDHztL2Vffgc72cM1DG.png|
+|imageRange|Loại ảnh|Bắt buộc|Text|1,255|Toàn cảnh|
+|location | Nơi ảnh được chụp | Bắt buộc | TEXT | 1,255 | Duy Tân, Cầu Giấy, Hà Nội |
+|requestedTime | Thời gian chụp ảnh | Bắt buộc | TEXT | 1,255 | 2023-03-24 03:28:29.414232 +00:00 |
+| uploadedTime | Thời gian ảnh được upload lên hệ thống | Bắt buộc | TEXT | 1,255 | 2023-03-24 03:28:29.414232 +00:00 |
+|uploadLocation | Nơi upload ảnh để thực hiện claim | Bắt buộc | TEXT | 1,255 | Hai Bà Trưng, Hà Nội |
+|damageMasks|Chi tiết hỏng hóc của ảnh|Bắt buộc|Array[damageMask]|n|[]|
+
+*Chi tiết Object item `damageMask`*
+
+|**Tên Tham số**|**Mô tả**|**Bắt buộc**|**Kiểu dữ liệu**|**Min,Max**|**Ví dụ**|
+|---|---|---|---|---|---|
+|damageTypeName|Loại hỏng hóc|Bắt buộc|Text|1,255|Trầy (xước)|
+|maskUrl|Url mask hỏng hóc|Bắt buộc|Text|1,255|https://dyta7vmv7sqle.cloudfront.net/INSURANCE_RESULT/EGfDHztL2Vffgc72cM1DG.png|
+
+#### d. Ví dụ đầu ra
+
+```
+{
+    [
+        {
+            "vehiclePartExcelId": "ba-do-soc-truoc-WUBZvD",
+            "vehiclePartName": "Ba đờ sốc trước",
+            "location": "Trước",
+            "createdDate": "2022/10/24",
+            "damages": [
+                {
+                    "damageTypeName": "Trầy (xước)",
+                    "damagePercentage": 0.0419343353811561,
+                    "damageArea": 0.419343353811561,
+                    "damageTypeColor": "#FFEC05"
+                }
+            ],
+            "images": [
+                {
+                    "imageId": 10579,
+                    "filePath": "INSURANCE_CLAIM/1652252930377/image_picker7865199709592835107.jpg",
+                    "imageUrl": "https://s3-sgn09.fptcloud.com/aicycle/INSURANCE_CLAIM/1652252930377/image_picker7865199709592835107.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=0080fa5f9d06c7ad85c7%2F20221024%2Fsgn09%2Fs3%2Faws4_request&X-Amz-Date=20221024T105823Z&X-Amz-Expires=7200&X-Amz-Signature=1e0ad191019668c5e77af28aa301f00f3d5f22a98882a1024660da2b9d946897&X-Amz-SignedHeaders=host",
+                    "imageRange": "Toàn cảnh",
+                    "damageExist": true,
+                    "errorType": null,
+                    "errorNote": null,
+                    "location": "Duy Tân, Cầu Giấy, Hà Nội",
+                    "requestedTime": "2023-03-24T03:28:29.414Z",
+                    "uploadedTime": "2023-03-27T03:04:53.001Z",
+                    "uploadLocation": "Quận Cầu Giấy, Hà Nội",
+                    "timeProcess": 2.678,
+                    "damageMasks": [
+                        {
+                            "maskPath": "8EskO3gPp1DYO00BOcBPq.png",
+                            "maskUrl": "https://s3-sgn09.fptcloud.com/aicycle/INSURANCE_RESULT/8EskO3gPp1DYO00BOcBPq.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=0080fa5f9d06c7ad85c7%2F20221024%2Fsgn09%2Fs3%2Faws4_request&X-Amz-Date=20221024T105823Z&X-Amz-Expires=7200&X-Amz-Signature=d531e05207a16858319bf560331cb684e20e728abd84c516c4d2918d5139dbef&X-Amz-SignedHeaders=host",
+                            "vehiclePartName": "Ba đờ sốc trước",
+                            "damageTypeUuid": "yfMzer07THdYoCI1SM2LN",
+                            "damageTypeName": "Trầy (xước)",
+                            "damageTypeColor": "#FFEC05",
+                            "boxes": [
+                                0,
+                                0,
+                                1,
+                                1
+                            ],
+                            "isPart": false,
+                            "userCreated": false
+                        }
+                    ]
+                }
+            ],
+            "price": 1000000,
+            "laborCost": 0,
+            "totalCost": 1000000,
+            "area": 10,
+            "repairPlan": "Sửa chữa"
+        }
+    ]
+}
+```
+
 ## **4. APIs tích hợp OCR**
 ### 4.1 API OCR căn cước công dân
 
