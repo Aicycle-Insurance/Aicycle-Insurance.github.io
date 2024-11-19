@@ -1843,6 +1843,9 @@ curl --location 'https://api.aicycle.ai/insurance/v2/claim-me/upload' \
 | externalSessionId        | Id folder (giấy chứng nhận)  của đối tác | Optional | Text             | n       | folderId |
 | directionSlug        | Slug Hướng ảnh                          | Optional | Text             | 1,255       | 45-trai-truoc-C1xM02             |
 | isValidate       |       Flag bật tắt validate góc chụp                                                     | Optional | Boolean             | n       |     true  |
+| carCompany       |       Mã (tên) hãng xe của khách hàng cần validate                                                 | Optional (bắt buộc nếu khách hàng yêu cầu validate hãng, hiệu, biển số) | Text             | 1,255       |     KIA  |
+| carModel       |       Mã (tên) hiệu xe của khách hàng cần validate                                                 | Optional (bắt buộc nếu khách hàng yêu cầu validate hãng, hiệu, biển số) | Text             | 1,255       |     Morning  |
+| licensePlate       |       Biển số của khách hàng cần validate                                                 | Optional (bắt buộc nếu khách hàng yêu cầu validate hãng, hiệu, biển số) | Text             | 1,255       |     30A99999  |
 
 
 
