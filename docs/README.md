@@ -2830,3 +2830,300 @@ curl --location 'https://api.aicycle.ai/insurance/v2/ocr/vehicle-registration/up
     "date": "01/01/2011"
 }
 ```
+
+### 4.9 Các API cho định giá xe tải
+##### 4.9.1 API lấy list hãng xe
+###### a. Thông tin cơ bản
+
+||                                                                     |
+|----|---------------------------------------------------------------------|
+| Method | GET                                                                |
+| API Url | https://api.aicycle.ai/insurance/vehicles/${vehicleTypeKey}/company |
+| API Headers | `{ "Authorization": "Bearer ${API_KEY}" }`                         |
+
+> **Các giá trị của `vehicleTypeKey`**
+>
+>| vehicleTypeName    | vehicleTypeKey |
+>|------------------|---|
+>| Xe chở hàng hóa            | truck  |
+>| Xe chuyên dụng | specialized  |
+>| Xe khách | coach  |
+
+##### b. Chi tiết đầu vào
+**Loại đầu vào**: Query String
+
+| **Tên Tham số** | **Mô tả**      | **Bắt buộc** | **Kiểu dữ liệu** | **Min,Max** | **Ví dụ**              |
+|-----------------|----------------|----------|------------------|-------------|------------------------|
+| vehicleTypeKey             | Key loại xe | Optional | Text             | 1,255           | truck |
+| limit             | Giới hạn số bản ghi trả ra | Optional | Number             | 1,99999           | 30 |
+| offset             | Bỏ qua số bản ghi | Optional | Number             | 1,99999           | 30 |
+| companyName             | Tìm kiếm tên hãng xe | Optional | Text             | 1,255           | CHENGLONG |
+| orderBy             | Sort hãng xe | Optional | Text             | 1,255           | ?orderBy=companyName DESC |
+
+
+**Ví dụ**
+
+```
+curl --location 'https://api.aicycle.ai/insurance/vehicles/${vehicleTypeKey}/company' \
+--header 'Authorization: Bearer ${API_KEY}' \
+--header 'Content-Type: application/json'
+
+```
+
+
+##### d. Chi tiết đầu ra
+**Loại đầu ra**: Response body
+```
+{
+    "count": <Số lượng data trả ra>,
+    "limit": <Giới hạn data trả ra>,
+    "offset": <Số lượng bản ghi bỏ qua>,
+    "records": <Array(truckCompanyObj)>
+}
+```
+
+*Chi tiết Object item `truckCompanyObj`*
+
+| **Tên Tham số**     | **Mô tả**            |**Bắt buộc**| **Kiểu dữ liệu** | **Min,Max** | **Ví dụ** |
+|---------------------|----------------------|---|------------------|-------------|---------|
+| companyKey             | Key hãng xe        |Bắt buộc| Text    | 1,255           | chenglong |
+| companyName              | Tên hãng xe         |Bắt buộc| Text             | 1,255       | CHENGLONG |
+
+
+##### 4.9.2 API lấy list hiệu xe, phiên bản
+###### a. Thông tin cơ bản
+
+||                                                                     |
+|----|---------------------------------------------------------------------|
+| Method | GET                                                                |
+| API Url | https://api.aicycle.ai/insurance/vehicles/${vehicleTypeKey}/versions |
+| API Headers | `{ "Authorization": "Bearer ${API_KEY}" }`                         |
+
+> **Các giá trị của `vehicleTypeKey`**
+>
+>| vehicleTypeName    | vehicleTypeKey |
+>|------------------|---|
+>| Xe chở hàng hóa            | truck  |
+>| Xe chuyên dụng | specialized  |
+>| Xe khách | coach  |
+
+##### b. Chi tiết đầu vào
+**Loại đầu vào**: Query String
+
+| **Tên Tham số** | **Mô tả**      | **Bắt buộc** | **Kiểu dữ liệu** | **Min,Max** | **Ví dụ**              |
+|-----------------|----------------|----------|------------------|-------------|------------------------|
+| vehicleTypeKey             | Key loại xe | Optional | Text             | 1,255           | truck |
+| limit             | Giới hạn số bản ghi trả ra | Optional | Number             | 1,99999           | 30 |
+| offset             | Bỏ qua số bản ghi | Optional | Number             | 1,99999           | 30 |
+| companyName             | Flag dùng để filter hiệu xe theo hãng xe | Optional | Text             | 1,255           | CHENGLONG |
+| versionName             | Flag dùng để tìm kiếm tên hiệu xe, phiên bản | Optional | Text             | 1,255          | 340HP 10X4 |
+| orderBy             | Sort hiệu xe, phiên bản | Optional | Text             | 1,255           | ?orderBy=versionName DESC |
+
+
+**Ví dụ**
+
+```
+curl --location 'https://api.aicycle.ai/insurance/vehicles/${vehicleTypeKey}/versions' \
+--header 'Authorization: Bearer ${API_KEY}' \
+--header 'Content-Type: application/json'
+
+```
+
+
+##### d. Chi tiết đầu ra
+**Loại đầu ra**: Response body
+```
+{
+    "count": <Số lượng data trả ra>,
+    "limit": <Giới hạn data trả ra>,
+    "offset": <Số lượng bản ghi bỏ qua>,
+    "records": <Array(truckVersionObj)>
+}
+
+```
+
+*Chi tiết Object item `truckVersionObj`*
+
+| **Tên Tham số**     | **Mô tả**            |**Bắt buộc**| **Kiểu dữ liệu** | **Min,Max** | **Ví dụ** |
+|---------------------|----------------------|---|------------------|-------------|---------|
+| versionKey             | Key hiệu xe        |Bắt buộc| Text    | 1,255           | 180hp-4x2-thung-vuong |
+| versionName              | Tên hiệu xe         |Bắt buộc| Text             | 1,255       | 180HP 4X2 THÙNG VUÔNG |
+
+
+##### 4.9.3 API lấy các thông tin số loại, mã thùng,... từ hãng, hiệu xe
+###### a. Thông tin cơ bản
+
+||                                                                     |
+|----|---------------------------------------------------------------------|
+| Method | GET                                                                |
+| API Url | https://api.aicycle.ai/insurance/vehicles/${vehicleTypeKey}/codebooks |
+| API Headers | `{ "Authorization": "Bearer ${API_KEY}" }`                         |
+
+> **Các giá trị của `vehicleTypeKey`**
+>
+>| vehicleTypeName    | vehicleTypeKey |
+>|------------------|---|
+>| Xe chở hàng hóa            | truck  |
+>| Xe chuyên dụng | specialized  |
+>| Xe khách | coach  |
+
+##### b. Chi tiết đầu vào
+**Loại đầu vào**: Query String
+
+| **Tên Tham số** | **Mô tả**      | **Bắt buộc** | **Kiểu dữ liệu** | **Min,Max** | **Ví dụ**              |
+|-----------------|----------------|----------|------------------|-------------|------------------------|
+| vehicleTypeKey             | Key loại xe | Optional | Text             | 1,255           | truck |
+| limit             | Giới hạn số bản ghi trả ra | Optional | Number             | 1,99999           | 30 |
+| offset             | Bỏ qua số bản ghi | Optional | Number             | 1,99999           | 30 |
+| companyKey             | Flag dùng để filter số loại,... theo hãng xe | Optional | Text             | 1,255           | chenglong |
+| versionKey             | Flag dùng để filter số loại,... theo hiệu xe, phiên bản | Optional | Text             | 1,255          | 340hp-10x4 |
+| orderBy             | Sort hiệu xe, phiên bản | Optional | Text             | 1,255           | ?orderBy=modelCode DESC |
+
+
+**Ví dụ**
+
+```
+curl --location 'https://api.aicycle.ai/insurance/vehicles/${vehicleTypeKey}/codebooks' \
+--header 'Authorization: Bearer ${API_KEY}' \
+--header 'Content-Type: application/json'
+
+```
+
+
+##### d. Chi tiết đầu ra
+**Loại đầu ra**: Response body
+```
+{
+    "count": <Số lượng data trả ra>,
+    "limit": <Giới hạn data trả ra>,
+    "offset": <Số lượng bản ghi bỏ qua>,
+    "records": <Array(truckModelCodeObj)>
+}
+
+```
+
+*Chi tiết Object item `truckModelCodeObj`*
+
+| **Tên Tham số**     | **Mô tả**            |**Bắt buộc**| **Kiểu dữ liệu** | **Min,Max** | **Ví dụ** |
+|---------------------|----------------------|---|------------------|-------------|---------|
+| barrelTypeKey             | Key loại thùng        |Bắt buộc| Text    | 1,255           | chassis |
+| barrelTypeName              | Tên loại thùng         |Bắt buộc| Text             | 1,255       | Chassis |
+| carTypeKey             | Key loại xe        |Bắt buộc| Text    | 1,255           | xe-tai |
+| carTypeName              | Tên loại xe         |Bắt buộc| Text             | 1,255       | Xe tải |
+| barrelTypeKey             | Key loại thùng        |Bắt buộc| Text    | 1,255           | chassis |
+| modelCode             | Số loại         |Bắt buộc| Text             | 1,255       | LZ1340PELT |
+| payload              | Tải trọng         |Bắt buộc| Number             | 1,99999       | 22450 |
+
+##### 4.9.4 API lấy thông tin thùng xe
+###### a. Thông tin cơ bản
+
+||                                                                     |
+|----|---------------------------------------------------------------------|
+| Method | GET                                                                |
+| API Url | https://api.aicycle.ai/insurance/vehicles/barrel |
+| API Headers | `{ "Authorization": "Bearer ${API_KEY}" }`                         |
+
+
+##### b. Chi tiết đầu vào
+**Loại đầu vào**: Query String
+
+| **Tên Tham số** | **Mô tả**      | **Bắt buộc** | **Kiểu dữ liệu** | **Min,Max** | **Ví dụ**              |
+|-----------------|----------------|----------|------------------|-------------|------------------------|
+| isAll             | Flag lấy loại thùng, true là lấy tất cả các thùng, false là chỉ lấy ra loại thùng có giá  | Optional | Boolean             | n           | true |
+| limit             | Giới hạn số bản ghi trả ra | Optional | Number             | 1,99999           | 30 |
+| offset             | Bỏ qua số bản ghi | Optional | Number             | 1,99999           | 30 |
+
+
+
+**Ví dụ**
+
+```
+curl --location 'https://api.aicycle.ai/insurance/vehicles/barrel' \
+--header 'Authorization: Bearer ${API_KEY}' \
+--header 'Content-Type: application/json'
+
+```
+
+
+##### d. Chi tiết đầu ra
+**Loại đầu ra**: Response body
+```
+{
+    "count": <Số lượng data trả ra>,
+    "limit": <Giới hạn data trả ra>,
+    "offset": <Số lượng bản ghi bỏ qua>,
+    "records": <Array(truckBarrelObj)>
+}
+
+```
+
+*Chi tiết Object item `truckBarrelObj`*
+
+| **Tên Tham số**     | **Mô tả**            |**Bắt buộc**| **Kiểu dữ liệu** | **Min,Max** | **Ví dụ** |
+|---------------------|----------------------|---|------------------|-------------|---------|
+| key             | Key thùng         |Bắt buộc| Text    | 1,255           | thung-lung-dai-2m2 |
+| name              | Tên thùng         |Bắt buộc| Text             | 1,255       | Thùng Lửng dài 2m2 |
+| price             | Giá thùng        |Bắt buộc| Number    | 1,99999           | 40000000 |
+| size              | Size thùng         |Bắt buộc| Text             | 1,255       | dài 2m2 |
+
+
+##### 4.9.5 API định giá xe tải
+###### a. Thông tin cơ bản
+
+||                                                                     |
+|----|---------------------------------------------------------------------|
+| Method | POST                                                                |
+| API Url | https://api.aicycle.ai/insurance/valuation/v3/truck-valuate |
+| API Headers | `{ "Authorization": "Bearer ${API_KEY}" }`                         |
+
+
+##### b. Chi tiết đầu vào
+**Loại đầu vào**: Request Body
+
+| **Tên Tham số** | **Mô tả**      | **Bắt buộc** | **Kiểu dữ liệu** | **Min,Max** | **Ví dụ**              |
+|-----------------|----------------|----------|------------------|-------------|------------------------|
+| barrelTypeKey             | Key thùng (lấy từ API 4.9.4)  | Bắt buộc | Text             | 1,255           | thung-lung-dai-5m1 |
+| companyName             | Key hãng xe (lấy từ API 4.9.1) | Bắt buộc | Text             | 1,255           | chenglong |
+| manufactureYear             | Năm sản xuất (hỗ trợ từ năm 2000 đến hiện tại) | Bắt buộc | Text             | 1,255           | 2024 |
+| modelCode             | Số loại (lấy từ API 4.9.3) | Bắt buộc | Text             | 1,255           | LZ1340PELT |
+| vehicleTypeKey             | Loại xe (truch, coach, specialized) | Bắt buộc | Text             | 1,255           | truck |
+| versionName             | Key hiệu xe, phiên bản (lấy từ API 4.9.2) | Bắt buộc | Text             | 1,255           | 340hp-10x4 |
+
+
+
+
+**Ví dụ**
+
+```
+curl --location 'https://api.aicycle.ai/insurance/vehicles/barrel' \
+--header 'Authorization: Bearer ${API_KEY}' \
+--header 'Content-Type: application/json' \
+--data '{
+  "vehicleTypeKey":"truck",
+  "companyName":"chenglong",
+  "versionName":"340hp-10x4",
+  "modelCode":"LZ1340PELT",
+  "manufactureYear":"2024",
+  "barrelTypeKey":"thung-lung-dai-5m1"
+}'
+
+```
+
+
+##### d. Chi tiết đầu ra
+**Loại đầu ra**: Response body
+```
+{
+    "barrelTypeKey": <Mã thùng>,
+    "companyName": <Mã hãng>,
+    "manufactureYear": <năm sản xuất>,
+    "maxPrice": <Max Price>,
+    "minPrice": <Min Price>,
+    "modelCode": <Số loại>,
+    "price": <Giá trị xe>,
+    "vehicleTypeKey": <Mã loại xe>,
+    "versionName": <Mã hiệu xe, phiên bản>
+}
+
+```
+
