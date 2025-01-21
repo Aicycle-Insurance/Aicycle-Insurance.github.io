@@ -2273,6 +2273,56 @@ curl --location --request GET 'https://api.aicycle.ai/insurance/v2/claimfolders/
 }
 ```
 
+
+### **3.15: API verify hồ sơ**
+#### a. Thông tin cơ bản
+
+|||
+|----|----|
+| Method | GET |
+| API Url | https://api.aicycle.ai/insurance/insurance/checkCar/${claimId} |
+| API Headers | `{ "Authorization": "Bearer $$apiKey$$" }` |
+
+#### b. Chi tiết đầu vào
+**Loại đầu vào**: Params
+
+|**Tên Tham số**|**Mô tả**|**Bắt buộc**|**Kiểu dữ liệu**|**Min,Max**|**Ví dụ**|
+|---|---|---|---|---|---|
+|claimId|Id hồ sơ do AICycle trả ra|Bắt buộc|Number|1,99999|123|
+
+**Ví dụ**
+```
+curl --location --request GET 'https://api.aicycle.ai/insurance/insurance/checkCar/${claimId}' \
+--header 'authorization: Bearer $$API_KEY$$'
+```
+
+#### c. Chi tiết đầu ra
+**Loại đầu ra**: Response body:
+```
+{
+  "state": <Number>(Mã trạng thái của hồ sơ),
+  "message": <String>(Message thông báo trạng thái của hồ sơ)
+}
+```
+> **Các giá trị của `state` và `message`**
+>
+>| stateId    | message |
+>|------------------|---|
+>| 12            | Hồ sơ có thể có ảnh không đảm bảo chất lượng. Khách hàng đã up ${numOfImageErr}. Vui lòng check lại hồ sơ.  |
+>| 13 | Hồ sơ có thể được chụp trong không gian tối, khách hàng đã up ${numOfImageErr} ảnh tối. Vui lòng check lại hồ sơ.  |
+>| 14 | Hồ sơ có thể có ảnh mờ, khách hàng đã up ${numOfImageErr} ảnh mờ. Vui lòng check lại hồ sơ.  |
+>| 15              | Hồ sơ có thể có ảnh lóa, khách hàng đã up ${numOfImageErr} ảnh lóa. Vui lòng check lại hồ sơ.  |
+>| 16   | Hồ sơ có dấu hiệu gian lận, khách hàng đã up ${numOfImageErr} ảnh chụp qua màn hình. Vui lòng check lại hồ sơ.  |
+
+#### d. Ví dụ đầu ra
+
+```
+{
+    "state": 16,
+    "message": "Hồ sơ có dấu hiệu gian lận, khách hàng đã up 2 ảnh chụp qua màn hình. Vui lòng check lại hồ sơ."
+}
+```
+
 ## **4. APIs tích hợp OCR**
 ### 4.1 API OCR căn cước công dân
 
