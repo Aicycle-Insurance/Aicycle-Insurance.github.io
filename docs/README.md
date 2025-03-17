@@ -3180,3 +3180,6 @@ curl --location 'https://api.aicycle.ai/insurance/vehicles/barrel' \
 
 ```
 
+## **5. APIs tích hợp partMe (phụ tùng)**
+### 5.1 Đồng bộ mã, giá phụ tùng
+
