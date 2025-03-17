@@ -3180,3 +3180,31 @@ curl --location 'https://api.aicycle.ai/insurance/vehicles/barrel' \
 
 ```
 
+## **5. APIs tích hợp partMe (phụ tùng)**
+### 5.1 Đồng bộ mã, giá phụ tùng (gửi data sang khách hàng lưu trữ)
+#### a. Thông tin cơ bản
+```
+Đây là flow đồng bộ giữa AICycle và khách hàng theo cách khách hàng sẽ mở các đầu API để AICycle gửi data sang, khách hàng sẽ lưu trữ data và tự định giá phụ tùng dựa trên dữ liệu của AICycle.
+```
+
+![Sync data picture](https://dyta7vmv7sqle.cloudfront.net/INSURANCE_DOCUMENT/sync-data-partme.png)
+
+#### b. Chi tiết schema của AICycle gửi sang khách hàng
+**Loại đầu vào**: JSON Body
+
+| **Tên Tham số** | **Mô tả**      | **Bắt buộc** | **Kiểu dữ liệu** | **Min,Max** | **Ví dụ**              |
+|-----------------|----------------|----------|------------------|-------------|------------------------|
+| carCompany             | Hãng xe  | Bắt buộc | Text             | 1, 255           | TOYOTA |
+| carModel             | Hiệu xe | Bắt buộc | Text             | 1,255           | VIOS |
+| carVersion             | Phiên bản | Bắt buộc | Text             | 1,255           | 1.5E AT |
+| manufactureYear             | Năm sản xuất | Bắt buộc | Number             | 1,99999           | 2025 |
+| originName             | Xuất xứ | Bắt buộc | Text             | 1,255           | Nhập khẩu |
+| standardPartName             | Tên phụ tùng chuẩn của AICycle | Bắt buộc | Text             | 1,255           | Cụm đèn pha trái |
+| equivalentPartNames             | Tên phụ tùng hiện tại của khách hàng | Bắt buộc | Array[text]             | n           | [Cụm đèn pha L, Cụm đèn pha lái,...] |
+| partPrice             | Giá phụ tùng | Bắt buộc | Number             | 1,99999           | 4257000 |
+| garaName             | Tên gara | Bắt buộc | Text             | 1, 255           | CÔNG TY TNHH TOYOTA HƯNG THỊNH PHÁT THÁI BÌNH |
+| approvalDate             | Ngày phê duyệt | Bắt buộc | Text             | 1, 255           | 2024-05-30 10:35:00 |
+| province             | Tỉnh thành | Bắt buộc | Text             | 1, 255           | Tỉnh Thái Bình |
+| region             | Khu vực | Bắt buộc | Text             | 1, 255           | Miền Bắc |
+
+
