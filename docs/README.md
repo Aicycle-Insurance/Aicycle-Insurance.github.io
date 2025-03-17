@@ -3184,7 +3184,8 @@ curl --location 'https://api.aicycle.ai/insurance/vehicles/barrel' \
 ### 5.1 Đồng bộ mã, giá phụ tùng (gửi data sang khách hàng lưu trữ)
 #### a. Thông tin cơ bản
 ```
-Đây là flow đồng bộ giữa AICycle và khách hàng theo cách khách hàng sẽ mở các đầu API để AICycle gửi data sang, khách hàng sẽ lưu trữ data và tự định giá phụ tùng dựa trên dữ liệu của AICycle.
+Đây là flow đồng bộ giữa AICycle và khách hàng theo cách khách hàng sẽ mở các đầu API để AICycle gửi data sang, 
+khách hàng sẽ lưu trữ data và tự định giá phụ tùng dựa trên dữ liệu của AICycle.
 ```
 
 ![Sync data picture](https://dyta7vmv7sqle.cloudfront.net/INSURANCE_DOCUMENT/sync-data-partme.png)
