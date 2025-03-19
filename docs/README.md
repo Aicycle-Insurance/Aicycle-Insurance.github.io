@@ -2308,6 +2308,13 @@ curl --location --request GET 'https://api.aicycle.ai/insurance/insurance/checkC
 >
 >| stateId    | message |
 >|------------------|---|
+>| 0         |trạng thái mặc định (các ảnh thuộc cùng một xe)|
+>| 1         |chỉ có 1 ảnh trong folder|
+>| 2         |có ít nhất 1 ảnh trong folder chụp không đúng góc|
+>| 3         |các ảnh trong folder thuộc cùng một xe|
+>| 4         |các ảnh trong folder không thuộc cùng một xe|
+>| 5         |không nhận diện được biển số nào trong folder|
+>| 6         |thư mục ảnh rỗng|
 >| 12            | Hồ sơ có thể có ảnh không đảm bảo chất lượng. Khách hàng đã up ${numOfImageErr}. Vui lòng check lại hồ sơ.  |
 >| 13 | Hồ sơ có thể được chụp trong không gian tối, khách hàng đã up ${numOfImageErr} ảnh tối. Vui lòng check lại hồ sơ.  |
 >| 14 | Hồ sơ có thể có ảnh mờ, khách hàng đã up ${numOfImageErr} ảnh mờ. Vui lòng check lại hồ sơ.  |
@@ -3179,7 +3186,7 @@ curl --location 'https://api.aicycle.ai/insurance/vehicles/barrel' \
 }
 
 ```
-
+`
 ## **5. APIs tích hợp partMe (phụ tùng)**
 ### 5.1 Đồng bộ mã, giá phụ tùng (gửi data sang khách hàng lưu trữ)
 #### a. Thông tin cơ bản
