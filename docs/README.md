@@ -1841,7 +1841,7 @@ curl --location 'https://api.aicycle.ai/insurance/v2/claim-me/upload' \
 | img         | File ảnh xe                                                            | Bắt buộc | File           | n    |                          |
 | claimFolderId       | Id Folder của AIcycle                                                                   | Optional | Number             | 1,99999       | 123 |
 | externalSessionId        | Id folder (giấy chứng nhận)  của đối tác | Optional | Text             | n       | folderId |
-| directionSlug        | Slug Hướng ảnh                          | Optional | Text             | 1,255       | 45-trai-truoc-C1xM02             |
+| directionSlug        | Slug Hướng ảnh                          | Optional (bắt buộc nếu bật flag isValidate) | Text             | 1,255       | 45-trai-truoc-C1xM02             |
 | isValidate       |       Flag bật tắt validate góc chụp                                                     | Optional | Boolean             | n       |     true  |
 | carCompany       |       Mã (tên) hãng xe của khách hàng cần validate                                                 | Optional (bắt buộc nếu khách hàng yêu cầu validate hãng, hiệu, biển số) | Text             | 1,255       |     KIA  |
 | carModel       |       Mã (tên) hiệu xe của khách hàng cần validate                                                 | Optional (bắt buộc nếu khách hàng yêu cầu validate hãng, hiệu, biển số) | Text             | 1,255       |     Morning  |
@@ -1910,6 +1910,7 @@ curl --location 'https://api.aicycle.ai/insurance/v2/buy-me/upload' \
 | damages             | Các hỏng hóc của ảnh |Bắt buộc| Array[damage]    | n           |         |
 | carParts            | Các bộ phận của ảnh  |Bắt buộc| Array[carPart]   | n           |         |
 | imgDrawUrl              | Link ảnh đã vẽ sẵn vết hỏng         |Bắt buộc| Text             | 1,255       | {{s3Link}} |
+| extraInfor              | Các thông tin thêm của xe         |Bắt buộc| Object             | n       |  |
 
 
 *Chi tiết Object item  `carPart`*
@@ -1928,6 +1929,15 @@ curl --location 'https://api.aicycle.ai/insurance/v2/buy-me/upload' \
 | name            |Tên hỏng hóc|Bắt buộc|Text|1,255|Trầy (xước)|
 | maskUrl         |mask hỏng hóc|Bắt buộc|Text|1,255|...|
 
+*Chi tiết Object item `extraInfor`*
+
+| **Tên Tham số** |**Mô tả**|**Bắt buộc**|**Kiểu dữ liệu**|**Min,Max**|**Ví dụ**|
+|-----------------|---|---|---|---|---|
+| plateNumber            |Biển số xe|Bắt buộc|Text|1,255|30A 99999|
+| carCompany         |Hãng xe|Bắt buộc|Text|1,255|PEUGEOT|
+| carModel         |Hiệu xe|Bắt buộc|Text|1,255|3008|
+| carShape         |Loại xe|Bắt buộc|Text|1,255|SUV_CROSSOVER|
+| carColor        |Màu xe|Bắt buộc|Array[number]|n|[ 200,136,72]|
 
 
 
@@ -1964,7 +1974,22 @@ curl --location 'https://api.aicycle.ai/insurance/v2/buy-me/upload' \
         {
             "imgSize": [1920, 1080],
             "imageUrl": {{s3Link}},
-            "imageDrawUrl": {{s3Link}}
+            "imageDrawUrl": {{s3Link}},
+            "extraInfor": {
+              "imageDirection": "45-phai-truoc-UoYzs6",
+              "additionalCornerInfor": "45° Phải - Trước",
+              "imagePosition": "toan-canh-afh4l5",
+              "plateNumber": "30F 04872",
+              "chassisNumber": null,
+              "carCompany": "PEUGEOT",
+              "carModel": "3008",
+              "carShape": "SUV_CROSSOVER",
+              "carColor": [
+                  200,
+                  136,
+                  72
+              ]
+            }, 
             "damages": [
                 {
                     "name": "Móp, bẹp(thụng)",
