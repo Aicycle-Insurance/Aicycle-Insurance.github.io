@@ -1874,6 +1874,8 @@ curl --location 'https://api.aicycle.ai/insurance/v2/claim-me/upload' \
 >| Trái - Trước     | trai-truoc-r6BEZd  |
 >| Phải - Sau       | phai-sau-v1hAm6  |
 >| Trái - Sau       | trai-sau-t8QgFO  |
+>| Tem đăng kiểm       | tem-dang-kiem-LC81Ar  |
+>| Taplo       | tap-lo-H4SHs1  |
 
 **Ví dụ**
 ```
@@ -1895,7 +1897,9 @@ curl --location 'https://api.aicycle.ai/insurance/v2/buy-me/upload' \
     "errorCodeFromEngine": <Mã lỗi trả về từ AICycle Engine (Number)>,
     "message": <Message lỗi trả về từ AICycle Engine (String)>,
     "imageId": <ID của ảnh (Number)>,
-    "result": [<Image>]
+    "result": [<Image>],
+    "stateFolderCode": <Trạng thái của folder hiện tại (có cùng 1 xe hay không) (Number)>
+    "stateFolderMessage": <Trạng thái của folder hiện tại (có cùng 1 xe hay không) (String)>
 }
 ```
 
@@ -1960,6 +1964,22 @@ curl --location 'https://api.aicycle.ai/insurance/v2/buy-me/upload' \
 |50676|400|`{"errorCodeFromEngine": 50676, "message": "Ảnh không đúng góc chụp. Vui lòng chụp lại"}`|Error|
 |378224|400|`{"errorCodeFromEngine": 378224, "message": "Ảnh không phải xe tải"}`|Error|
 |178434|400|`{"errorCodeFromEngine": 178434, "message": "Ảnh không phải xe con"}`|Error|
+|10012|408|`{"errorCodeFromEngine": 10012, "message": "Request Timeout"}`|Error|
+|47565|500|`{"errorCodeFromEngine": 47565, "message": "Engine Error"}`|Error|
+|4343|400|`{"errorCodeFromEngine": 4343, "message": "Ảnh không phải tem đăng kiểm"}`|Error|
+|1588|400|`{"errorCodeFromEngine": 1588, "message": "Ảnh không phải taplo"}`|Error|
+
+***Chi tiết Bảng Mã và message của `stateFolderCode`***
+>| stateFolderCode    | message |
+>|------------------|---|
+>| 1         |chỉ có 1 ảnh trong folder|
+>| 3         |các ảnh trong folder thuộc cùng một xe|
+>| 4         |các ảnh trong folder không thuộc cùng một xe|
+>| 12            | Hồ sơ có thể có ảnh không đảm bảo chất lượng. Khách hàng đã up ${numOfImageErr}. Vui lòng check lại hồ sơ.  |
+>| 13 | Hồ sơ có thể được chụp trong không gian tối, khách hàng đã up ${numOfImageErr} ảnh tối. Vui lòng check lại hồ sơ.  |
+>| 14 | Hồ sơ có thể có ảnh mờ, khách hàng đã up ${numOfImageErr} ảnh mờ. Vui lòng check lại hồ sơ.  |
+>| 15              | Hồ sơ có thể có ảnh lóa, khách hàng đã up ${numOfImageErr} ảnh lóa. Vui lòng check lại hồ sơ.  |
+>| 16   | Hồ sơ có dấu hiệu gian lận, khách hàng đã up ${numOfImageErr} ảnh chụp qua màn hình. Vui lòng check lại hồ sơ.  |
 
 #### d. Ví dụ đầu ra
 ```
@@ -1970,8 +1990,9 @@ curl --location 'https://api.aicycle.ai/insurance/v2/buy-me/upload' \
     "errorCodeFromEngine": 0,
     "message": "",
     "imageId": 4808,
-    "result": [
-        {
+    "stateFolderCode": 3,
+    "stateFolderMessage": "Các ảnh cùng một xe",
+    "result": {
             "imgSize": [1920, 1080],
             "imageUrl": {{s3Link}},
             "imageDrawUrl": {{s3Link}},
@@ -2040,9 +2061,52 @@ curl --location 'https://api.aicycle.ai/insurance/v2/buy-me/upload' \
                 ...
             ]
         }
-    ]
 }
 ```
+
+#### e. Chi tiết đầu ra với ảnh góc tem đăng kiểm
+
+**Loại đầu ra**: Response body
+```
+{
+    "status": <Trạng thái của Request (String)>,
+    "errorCodeFromEngine": <Mã lỗi trả về từ AICycle Engine (Number)>,
+    "message": <Message lỗi trả về từ AICycle Engine (String)>,
+    "stampImageId": <ID của ảnh tem đăng kiểm (Number)>,
+    "result": {
+      "imgUrl": <Url ảnh tem đăng kiểm (String)>,
+      "stampId": <Id của ảnh tem đăng kiểm (String)>,
+      "licensePlate": <Biển số xe của tem đăng kiểm (String)>,
+      "expiredMonth": <Ngày hết hạn theo tháng (String)>,
+      "expiredDate: <Ngày hết hạn theo ngày (String)>
+    },
+    "stateFolderCode": <Trạng thái của folder hiện tại (có cùng 1 xe hay không) (Number)>
+    "stateFolderMessage": <Trạng thái của folder hiện tại (có cùng 1 xe hay không) (String)>
+}
+```
+
+#### f. Chi tiết đầu ra với ảnh taplo
+
+**Loại đầu ra**: Response body
+```
+{
+    "status": <Trạng thái của Request (String)>,
+    "errorCodeFromEngine": <Mã lỗi trả về từ AICycle Engine (Number)>,
+    "message": <Message lỗi trả về từ AICycle Engine (String)>,
+    "taploImageId": <ID của ảnh taplo (Number)>,
+    "result": {
+      "imgUrl": <Url ảnh tem đăng kiểm (String)>,
+      "taploIconInfo": [
+        {
+          "iconName": <Tên icon mà AI đọc được (String)>,
+          "iconBoundingBox": <Bounding Box của Icon hiện tại (Array<Number>)>
+        }
+      ]
+    }
+}
+```
+
+
 
 ### **3.13: API lấy kết quả Hồ sơ (nhóm theo ảnh) V2**
 #### a. Thông tin cơ bản
