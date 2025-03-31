@@ -1958,14 +1958,11 @@ curl --location 'https://api.aicycle.ai/insurance/v2/buy-me/upload' \
 |32324|400|`{"errorCodeFromEngine": 32324, "message": "Không download được ảnh"}`|Error|
 |23212|200|`{"errorCodeFromEngine": 23212, "message": "Ảnh chụp bị tối"}`|Warning|
 |84680|400|`{"errorCodeFromEngine": 84680, "message": "Ảnh chụp qua màn hình. Vui lòng chụp lại"}`|Error|
-|47565|400|`{"errorCodeFromEngine": 47565, "message": "Trả ra error của engine"}`|Error|
+|47565|500|`{"errorCodeFromEngine": 47565, "message": "Trả ra error của engine"}`|Error|
 |67219|400|`{"errorCodeFromEngine": 67219, "message": "Không thể nhận diện ô tô trong ảnh. Vui lòng chụp lại"}`|Error|
 |77704|200|`{"errorCodeFromEngine": 77704, "message": "Ảnh chụp bị lóa"}`|Warning|
 |50676|400|`{"errorCodeFromEngine": 50676, "message": "Ảnh không đúng góc chụp. Vui lòng chụp lại"}`|Error|
-|378224|400|`{"errorCodeFromEngine": 378224, "message": "Ảnh không phải xe tải"}`|Error|
-|178434|400|`{"errorCodeFromEngine": 178434, "message": "Ảnh không phải xe con"}`|Error|
 |10012|408|`{"errorCodeFromEngine": 10012, "message": "Request Timeout"}`|Error|
-|47565|500|`{"errorCodeFromEngine": 47565, "message": "Engine Error"}`|Error|
 |4343|400|`{"errorCodeFromEngine": 4343, "message": "Ảnh không phải tem đăng kiểm"}`|Error|
 |1588|400|`{"errorCodeFromEngine": 1588, "message": "Ảnh không phải taplo"}`|Error|
 
