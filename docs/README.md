@@ -1977,6 +1977,7 @@ curl --location 'https://api.aicycle.ai/insurance/v2/buy-me/upload' \
 >| 14 | Hồ sơ có thể có ảnh mờ, khách hàng đã up ${numOfImageErr} ảnh mờ. Vui lòng check lại hồ sơ.  |
 >| 15              | Hồ sơ có thể có ảnh lóa, khách hàng đã up ${numOfImageErr} ảnh lóa. Vui lòng check lại hồ sơ.  |
 >| 16   | Hồ sơ có dấu hiệu gian lận, khách hàng đã up ${numOfImageErr} ảnh chụp qua màn hình. Vui lòng check lại hồ sơ.  |
+>| 17   | Folder hiện tại chưa có ảnh xe  |
 
 #### d. Ví dụ đầu ra
 ```
