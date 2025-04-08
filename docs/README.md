@@ -3302,4 +3302,427 @@ khách hàng sẽ lưu trữ data và tự định giá phụ tùng dựa trên 
 | province             | Tỉnh thành | Bắt buộc | Text             | 1, 255           | Tỉnh Thái Bình |
 | region             | Khu vực | Bắt buộc | Text             | 1, 255           | Miền Bắc |
 
+### **5.2: API định giá phụ tùng (sử dụng CodeBook hãng hiệu và phiên bản của AICycle) (deprecated)**
+#### **5.2.1: API lấy thông tin xuất xứ**
+##### a. Thông tin cơ bản
+
+||                                                             |
+|----|-------------------------------------------------------------|
+| Method | GET                                                         |
+| API Url | https://api.aicycle.ai/insurance/part-me/origins |
+| API Headers | `{ "Authorization": "Bearer $$API_KEY$$" }`                 |
+
+##### b. Chi tiết đầu vào
+**Loại đầu vào**: Body
+
+| **Tên Tham số** | **Mô tả**         | **Bắt buộc** | **Kiểu dữ liệu** | **Min,Max** | **Ví dụ** |
+|-----------------|-------------------|--------------|------------------|-----------|-----------|
+| id              | Id xuất xứ        | Optional     | Number             | 1,9999     | 1         |
+| key             | Key xuất xứ       | Optional     | Text             | 1,255     | lrtn      |
+| name            | Tên xuất xứ       | Optional     | Text             | 1,255     | LRTN      |
+| limit           | Giới hạn số lượng | Optional     | Number             | 1,9999     | 30        |
+| offset          | Index start       | Optional     | Number           | 1,9999    | 0         |
+
+**Ví dụ**
+```
+curl --location 'https://api.aicycle.ai/insurance/part-me/origins' \
+--header 'Authorization: Bearer <API Key>' \
+```
+##### c. Chi tiết đầu ra
+**Loại đầu ra**: Response body
+
+| **Tên Tham số** | **Mô tả**         |**Bắt buộc**| **Kiểu dữ liệu** | **Min,Max** | **Ví dụ** |
+|-----------------|-------------------|--------------|------------------|-------------|-----------|
+| count    | Số lượng record   | Bắt buộc     | Number           | 1,9999       | 2         |
+| limit      | Giới hạn số lượng | Bắt buộc     | Number             | 1,9999       | 30        |
+| offset    | Index start       | Bắt buộc     | Number             | 1,9999       | 0         |
+| records            | Danh sách xuất xứ | Bắt buộc     | Array[origin]    | n           | []        |
+
+*Chi tiết Object item  `origin`*
+
+| **Tên Tham số**  | **Mô tả**   |**Bắt buộc**| **Kiểu dữ liệu** | **Min,Max** | **Ví dụ** |
+|------------------|-------------|--------------|------------------|-------------|-----------|
+| id               | Id xuất xứ  | Bắt buộc     | Number           | 1,9999       | 1         |
+| key              | Key xuất xứ | Bắt buộc     | Text             | 1,255       | lrtn      |
+| name             | Tên xuất xứ | Bắt buộc     | Text             | 1,255       | LRTN      |
+
+
+##### d. Ví dụ đầu ra
+```
+{
+    "count": 2,
+    "limit": 30,
+    "offset": 0,
+    "records": [
+        {
+            "id": 2,
+            "key": "lrtn",
+            "name": "LRTN"
+        },
+        {
+            "id": 1,
+            "key": "nk",
+            "name": "NK"
+        }
+    ]
+}
+```
+#### **5.2.2: API lấy thông tin khu vực**
+##### a. Thông tin cơ bản
+
+||                                                             |
+|----|-------------------------------------------------------------|
+| Method | GET                                                         |
+| API Url | https://api.aicycle.ai/insurance/part-me/regions |
+| API Headers | `{ "Authorization": "Bearer $$API_KEY$$" }`                 |
+
+##### b. Chi tiết đầu vào
+**Loại đầu vào**: Body
+
+| **Tên Tham số** | **Mô tả**         | **Bắt buộc** | **Kiểu dữ liệu** | **Min,Max** | **Ví dụ** |
+|-----------------|-------------------|--------------|------------------|-----------|---------|
+| id              | Id khu vực        | Optional     | Text             | 1,255     | uuid-region        |
+| slug            | Key khu vực       | Optional     | Text             | 1,255     | mienbac |
+| name            | Tên khu vực       | Optional     | Text             | 1,255     | Miền Bắc |
+| provinceId      | Id tỉnh           | Optional     | Text             | 1,255     | uuid-tinh |
+| limit           | Giới hạn số lượng | Optional     | Number             | 1,9999     | 30      |
+| offset          | Index start       | Optional     | Number           | 1,9999    | 0       |
+
+**Ví dụ**
+```
+curl --location 'https://api.aicycle.ai/insurance/part-me/regions' \
+--header 'Authorization: Bearer <API Key>' \
+```
+##### c. Chi tiết đầu ra
+**Loại đầu ra**: Response body
+
+| **Tên Tham số** | **Mô tả**         |**Bắt buộc**| **Kiểu dữ liệu** | **Min,Max** | **Ví dụ** |
+|-----------------|-------------------|--------------|-----------------|-------------|-----------|
+| count    | Số lượng record   | Bắt buộc     | Number          | 1,9999       | 1         |
+| limit      | Giới hạn số lượng | Bắt buộc     | Number          | 1,9999       | 30        |
+| offset    | Index start       | Bắt buộc     | Number          | 1,9999       | 0         |
+| records            | Danh sách khu vực | Bắt buộc     | Array[region]   | n           | []        |
+
+*Chi tiết Object item  `region`*
+
+| **Tên Tham số** | **Mô tả**   |**Bắt buộc**| **Kiểu dữ liệu** | **Min,Max** | **Ví dụ**   |
+|-----------------|-------------|--------------|------------------|-------------|-------------|
+| id              | Id khu vực  | Bắt buộc     | Text           | 1,255       | uuid-region |
+| slug            | Key khu vực | Bắt buộc     | Text             | 1,255       | miennam        |
+| name            | Tên khu vực | Bắt buộc     | Text             | 1,255       | Miền Nam        |
+
+
+##### d. Ví dụ đầu ra
+```
+{
+    "count": 1,
+    "limit": 30,
+    "offset": 0,
+    "records": [
+        {
+            "id": "7ba25bde-a2f0-4772-a0ac-9c771894e9a2",
+            "name": "Miền Nam",
+            "slug": "miennam"
+        }
+    ]
+}
+```
+#### **5.2.3: API lấy thông tin tỉnh**
+##### a. Thông tin cơ bản
+
+||                                                             |
+|----|-------------------------------------------------------------|
+| Method | GET                                                         |
+| API Url | https://api.aicycle.ai/insurance/part-me/provinces |
+| API Headers | `{ "Authorization": "Bearer $$API_KEY$$" }`                 |
+
+##### b. Chi tiết đầu vào
+**Loại đầu vào**: Body
+
+| **Tên Tham số** | **Mô tả**         | **Bắt buộc** | **Kiểu dữ liệu** | **Min,Max** | **Ví dụ**     |
+|-----------------|-------------------|--------------|------------------|-----------|---------------|
+| id              | Id tỉnh           | Optional     | Text             | 1,255     | uuid-province |
+| slug            | Key tỉnh          | Optional     | Text             | 1,255     | mienbac       |
+| name            | Tên tỉnh          | Optional     | Text             | 1,255     | Miền Bắc      |
+| regionId        | Id khu vực        | Optional     | Text             | 1,255     | uuid-region   |
+| limit           | Giới hạn số lượng | Optional     | Number             | 1,9999     | 30            |
+| offset          | Index start       | Optional     | Number           | 1,9999    | 0             |
+
+**Ví dụ**
+```
+curl --location 'https://api.aicycle.ai/insurance/part-me/provinces' \
+--header 'Authorization: Bearer <API Key>' \
+```
+##### c. Chi tiết đầu ra
+**Loại đầu ra**: Response body
+
+| **Tên Tham số** | **Mô tả**         |**Bắt buộc**| **Kiểu dữ liệu** | **Min,Max** | **Ví dụ** |
+|-----------------|-------------------|--------------|------------------|-------------|-----------|
+| count    | Số lượng record   | Bắt buộc     | Number           | 1,9999       | 1         |
+| limit      | Giới hạn số lượng | Bắt buộc     | Number           | 1,9999       | 30        |
+| offset    | Index start       | Bắt buộc     | Number           | 1,9999       | 0         |
+| records            | Danh sách khu vực | Bắt buộc     | Array[province]  | n           | []        |
+
+*Chi tiết Object item  `province`*
+
+| **Tên Tham số** | **Mô tả** |**Bắt buộc**| **Kiểu dữ liệu** | **Min,Max** | **Ví dụ**     |
+|-----------------|-----------|--------------|------------------|-------------|---------------|
+| id              | Id tỉnh   | Bắt buộc     | Text           | 1,255       | uuid-province |
+| slug            | Key tỉnh  | Bắt buộc     | Text             | 1,255       | tinhtayninh   |
+| name            | Tên tỉnh  | Bắt buộc     | Text             | 1,255       | Tỉnh Tây Ninh |
+
+
+##### d. Ví dụ đầu ra
+```
+{
+    "count": 1,
+    "limit": 30,
+    "offset": 0,
+    "records": [
+        {
+            "id": "d67d1988-57da-41d1-8b7d-b4186a1bd3b8",
+            "name": "Tỉnh Tây Ninh",
+            "slug": "tinhtayninh"
+        }
+    ]
+}
+```
+#### **5.2.4: API lấy thông tin nhóm phụ tùng**
+##### a. Thông tin cơ bản
+
+||                                                             |
+|----|-------------------------------------------------------------|
+| Method | GET                                                         |
+| API Url | https://api.aicycle.ai/insurance/part-me/groups |
+| API Headers | `{ "Authorization": "Bearer $$API_KEY$$" }`                 |
+
+##### b. Chi tiết đầu vào
+**Loại đầu vào**: Body
+
+| **Tên Tham số** | **Mô tả**         | **Bắt buộc** | **Kiểu dữ liệu** | **Min,Max** | **Ví dụ**  |
+|-----------------|-------------------|--------------|------------------|-----------|------------|
+| id              | Id nhóm phụ tùng  | Optional     | Text             | 1,255     | uuid-group |
+| slug            | Key nhóm phụ tùng | Optional     | Text             | 1,255     | mienbac    |
+| name            | Tên nhóm phụ tùng | Optional     | Text             | 1,255     | Miền Bắc   |
+| limit           | Giới hạn số lượng | Optional     | Number             | 1,9999     | 30         |
+| offset          | Index start       | Optional     | Number           | 1,9999    | 0          |
+
+**Ví dụ**
+```
+curl --location 'https://api.aicycle.ai/insurance/part-me/groups' \
+--header 'Authorization: Bearer <API Key>' \
+```
+##### c. Chi tiết đầu ra
+**Loại đầu ra**: Response body
+
+| **Tên Tham số** | **Mô tả**         |**Bắt buộc**| **Kiểu dữ liệu** | **Min,Max** | **Ví dụ** |
+|-----------------|-------------------|--------------|------------------|-------------|-----------|
+| count    | Số lượng record   | Bắt buộc     | Number           | 1,9999       | 1         |
+| limit      | Giới hạn số lượng | Bắt buộc     | Number           | 1,9999       | 30        |
+| offset    | Index start       | Bắt buộc     | Number           | 1,9999       | 0         |
+| records            | Danh sách khu vực | Bắt buộc     | Array[group]     | n           | []        |
+
+*Chi tiết Object item  `group`*
+
+| **Tên Tham số** | **Mô tả**         |**Bắt buộc**| **Kiểu dữ liệu** | **Min,Max** | **Ví dụ**  |
+|-----------------|-------------------|--------------|------------------|-------------|------------|
+| id              | Id nhóm phụ tùng  | Bắt buộc     | Text           | 1,255       | uuid-group |
+| slug            | Key nhóm phụ tùng | Bắt buộc     | Text             | 1,255       | hethongkhunggamtruyenluc    |
+| name            | Tên nhóm phụ tùng | Bắt buộc     | Text             | 1,255       | Hệ thống khung gầm, truyền lực   |
+
+
+##### d. Ví dụ đầu ra
+```
+{
+    "count": 1,
+    "limit": 30,
+    "offset": 0,
+    "records": [
+        {
+            "id": "65edef9d-abfc-4264-9369-0e252e6cafdd",
+            "name": "Hệ thống khung gầm, truyền lực",
+            "slug": "hethongkhunggamtruyenluc"
+        }
+    ]
+}
+```
+#### **5.2.5: API lấy thông tin codebook phụ tùng**
+##### a. Thông tin cơ bản
+
+||                                                             |
+|----|-------------------------------------------------------------|
+| Method | GET                                                         |
+| API Url | https://api.aicycle.ai/insurance/part-me/codebooks |
+| API Headers | `{ "Authorization": "Bearer $$API_KEY$$" }`                 |
+
+##### b. Chi tiết đầu vào
+**Loại đầu vào**: Body
+
+| **Tên Tham số** | **Mô tả**         | **Bắt buộc** | **Kiểu dữ liệu** | **Min,Max** | **Ví dụ**     |
+|-----------------|-------------------|--------------|------------------|-----------|---------------|
+| id              | Id tỉnh           | Optional     | Text             | 1,255     | uuid-codebook |
+| slug            | Key tỉnh          | Optional     | Text             | 1,255     | mienbac       |
+| name            | Tên tỉnh          | Optional     | Text             | 1,255     | Miền Bắc      |
+| partCodebookGroupId        | Id nhóm phụ tùng  | Optional     | Text             | 1,255     | uuid-group    |
+| limit           | Giới hạn số lượng | Optional     | Number             | 1,9999     | 30            |
+| offset          | Index start       | Optional     | Number           | 1,9999    | 0             |
+
+**Ví dụ**
+```
+curl --location 'https://api.aicycle.ai/insurance/part-me/codebooks' \
+--header 'Authorization: Bearer <API Key>' \
+```
+##### c. Chi tiết đầu ra
+**Loại đầu ra**: Response body
+
+| **Tên Tham số** | **Mô tả**         |**Bắt buộc**| **Kiểu dữ liệu** | **Min,Max** | **Ví dụ** |
+|-----------------|-------------------|--------------|------------------|-------------|-----------|
+| count    | Số lượng record   | Bắt buộc     | Number           | 1,9999       | 1         |
+| limit      | Giới hạn số lượng | Bắt buộc     | Number           | 1,9999       | 30        |
+| offset    | Index start       | Bắt buộc     | Number           | 1,9999       | 0         |
+| records            | Danh sách khu vực | Bắt buộc     | Array[codebook]  | n           | []        |
+
+*Chi tiết Object item  `codebook`*
+
+| **Tên Tham số**       | **Mô tả**         |**Bắt buộc**| **Kiểu dữ liệu** | **Min,Max** | **Ví dụ**     |
+|-----------------------|-------------------|--------------|------------------|-------------|---------------|
+| id                    | Id codebook       | Bắt buộc     | Text           | 1,255       | uuid-codebook |
+| partCodebookSlug      | Key codebook      | Bắt buộc     | Text             | 1,255       | ketgiannongdieuhoa   |
+| partCodebookName      | Tên codebook      | Bắt buộc     | Text             | 1,255       | Két giàn nóng điều hòa |
+| partCodebookGroupName | Tên nhóm codebook | Bắt buộc     | Text             | 1,255       | Hệ thống khung gầm, truyền lực |
+
+
+##### d. Ví dụ đầu ra
+```
+{
+    "count": 1,
+    "limit": 30,
+    "offset": 0,
+    "records": [
+        {
+            "id": "222b2d19-5eab-4728-ae22-3e6a4b9cd395",
+            "partCodebookName": "Két giàn nóng điều hòa",
+            "partCodebookSlug": "ketgiannongdieuhoa",
+            "partCodebookGroupName": "Hệ thống khung gầm, truyền lực"
+        }
+    ]
+}
+```
+#### **5.2.6: API lấy giá phụ tùng**
+##### a. Thông tin cơ bản
+
+|||
+|----|----|
+| Method | POST |
+| API Url | https://api.aicycle.ai/insurance/valuation/car-part-valuate |
+| API Headers | `{ "Authorization": "Bearer $$API_KEY$$" }` |
+
+##### b. Chi tiết đầu vào
+**Loại đầu vào**: Body
+
+| **Tên Tham số** | **Mô tả**              | **Bắt buộc** | **Kiểu dữ liệu** | **Min,Max** | **Ví dụ**           |
+|-----------------|------------------------|--------------|------------------|-----------|---------------------|
+| carCompanyId    | Id hãng xe             | Bắt buộc     | Text             | 1,255     | uuid-hang-xe        |
+| carModelId      | Id hiệu xe             | Bắt buộc     | Text             | 1,255     | uuid-hieu-xe        |
+| carVersionId    | Id phiên bản xe        | Bắt buộc     | Text             | 1,255     | uuid-phien-ban-xe   |
+| partCodebookId    | Id codebook phụ tùng   | Bắt buộc     | Text             | 1,255     | uuid-codebook-phu-tung |
+| year            | Năm sản xuất           | Bắt buộc     | Number           | 1,9999    | 2020                |
+| regionId    | Id khu vực             | Optional     | Text             | 1,255     | uuid-khu-vuc        |
+| provinceId    | Id tỉnh trong khu vực  | Optional     | Text             | 1,255     | uuid-tinh           |
+| originId    | Id xuất xứ             | Optional     | Number           | 1,9999     | 1                   |
+| isAuthentic          | Có là chính hãng không | Optional     | Boolean             | n     | true                    |
+
+**Ví dụ**
+```
+curl --location 'https://api.aicycle.ai/insurance/valuation/car-part-valuate' \
+--header 'Authorization: Bearer <API Key>' \
+--header 'Content-Type: application/json' \
+--data '{
+    "carCompanyId": "ca3aee80-f81c-41fb-9b74-ce6f9fdb996e",
+    "carModelId": "7a15f4c0-8b57-4e1a-ae06-587b75ffef39",
+    "carVersionId": "7d801069-87b0-4d35-b38c-314c69257b8e",
+    "year": 2022,
+    "partCodebookId": "ac0cdab2-8f52-4f0c-9b83-3b62925e09ef",
+    "regionId": "7ba25bde-a2f0-4772-a0ac-9c771894e9a2",
+    "provinceId": "d67d1988-57da-41d1-8b7d-b4186a1bd3b8",
+    "originId": 2,
+    "isAuthentic": true
+}'
+```
+##### c. Chi tiết đầu ra
+**Loại đầu ra**: Response body
+
+| **Tên Tham số** | **Mô tả**                         |**Bắt buộc**| **Kiểu dữ liệu**                | **Min,Max** | **Ví dụ**                                    |
+|-----------------|-----------------------------------|--------------|---------------------------------|-------------|----------------------------------------------|
+| carCompanyName    | Tên hãng xe                       | Bắt buộc     | Text                            | 1,255       | TOYOTA                                       |
+| carModelName      | Tên hiệu xe                       | Bắt buộc     | Text                            | 1,255       | VIOS                                         |
+| carVersionName    | Tên phiên bản xe                  | Bắt buộc     | Text                            | 1,255       | 1.5G CVT                                     |
+| year            | Năm sản xuất                      | Bắt buộc     | Number                          | 1,9999      | 2022                                         |
+| partCodebookName       | Tên codebook phụ tùng             | Bắt buộc     | Text                            | 1,255       | Cản trước (bđx trước)                        |
+| partCodebookGoup        | Tên nhóm codebook phụ tùng        | Bắt buộc     | Text                            | 1,255       | Thân vỏ xe                                   |
+| regionName     | Tên khu vực                       | Bắt buộc     | Text                            | 1,255       | Miền Nam                                     |
+| provinceName     | Tên tỉnh trong khu vực            | Bắt buộc     | Text                            | 1,255       | Tỉnh Tây Ninh                                |
+| originName   | Tên xuất xứ                       | Bắt buộc     | Text                            | 1,255       | LRTN                                         |
+| garageName     | Tên garage sửa chữa               | Bắt buộc     | Text                            | 1,255       | CÔNG TY TNHH TOYOTA HƯNG THỊNH PHÁT TÂY NINH |
+| minPrice        | Giá min của phụ tùng              | Bắt buộc     | Number                          | 1,999999999 | 3160600                                    |
+| maxPrice        | Giá max của phụ tùng              | Bắt buộc     | Number                          | 1,999999999 | 3180600                                    |
+| price        | Giá trị của phụ tùng              | Bắt buộc     | Number                          | 1,999999999 | 3170600                                    |
+| histories | Danh sách lịch sử giá của tổ chức | Bắt buộc     | Array[partCodebookPriceHistory] | n           | []                                           |
+
+*Chi tiết Object item  `partCodebookPriceHistory`*
+
+| **Tên Tham số** | **Mô tả**                        |**Bắt buộc**| **Kiểu dữ liệu**                | **Min,Max** | **Ví dụ**         |
+|-----------------|----------------------------------|--------------|---------------------------------|-------------|-------------------|
+| carCompanyName    | Tên hãng xe                      | Bắt buộc     | Text                            | 1,255       | TOYOTA      |
+| carModelName      | Tên hiệu xe                      | Bắt buộc     | Text                            | 1,255       | VIOS      |
+| carVersionName    | Tên phiên bản xe                 | Bắt buộc     | Text                            | 1,255       | 1.5G CVT |
+| year            | Năm sản xuất                     | Bắt buộc     | Number                          | 1,9999      | 2020              |
+| partCodebookName       | Tên codebook phụ tùng            | Bắt buộc     | Text                            | 1,255       | Cản trước (bđx trước)              |
+| partCustomerName       | Tên codebook phụ tùng khách hàng | Bắt buộc     | Text                            | 1,255       | 01XOC.00049              |
+| partCodebookGoup        | Tên nhóm codebook phụ tùng       | Bắt buộc     | Text                            | 1,255       | Thân vỏ xe         |
+| regionName     | Tên khu vực                      | Bắt buộc     | Text                            | 1,255       | Miền Nam         |
+| provinceName     | Tên tỉnh trong khu vực           | Bắt buộc     | Text                            | 1,255       | Tỉnh Tây Ninh         |
+| originName   | Tên xuất xứ                      | Bắt buộc     | Text                            | 1,255       | LRTN         |
+| garageName     | Tên garage sửa chữa              | Bắt buộc     | Text                            | 1,255       | CÔNG TY TNHH TOYOTA HƯNG THỊNH PHÁT TÂY NINH         |
+| minPrice        | Giá min của phụ tùng             | Bắt buộc     | Number                          | 1,999999999 | 3160600         |
+| maxPrice        | Giá max của phụ tùng             | Bắt buộc     | Number                          | 1,999999999 | 3180600         |
+| price        | Giá trị của phụ tùng             | Bắt buộc     | Number                          | 1,999999999 | 3170600         |
+
+##### d. Ví dụ đầu ra
+```
+{
+    "carCompanyName": "TOYOTA",
+    "carModelName": "VIOS",
+    "carVersionName": "1.5G CVT",
+    "year": 2022,
+    "partCodebookName": "Cản trước (bđx trước)",
+    "partCodebookGoup": "Thân vỏ xe",
+    "regionName": "Miền Nam",
+    "provinceName": "Tỉnh Tây Ninh",
+    "originName": "LRTN",
+    "garageName": null,
+    "price": 3170600,
+    "minPrice": 3160600,
+    "maxPrice": 3180600,
+    "histories": [
+        {
+            "carCompanyName": "TOYOTA",
+            "carModelName": "VIOS",
+            "carVersionName": "1.5G CVT",
+            "year": 2022,
+            "partCodebookName": "Cản trước (bđx trước)",
+            "partCustomerName": "01XOC.00049",
+            "partCodebookGoup": "Thân vỏ xe",
+            "regionName": "Miền Nam",
+            "provinceName": "Tỉnh Tây Ninh",
+            "originName": "LRTN",
+            "garageName": null,
+            "price": 3170600,
+            "minPrice": 3160600,
+            "maxPrice": 3180600
+        }
+    ]
+}
+```
+
 
