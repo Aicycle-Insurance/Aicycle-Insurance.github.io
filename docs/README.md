@@ -1870,10 +1870,8 @@ curl --location 'https://api.aicycle.ai/insurance/v2/claim-me/upload' \
 >| Sau              | sau-htBwjB  |
 >| 45° Phải - Sau   | 45-phai-sau-fRzY3r  |
 >| 45° Trái - Sau   | 45-trai-sau-1q3G3J  |
->| Phải - Trước     | phai-truoc-eYWg1d  |
->| Trái - Trước     | trai-truoc-r6BEZd  |
->| Phải - Sau       | phai-sau-v1hAm6  |
->| Trái - Sau       | trai-sau-t8QgFO  |
+>| Phải     | phai-4wif2Z  |
+>| Trái     | trai-MyuVUE  |
 >| Tem đăng kiểm       | tem-dang-kiem-LC81Ar  |
 >| Taplo       | tap-lo-H4SHs1  |
 
